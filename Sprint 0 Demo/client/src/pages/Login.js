@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import '../Login.css';
 
 
 function App() {
@@ -32,26 +33,29 @@ function App() {
   }
 
 
-  return <div>
+  return <div className="login">
     <h1>Login</h1>
     <form onSubmit={loginUser}>
-
+      <p>
         <input 
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         type="text" 
         placeholder="Email" 
         />
+      </p>
 
+      <p>
         <input 
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         type="text" 
         placeholder="Password"  
         />
-        
+      </p>  
+      <p className="submit">
         <input type="submit" value="login" />
-
+      </p>
     </form>
   </div>
 }
