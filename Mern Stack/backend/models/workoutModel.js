@@ -11,8 +11,8 @@ const workoutSchema = new Schema({
     type: Number,
     required: true
   },
-  load: {
-    type: Number,
+  description: {
+    type: String,
     required: true
   },
   user_id: {

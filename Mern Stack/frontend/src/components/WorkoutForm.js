@@ -7,7 +7,7 @@ const WorkoutForm = () => {
   const { user } = useAuthContext()
 
   const [title, setTitle] = useState('')
-  const [load, setLoad] = useState('')
+  const [description, setDescription] = useState('')
   const [reps, setReps] = useState('')
   const [error, setError] = useState(null)
   const [emptyFields, setEmptyFields] = useState([])
@@ -20,7 +20,7 @@ const WorkoutForm = () => {
       return
     }
 
-    const workout = {title, load, reps}
+    const workout = {title, description, reps}
 
     const response = await fetch('/api/workouts', {
       method: 'POST',
@@ -38,7 +38,7 @@ const WorkoutForm = () => {
     }
     if (response.ok) {
       setTitle('')
-      setLoad('')
+      setDescription('')
       setReps('')
       setError(null)
       setEmptyFields([])
@@ -48,9 +48,9 @@ const WorkoutForm = () => {
 
   return (
     <form className="create" onSubmit={handleSubmit}>
-      <h3>Add a New Workout</h3>
+      <h3>Add a New Project</h3>
 
-      <label>Excersize Title:</label>
+      <label>Project Title:</label>
       <input 
         type="text"
         onChange={(e) => setTitle(e.target.value)}
@@ -58,15 +58,15 @@ const WorkoutForm = () => {
         className={emptyFields.includes('title') ? 'error' : ''}
       />
 
-      <label>Load (in kg):</label>
+      <label>Description:</label>
       <input 
-        type="number"
-        onChange={(e) => setLoad(e.target.value)}
-        value={load}
-        className={emptyFields.includes('load') ? 'error' : ''}
+        type="text"
+        onChange={(e) => setDescription(e.target.value)}
+        value={description}
+        className={emptyFields.includes('description') ? 'error' : ''}
       />
 
-      <label>Reps:</label>
+      <label>Required members:</label>
       <input 
         type="number"
         onChange={(e) => setReps(e.target.value)}
