@@ -2,22 +2,19 @@
 // // import jwt  from "jwt-decode"
 // import { useNavigate } from 'react-router-dom'
 
-import nessie from '../nessie-dance.gif'
 import logo from '../logo.svg'
-import '../App.css'
+import Sidebar from '../components/Sidebar'
+import './Dashboard.css'
+
 
 const Dashboard = () => {
 
         return (
-        <div className='App'>
-            <header className='App-header'>
-                <img src={nessie} alt = "nessie"/>
-               
-            <p>
-                <img src={logo} className="App-logo" alt="logo"/>
-            </p>
-            </header>     
-        </div>
+                <div>
+                    <Sidebar />
+                
+                </div>
+                  
         )
     
         
