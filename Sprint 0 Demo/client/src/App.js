@@ -5,7 +5,7 @@ import Dashboard from './pages/Dashboard'
 import Register from './pages/Register'
 import Home from './pages/Home'
 import Profile from './pages/Profile'
-import Chatroom from './pages/Chatroom'
+import Chatroom from '../../../Mern Stack/frontend/src/pages/Chatroom'
 import Sidebar from './components/Sidebar.js'
 
 function App() {
