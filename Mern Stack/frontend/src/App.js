@@ -7,6 +7,12 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Navbar from './components/Navbar'
 
+
+import Homepage from './pages/Homepage'
+import Profile from './pages/Profile'
+import Chatroom from './pages/Chatroom'
+import Sidebar from './components/Sidebar.js'
+
 function App() {
   const { user } = useAuthContext()
 
@@ -14,6 +20,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar />
+        <Sidebar />
         <div className="pages">
           <Routes>
             <Route 
@@ -28,6 +35,9 @@ function App() {
               path="/signup" 
               element={!user ? <Signup /> : <Navigate to="/" />} 
             />
+            <Route path="/homepage" element={<Homepage/>} />
+            <Route path='/profile' element={<Profile/>} />
+            <Route path='/chatroom' element={<Chatroom/>} />
           </Routes>
         </div>
       </BrowserRouter>
