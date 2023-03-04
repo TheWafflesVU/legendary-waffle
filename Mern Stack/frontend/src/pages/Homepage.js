@@ -74,7 +74,7 @@ const db = [
 const alreadyRemoved = []
 let charactersState = db // This fixes issues with updating characters state forcing it to use the current state and not the state that was active when the card was created.
 
-const Advanced = () => {
+const Home = () => {
   const [characters, setCharacters] = useState(db)
   const [lastDirection, setLastDirection] = useState()
 
@@ -130,4 +130,4 @@ const Advanced = () => {
   )
 }
 
-export default Advanced
+export default Home
