@@ -2,16 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { WorkoutsContextProvider } from './context/WorkoutContext'
+import { ProjectsContextProvider } from './context/ProjectContext'
 import { AuthContextProvider } from './context/AuthContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <WorkoutsContextProvider>
+      <ProjectsContextProvider>
         <App />
-      </WorkoutsContextProvider>
+      </ProjectsContextProvider>
     </AuthContextProvider>
   </React.StrictMode>
 );
