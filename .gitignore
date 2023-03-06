@@ -2,6 +2,8 @@
 
 # dependencies
 node_modules
+# Ignore files for testing search engine
+test 
 /.pnp
 .pnp.js
 
