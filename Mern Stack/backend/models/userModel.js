@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const validator = require('validator')
+// const { ObjectId } = require('mongodb')
 
 const Schema = mongoose.Schema
 
@@ -13,7 +14,23 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  // year: {
+  //   type: String,
+  //   required: true
+  // },
+  // skills: {
+  //   type: [String],
+  // },
+  // coursesTaken: {
+  //   type: [String],
+  // },
+  // bio: {
+  //   type: String
+  // },
+  // projectId: {
+  //   type:  ObjectId
+  // }
 })
 
 // static signup method
