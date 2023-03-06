@@ -7,6 +7,10 @@ const projectSchema = new Schema({
     type: String,
     required: true
   },
+  tags: {
+    type: [String],
+    required: true
+  },
   nums: {
     type: Number,
     required: true
@@ -20,5 +24,7 @@ const projectSchema = new Schema({
     required: true
   }
 }, { timestamps: true })
+
+projectSchema.index({ title: 'text', description: 'text' })
 
 module.exports = mongoose.model('Project', projectSchema)
