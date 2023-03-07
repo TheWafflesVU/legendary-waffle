@@ -1,6 +1,6 @@
 const Project = require('../models/projectModel')
 const mongoose = require('mongoose')
-const search_engine_dummy = require('../test/search_engine_dummy')
+
 
 // get all projects
 const getProjects = async (req, res) => {

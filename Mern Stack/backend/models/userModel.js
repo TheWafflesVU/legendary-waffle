@@ -15,22 +15,7 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  // year: {
-  //   type: String,
-  //   required: true
-  // },
-  // skills: {
-  //   type: [String],
-  // },
-  // coursesTaken: {
-  //   type: [String],
-  // },
-  // bio: {
-  //   type: String
-  // },
-  // projectId: {
-  //   type:  ObjectId
-  // }
+  
 })
 
 // static signup method
@@ -39,6 +24,9 @@ userSchema.statics.signup = async function(email, password) {
   // validation
   if (!email || !password) {
     throw Error('All fields must be filled')
+  }
+  if (!email.endsWith('@vanderbilt.edu')) {
+    throw Error('Email must be a valid Vanderbilt email address')
   }
   if (!validator.isEmail(email)) {
     throw Error('Email not valid')

@@ -1,7 +1,7 @@
 import { useEffect }from 'react'
 import { useProjectsContext } from "../hooks/useProjectsContext"
 import { useAuthContext } from "../hooks/useAuthContext"
-
+import React, { useState, useMemo } from 'react'
 // components
 import ProjectDetails from '../components/ProjectDetails'
 import ProjectForm from '../components/ProjectForm'
@@ -9,7 +9,8 @@ import ProjectForm from '../components/ProjectForm'
 const Home = () => {
   const {projects, dispatch} = useProjectsContext()
   const {user} = useAuthContext()
-
+  const [searchResults, setSearchResults] = useState([]);
+  
   useEffect(() => {
     const fetchProjects = async () => {
       const response = await fetch('/api/projects', {
@@ -27,7 +28,9 @@ const Home = () => {
     }
   }, [dispatch, user])
 
+
   return (
+  <div>
     <div className="home">
       <div className="projects">
         {projects && projects.map((project) => (
@@ -35,6 +38,7 @@ const Home = () => {
         ))}
       </div>
       <ProjectForm />
+    </div>
     </div>
   )
 }
