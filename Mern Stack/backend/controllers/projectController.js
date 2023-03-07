@@ -1,11 +1,11 @@
 const Project = require('../models/projectModel')
 const mongoose = require('mongoose')
 
+
 // get all projects
 const getProjects = async (req, res) => {
-  const user_id = req.user._id
 
-  const projects = await Project.find({user_id}).sort({createdAt: -1})
+  const projects = await Project.find()
 
   res.status(200).json(projects)
 }
@@ -30,7 +30,7 @@ const getProject = async (req, res) => {
 
 // create new project
 const createProject = async (req, res) => {
-  const {title, description, nums} = req.body
+  const {title, description, tags, nums} = req.body
 
   let emptyFields = []
 
@@ -50,7 +50,7 @@ const createProject = async (req, res) => {
   // add doc to db
   try {
     const user_id = req.user._id
-    const project = await Project.create({title, description, nums, user_id})
+    const project = await Project.create({title, description, nums, tags, user_id})
     res.status(200).json(project)
   } catch (error) {
     res.status(400).json({error: error.message})
@@ -94,10 +94,51 @@ const updateProject = async (req, res) => {
 }
 
 
+// search project based on tags/text
+const searchProject = async (req, res) => {
+
+  const tagsFilter = req.params.tags.split(',');
+  const searchQuery = req.params.q; 
+
+  const pro = await Project.aggregate([
+      {
+        $match: {
+          $text: {
+            $search: searchQuery, // perform text-based search on the title and description fields
+            $caseSensitive: false,
+            $diacriticSensitive: false
+          },
+          tags: { $in: tagsFilter } // filter documents by tags using the $in operator
+        }
+      },
+      {
+        $project: {
+          _id: 1,
+          title: 1,
+          description: 1,
+          tags: 1,
+          nums: 1,
+          score: { $meta: "textScore" }, // include the relevance score in the output
+          matchedTags: { $size: { $setIntersection: [tagsFilter, "$tags"] } } // count the number of matched tags
+        }
+      },
+      {
+        $sort: {
+          matchedTags: -1, // sort by the number of matched tags, in descending order
+          score: { $meta: "textScore" } // then sort by relevance score, in descending order
+        }
+      }
+    ])
+  console.log(tagsFilter);
+  res.status(200).json(pro)
+
+}
+
 module.exports = {
   getProjects,
   getProject,
   createProject,
   deleteProject,
-  updateProject
+  updateProject,
+  searchProject
 }

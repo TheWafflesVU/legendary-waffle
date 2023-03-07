@@ -1,6 +1,8 @@
 import React, { useState, useMemo } from 'react'
 import { Text, View, Button } from 'react-native'
 import TinderCard from 'react-tinder-card'
+import { useEffect }from 'react'
+import { useAuthContext } from "../hooks/useAuthContext"
 
 const styles = {
   container: {
@@ -77,6 +79,18 @@ let charactersState = db // This fixes issues with updating characters state for
 const Home = () => {
   const [characters, setCharacters] = useState(db)
   const [lastDirection, setLastDirection] = useState()
+  //const {user} = useAuthContext()
+  //search
+  // const [searchResults, setSearchResults] = useState([]);
+
+  // useEffect(() => {
+  //   const fetchResults = async () => {
+  //     const response = await fetch('http://localhost:4000/api/projects');
+  //     const data = await response.json();
+  //     setSearchResults(data);
+  //   };
+  //   fetchResults();
+  // }, []);
 
   const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
 
@@ -103,6 +117,25 @@ const Home = () => {
   }
 
   return (
+    
+      // <div>
+      //   <h1>Search Results</h1>
+      //   <ul>
+      //     {searchResults.map((result) => (
+      //       <li key={result.id}>
+      //         <h2>{result.title}</h2>
+      //         <p>{result.description}</p>
+      //         <ul>
+      //           {result.tags.map((tag) => (
+      //             <li key={tag}>{tag}</li>
+      //           ))}
+      //         </ul>
+      //       </li>
+      //     ))}
+      //   </ul>
+      // </div>
+
+
     <View style={styles.container}>
 
       <View style={styles.cardContainer}>
@@ -131,3 +164,6 @@ const Home = () => {
 }
 
 export default Home
+
+
+
