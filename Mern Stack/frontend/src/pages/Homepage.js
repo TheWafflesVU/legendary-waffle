@@ -1,8 +1,10 @@
-import React, { useState, useMemo } from 'react'
-import { Text, View, Button } from 'react-native'
+import { Text, View } from 'react-native'
 import TinderCard from 'react-tinder-card'
 import { useEffect }from 'react'
+import { useProjectsContext } from "../hooks/useProjectsContext"
 import { useAuthContext } from "../hooks/useAuthContext"
+import ProjectForm from '../components/ProjectForm'
+
 
 const styles = {
   container: {
@@ -35,10 +37,18 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: 25
+    fontSize: 25,
+    margin: 10
   },
   cardBody: {
-    margin: 30
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 30,
+    fontSize: 20,
+  },
+  cardTag: {
+    fontSize: 15,
   },
   buttons: {
     margin: 20,
@@ -56,109 +66,70 @@ const styles = {
   }
 }
 
-// TODO: Reaplace with actual data
-// Dummy datda for now
-const db = [
-  {
-    name: 'Richard Hendricks',
-    header: 'Test card 1',
-    desp: 'This is a test card for card.This is a test card for card.This is a test card for card.This is a test card for card.This is a test card for card.This is a test card for card. ',
 
-  },
-  {
-    name: 'Erlich Bachman',
-    header: 'Test card 2',
-    desp: 'This is a test card for card.This is a test card for card.This is a test card for card.This is a test card for card.This is a test card for card.This is a test card for card. ',
-
-  },
-]
-
-const alreadyRemoved = []
-let charactersState = db // This fixes issues with updating characters state forcing it to use the current state and not the state that was active when the card was created.
 
 const Home = () => {
-  const [characters, setCharacters] = useState(db)
-  const [lastDirection, setLastDirection] = useState()
-  //const {user} = useAuthContext()
-  //search
-  // const [searchResults, setSearchResults] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchResults = async () => {
-  //     const response = await fetch('http://localhost:4000/api/projects');
-  //     const data = await response.json();
-  //     setSearchResults(data);
-  //   };
-  //   fetchResults();
-  // }, []);
+  let {projects, dispatch} = useProjectsContext()
+  const {user} = useAuthContext()
+  let projectQueue = []
 
-  const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
+  // Refresh the queue whenever the user refreshes the page
+  
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const response = await fetch('/api/projects', {
+        headers: {'Authorization': `Bearer ${user.token}`},
+      })
+      const json = await response.json()
 
-  const swiped = (direction, nameToDelete) => {
-    console.log('removing: ' + nameToDelete + ' to the ' + direction)
-    setLastDirection(direction)
-    alreadyRemoved.push(nameToDelete)
-  }
-
-  const outOfFrame = (name) => {
-    console.log(name + ' left the screen!')
-    charactersState = charactersState.filter(character => character.name !== name)
-    setCharacters(charactersState)
-  }
-
-  const swipe = (dir) => {
-    const cardsLeft = characters.filter(person => !alreadyRemoved.includes(person.name))
-    if (cardsLeft.length) {
-      const toBeRemoved = cardsLeft[cardsLeft.length - 1].name // Find the card object to be removed
-      const index = db.map(person => person.name).indexOf(toBeRemoved) // Find the index of which to make the reference to
-      alreadyRemoved.push(toBeRemoved) // Make sure the next card gets removed next time if this card do not have time to exit the screen
-      childRefs[index].current.swipe(dir) // Swipe the card!
+      if (response.ok) {
+        dispatch({type: 'SET_PROJECTS', payload: json})
+      }
     }
+
+    if (user) {
+      fetchProjects()
+      projectQueue = projects
+    }
+  }, [user])
+
+
+  // When card leaves the screen, print a message and reset the state of queue
+  const outOfFrame = (project) => {
+    console.log(project.title + ' left the screen!')
+    projectQueue = projects.filter(pro => pro._id !== project._id)
+    projects = projectQueue
   }
+
 
   return (
-    
-      // <div>
-      //   <h1>Search Results</h1>
-      //   <ul>
-      //     {searchResults.map((result) => (
-      //       <li key={result.id}>
-      //         <h2>{result.title}</h2>
-      //         <p>{result.description}</p>
-      //         <ul>
-      //           {result.tags.map((tag) => (
-      //             <li key={tag}>{tag}</li>
-      //           ))}
-      //         </ul>
-      //       </li>
-      //     ))}
-      //   </ul>
-      // </div>
-
-
+  
     <View style={styles.container}>
 
       <View style={styles.cardContainer}>
         
-        {characters.map((character, index) =>
-          <TinderCard ref={childRefs[index]} key={character.name} onSwipe={(dir) => swiped(dir, character.name)} onCardLeftScreen={() => outOfFrame(character.name)}>
+        {projects && projects.map(project =>
+          <TinderCard key = {project._id} onCardLeftScreen={() => outOfFrame(project)}>
             <View style={styles.card}>
-              <Text style={styles.cardTitle}> { character.header } </Text>
-              <br />
-              <Text style={styles.cardBody}>{ character.desp }</Text>
+              <Text style={styles.cardTitle}>{ project.title }</Text>
+              <Text style={styles.cardBody}>Description: { project.description }</Text>
+
+              <Text style={styles.cardBody}> Tags: {" "}
+                {project.tags.map(tag => {
+                  return <Text key = {tag} style={styles.cardTag}> 
+                        {tag + ", "}
+                   </Text>})}
+                </Text> 
+                <Text style={styles.cardBody}>nums: {project.nums} </Text>
             </View>
           </TinderCard>
         )}
 
       </View>
-
-      <View style={styles.buttons}>
-
-        <Button style={styles.button} onPress={() => swipe('right')} title='I am interested!' />
-      </View>
-
-      {lastDirection ? <Text style={styles.infoText} key={lastDirection}>You swiped {lastDirection}</Text> : <Text style={styles.infoText}>Swipe a card or press a button to get started!</Text>}
-    
+          
+          <ProjectForm />
+        
     </View>
   )
 }

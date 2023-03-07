@@ -37,8 +37,8 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Search Results</h1>
       <div className="search-results-container">
+        <h1>Search Results</h1>
         {searchResults.map((result) => (
           <div className="search-result" key={result.id}>
             <h4>{result.title}</h4>

@@ -263,6 +263,11 @@ form.signup, form.login {
   box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
 }
 
+.search-result h1 {
+  margin-left: 250px;
+  text-align: center;
+}
+
 .search-result h4 {
   margin-bottom: 10px;
 }
