@@ -117,7 +117,7 @@ const Home = () => {
     <div>
       <h1>Search Results</h1>
       <View style={styles.cardContainer}>
-        
+      
         {searchResults && searchResults.map(project =>
           <TinderCard key = {project._id} onCardLeftScreen={() => outOfFrame(project)}>
             <View style={styles.card}>
@@ -136,11 +136,8 @@ const Home = () => {
         )}
 
       </View>
-    </div>
-  );
-  
-  
-  
-};
 
+    </div>
+  );  
+};
 export default Home;
