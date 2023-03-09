@@ -118,10 +118,10 @@ const Home = () => {
               <Text style={styles.cardBody}> Tags: {" "}
                 {project.tags.map(tag => {
                   return <Text key = {tag} style={styles.cardTag}> 
-                        {tag + ", "}
+                        {"[" + tag + "] "}
                    </Text>})}
                 </Text> 
-                <Text style={styles.cardBody}>nums: {project.nums} </Text>
+                <Text style={styles.cardBody}>Number of Teammates: {project.nums} </Text>
             </View>
           </TinderCard>
         )}
