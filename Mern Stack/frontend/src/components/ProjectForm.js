@@ -11,6 +11,7 @@ const ProjectForm = () => {
   const [nums, setNums] = useState('')
   const [error, setError] = useState(null)
   const [emptyFields, setEmptyFields] = useState([])
+  const [tags, setTags] = useState()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -42,6 +43,7 @@ const ProjectForm = () => {
       setNums('')
       setError(null)
       setEmptyFields([])
+      setTags('')
       dispatch({type: 'CREATE_PROJECT', payload: json})
     }
   }
@@ -59,6 +61,14 @@ const ProjectForm = () => {
       />
 
       <label>Description:</label>
+      <input 
+        type="text"
+        onChange={(e) => setDescription(e.target.value)}
+        value={description}
+        className={emptyFields.includes('description') ? 'error' : ''}
+      />
+
+      <label>Tags:</label>
       <input 
         type="text"
         onChange={(e) => setDescription(e.target.value)}
