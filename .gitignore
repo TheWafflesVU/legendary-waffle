@@ -7,6 +7,9 @@ test
 /.pnp
 .pnp.js
 
+# Ignore test files
+junit.xml
+test.js
 
 # testing
 /coverage

@@ -22,6 +22,8 @@ app.use((req, res, next) => {
 app.use('/api/projects', projectRoutes)
 app.use('/api/user', userRoutes)
 
+mongoose.set('strictQuery', false);
+
 // connect to db
 mongoose.connect(process.env.MONG_URI)
     .then(() => {
