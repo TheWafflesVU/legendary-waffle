@@ -2,9 +2,14 @@
 
 # dependencies
 node_modules
+# Ignore files for testing search engine
+test 
 /.pnp
 .pnp.js
 
+# Ignore test files
+junit.xml
+test.js
 
 # testing
 /coverage
