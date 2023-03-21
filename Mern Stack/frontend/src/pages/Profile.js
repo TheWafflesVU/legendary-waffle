@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useAuthContext } from '../hooks/useAuthContext'
-
+import "./Profile.css"
 const ProfileForm = () => {
  
   const { user } = useAuthContext()

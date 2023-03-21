@@ -24,9 +24,10 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+      <Sidebar />
         <Navbar />
         <Search setSearch={(search) => setSearch(search)} />
-        {/* <Sidebar /> */}
+        
         <div className="pages">
           <Routes>
             <Route 
