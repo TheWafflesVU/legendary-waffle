@@ -47,15 +47,16 @@ const ProjectCard = () => {
           <TinderCard key={project._id} onCardLeftScreen={() => outOfFrame(project)} className="cards">
             <div>
               <p className="card-title">{project.title}</p>
-              <p className="card-body">Description: {project.description}</p>
-      
+              <p className="card-body"> Number of Teammates: {project.nums} </p>
               <p className="card-body"> Tags: {" "}
                 {project.tags.map(tag => {
                   return <span key={tag} className="card-tag">
                     {"[" + tag + "] "}
                   </span>})}
               </p>
-              <p className="card-body"> Number of Teammates: {project.nums} </p>
+              <p className="card-body">Description: {project.description}</p>
+      
+            
             </div>
           </TinderCard>
         )}

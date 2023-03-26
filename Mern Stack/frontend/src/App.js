@@ -43,8 +43,14 @@ function App() {
               element={!user ? <Signup /> : <Navigate to="/" />} 
             />
             <Route path="/homepage" element={<Homepage/>} />
-            <Route path='/profile' element={<Profile/>} />
-            <Route path='/chatroom' element={<Chatroom/>} />
+            <Route 
+              path='/profile'
+              element={user ? <Profile /> : <Navigate to="/login" />} 
+            />
+            <Route 
+              path='/chatroom'
+              element={user ? <Chatroom /> : <Navigate to="/" />}
+            />
             <Route path='/projectSearchRes' element={<ProjectSearchRes/>} />
           </Routes>
         </div>
