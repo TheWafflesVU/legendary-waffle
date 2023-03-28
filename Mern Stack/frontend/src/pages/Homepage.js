@@ -14,7 +14,6 @@ const Home = () => {
   return (
   
     <View>
-          <button onClick={handleClick}>Go to profile</button>
 
           <ProjectCard />
           
