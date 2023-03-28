@@ -8,6 +8,9 @@ import { Text, View } from 'react-native'
 
 
 const styles = {
+  h1: {
+    textAlign: 'center',
+  },
   container: {
     display: 'flex',
     alignItems: 'center',
@@ -115,7 +118,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Search Results</h1>
+      <h1 style={styles.h1}>Search Results</h1>
       <View style={styles.cardContainer}>
       
         {searchResults && searchResults.map(project =>

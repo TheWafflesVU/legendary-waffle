@@ -6,8 +6,9 @@
   border-radius: 20px;
   padding: 5px 10px;
   margin-left: 150px;
-  margin-top: 20px;
-  height: 40px;
+  margin-right: 150px;
+  margin-top: 15px;
+  height: 60px;
   background-color: #ffffff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -59,8 +60,11 @@ input.text-input {
   color: #fff;
   padding: 3px 10px;
   margin-right: 5px;
+  margin-top: 2px; /* Added to fit into the margin of the search bar */
+  margin-bottom: 2px; /* Added to fit into the margin of the search bar */
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.3s;
+  max-width: 100%; /* Updated the max-width to prevent wrapping */
 }
 
 .tag-box:hover {
@@ -68,11 +72,17 @@ input.text-input {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.tag-box span {
+  font-size: 12px;
+  white-space: nowrap; /* Prevent wrapping of the text */
+  overflow: hidden; /* Hide the overflow of the text */
+  text-overflow: ellipsis; /* Add ellipsis to the overflowing text */
+}
 .tag-box button {
   border: none;
   background-color: transparent;
-  color: #fff;
-  font-size: 12px;
+  color: rgb(145, 66, 66);
+  font-size: 10px; /* Smaller font size for the button inside the tag box */
   font-weight: bold;
   margin-left: 5px;
   cursor: pointer;
@@ -80,7 +90,7 @@ input.text-input {
 }
 
 .tag-box button:hover {
-  color: #f1f1f1;
+  color: #a92121;
 }
 
 button[type="submit"] {
