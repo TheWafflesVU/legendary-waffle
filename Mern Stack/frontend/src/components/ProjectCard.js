@@ -3,6 +3,8 @@ import TinderCard from 'react-tinder-card'
 import { useEffect }from 'react'
 import { useProjectsContext } from "../hooks/useProjectsContext"
 import { useAuthContext } from "../hooks/useAuthContext"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const ProjectCard = () => {
 
@@ -41,27 +43,61 @@ const ProjectCard = () => {
 
       return (
 
-        <div className="card-container">
+      //   <div className="card-container">
 
-        {projects && projects.map(project =>
-          <TinderCard key={project._id} onCardLeftScreen={() => outOfFrame(project)} className="cards">
-            <div>
-              <p className="card-title">{project.title}</p>
-              <p className="card-body">Description: {project.description}</p>
-      
-              <p className="card-body"> Tags: {" "}
-                {project.tags.map(tag => {
-                  return <span key={tag} className="card-tag">
-                    {"[" + tag + "] "}
-                  </span>})}
+      //   {projects && projects.map(project =>
+      //     <TinderCard key={project._id} onCardLeftScreen={() => outOfFrame(project)} className="cards">
+      //       <div className="my-title">
+      //         <p className="card-title">{project.title}</p>
+      //       </div>
+
+      //       <div className="feature-line"> 
+      //         <p className="card-body"> Number of Teammates: {project.nums} </p>
+      //         <p className="card-body"> Tags: {" "}
+      //             {project.tags.map(tag => {
+      //               return <span key={tag} className="card-tag">
+      //                 {"[" + tag + "] "}
+      //               </span>})}
+      //         </p>
+      //       </div>
+           
+      //       <div>
+      //       <article>
+      //           <h3>Description: </h3>
+      //           <p className="card-des">{project.description}</p>
+      //         </article>
+      //       </div>
+      //     </TinderCard>
+      //   )}
+      // </div>
+     
+      <div className="card-container">
+      {projects && projects.map(project =>
+        <TinderCard key={project._id} onCardLeftScreen={() => outOfFrame(project)} className="cards">
+          <div className="card-body">
+            <h5 className="card-title">{project.title}</h5>
+            <div className="d-flex justify-content-between">
+              <p className="card-text mb-0">
+                <i className="bi bi-people"></i> Teammates: {project.nums}
               </p>
-              <p className="card-body"> Number of Teammates: {project.nums} </p>
+              <div className="tags">
+                {project.tags.map(tag => {
+                  return <span key={tag} className="card-tag badge bg-primary">
+                    {tag}
+                  </span>
+                })}
+              </div>
             </div>
-          </TinderCard>
-        )}
-      </div>
+            <hr />
+            <p className="card-des">{project.description}</p>
+          </div>
+        </TinderCard>
+      )}
+    </div>
+
+
+
       
-        
       )
 
 }
