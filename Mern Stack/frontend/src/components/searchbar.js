@@ -1,38 +1,63 @@
 import styles from "./search.css";
 import { useState } from 'react';
 
-const Search = ({ }) => {
-    const [search, setSearch] = useState('');
+const Search = () => {
+    const [textInput, setTextInput] = useState('');
+    const [selectedTags, setSelectedTags] = useState([]);
+    const tagOptions = ['Python', 'C++', 'Java', 'Machine Learning', 'data analysis', 'smart devices'];
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        // Navigate to projectsearchres.js page
-        console.log(search);
-        window.location.href = `/projectsearchres?search=${search}`;
-        
+        e.preventDefault();
+    
+        // Combine the selected tags and text input into a single search string
+        const searchQuery = [...selectedTags, textInput].join('/');
+    
+        console.log(searchQuery);
+        window.location.href = `/projectsearchres?search=${encodeURIComponent(searchQuery)}`;
+    };
+    
+
+    const handleTagSelect = (tag) => {
+        if (!selectedTags.includes(tag)) {
+            setSelectedTags([...selectedTags, tag]);
+        }
+    }
+
+    const handleTagRemove = (tag) => {
+        setSelectedTags(selectedTags.filter((t) => t !== tag));
     }
 
     return (
         <form className="create" onSubmit={handleSubmit}>
             <div className="search-container">
-                <div className="Icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#657789" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="feather feather-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
+                <div className="tags-container">
+                    {selectedTags.map((tag) => (
+                        <div key={tag} className="tag-box" onClick={() => handleTagRemove(tag)}>
+                            {tag}
+                            <button type="button">x</button>
+                        </div>
+                    ))}
+                    <input
+                        type="text"
+                        className="text-input"
+                        placeholder="Search Projects by Tag/Keywords"
+                        value={textInput}
+                        onChange={({ currentTarget: input }) => {
+                            setTextInput(input.value);
+                        }}
+                    />
                 </div>
-                <input
-                    type="text"
-                    className="search"
-                    placeholder="Search Projects by Tag/Keywords"
-                    onChange={({ currentTarget: input }) => setSearch(input.value)}
-                />
                 <button type="submit">Search</button>
+            </div>
+            <div className="tag-options-container">
+                {tagOptions.map((tag) => (
+                    <div key={tag} className="tag-option" onClick={() => handleTagSelect(tag)}>
+                        {tag}
+                    </div>
+                ))}
             </div>
         </form>
     );
 };
 
 export default Search;
-

@@ -30,19 +30,13 @@ function App() {
         <div className="pages">
           <Routes>
             <Route 
-              path="/" 
-              element={user ? <Home /> : <Navigate to="/login" />} 
+              path="/" element={<Navigate to="/login" />}
             />
-            <Route 
-              path="/login" 
-              element={!user ? <Login /> : <Navigate to="/" />} 
-            />
-            <Route 
-              path="/signup" 
-              element={!user ? <Signup /> : <Navigate to="/" />} 
-            />
+            <Route path="/login" element={!user ? <Login /> : <Navigate to="/homepage" />} />
+            <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/homepage" />} />
             <Route path="/homepage" element={<Homepage/>} />
             <Route path='/profile' element={<Profile/>} />
+            <Route path='/home' element={<Home/>} />
             <Route path='/chatroom' element={<Chatroom/>} />
             <Route path='/projectSearchRes' element={<ProjectSearchRes/>} />
           </Routes>
