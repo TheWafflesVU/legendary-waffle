@@ -165,16 +165,13 @@ form.signup, form.login {
   font-size: 15px
 }
 
-/* .text-right {
-  font-size: 25px;
-} */
-
 
 /* Style the header section */
 .profile-header {
   background-color: #f9f9f9;
   padding: 20px;
   text-align: center;
+  margin-left: 95px;
 }
 
 .profile-header h3 {
@@ -193,7 +190,8 @@ form.signup, form.login {
   width: 200px;
   height: 190px;
   border-radius: 50%;
-  margin: 20px auto;
+  margin-left: 637px;
+  margin-bottom: 10px;
   overflow: hidden;
   display: block;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
@@ -212,6 +210,7 @@ form.signup, form.login {
   padding: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   margin-top: 20px;
+  margin-left: 80px;
 }
 
 .profile-content div {
@@ -246,6 +245,58 @@ form.signup, form.login {
 .profile-actions button:hover {
   background-color: #0056b3;
 }
+
+/* Styling checkboxes */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  height: 20px;
+  width: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+/* Styling label for checkboxes */
+label[for] {
+  font-size: 16px;
+  color: #555;
+  cursor: pointer;
+}
+
+/* Styling checkboxes when checked */
+input[type="checkbox"]:checked {
+  background-color: #3f51b5;
+  border-color: #3f51b5;
+}
+
+/* Styling label for checkboxes when checked */
+input[type="checkbox"]:checked + label[for] {
+  color: #b51c1c;
+}
+
+.languages .form-control {
+  column-count: 4; /* set the number of columns */
+  column-gap: 2em; /* set the gap between columns */
+  margin-bottom: 1em;
+}
+
+.roles .form-control {
+  column-count: 4; /* set the number of columns */
+  column-gap: 2em; /* set the gap between columns */
+  margin-bottom: 1em;
+}
+.languages .form-control label,
+.roles .form-control label {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+
+
 
 /* search */
 .search-results-container {
