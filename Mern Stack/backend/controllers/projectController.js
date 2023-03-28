@@ -97,10 +97,75 @@ const updateProject = async (req, res) => {
 // search project based on tags/text
 const searchProject = async (req, res) => {
 
-  const tagsFilter = req.params.tags.split(',');
-  const searchQuery = req.params.q; 
 
-  const pro = await Project.aggregate([
+  const tagsFilter = req.params.tags.split(',')
+  const searchQuery = req.params.q
+
+  console.log(searchQuery)
+  console.log(tagsFilter)
+
+  let pro = {}
+
+  if (searchQuery == "NULL" && tagsFilter[0] == "NULL"){
+    console.log("List all projects")
+    pro = await Project.find()
+  } else {
+    
+    if (searchQuery == "NULL"){
+      console.log("Search based on tag")
+      pro = await Project.aggregate([
+        {
+          $match: {
+            tags: { $in: tagsFilter }
+          }
+        },
+        {
+          $project: {
+            _id: 1,
+            title: 1,
+            description: 1,
+            tags: 1,
+            nums: 1,
+            matchedTags: { $size: { $setIntersection: [tagsFilter, "$tags"] } } // count the number of matched tags
+          }
+        },
+        {
+          $sort: {
+            matchedTags: -1, // sort by the number of matched tags, in descending order
+          }
+        }
+      ])
+  } else if (tagsFilter[0] == 'NULL'){
+    console.log("Search based on keywords")
+    pro = await Project.aggregate([
+      {
+        $match: {
+          $text: {
+            $search: searchQuery,
+            $caseSensitive: false,
+            $diacriticSensitive: false
+          }
+        }
+      },
+      {
+        $project: {
+          _id: 1,
+          title: 1,
+          description: 1,
+          tags: 1,
+          nums: 1,
+          score: { $meta: "textScore" }, // include the relevance score in the output
+        }
+      },
+      {
+        $sort: {
+          score: { $meta: "textScore" } // then sort by relevance score, in descending order
+        }
+      }
+    ])
+  } else {
+    console.log("Search based on both inputs")
+    pro = await Project.aggregate([
       {
         $match: {
           $text: {
@@ -129,10 +194,14 @@ const searchProject = async (req, res) => {
         }
       }
     ])
-  console.log(tagsFilter);
-  res.status(200).json(pro)
+  }
+  }
 
+
+  res.status(200).json(pro)
 }
+
+
 
 module.exports = {
   getProjects,
