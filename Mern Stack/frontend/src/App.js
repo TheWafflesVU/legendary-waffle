@@ -24,9 +24,10 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+      <Sidebar />
         <Navbar />
         <Search setSearch={(search) => setSearch(search)} />
-        {/* <Sidebar /> */}
+        
         <div className="pages">
           <Routes>
             <Route 
@@ -35,9 +36,16 @@ function App() {
             <Route path="/login" element={!user ? <Login /> : <Navigate to="/homepage" />} />
             <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/homepage" />} />
             <Route path="/homepage" element={<Homepage/>} />
-            <Route path='/profile' element={<Profile/>} />
-            <Route path='/home' element={<Home/>} />
-            <Route path='/chatroom' element={<Chatroom/>} />
+
+            <Route 
+              path='/profile'
+              element={user ? <Profile /> : <Navigate to="/login" />} 
+            />
+            <Route 
+              path='/chatroom'
+              element={user ? <Chatroom /> : <Navigate to="/" />}
+            />
+
             <Route path='/projectSearchRes' element={<ProjectSearchRes/>} />
           </Routes>
         </div>
