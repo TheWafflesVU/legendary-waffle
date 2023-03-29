@@ -1,6 +1,6 @@
 const request = require('supertest');
-const app = require('/Users/helensun/Downloads/waffle/legendary-waffle/Mern Stack/frontend/src/App.js');
-const Project = require('/Users/helensun/Downloads/waffle/legendary-waffle/Mern Stack/backend/controllers/projectController.js');
+const app = require('/Users/jiashunli/Desktop/legendary-waffle/Mern Stack/frontend/src/App.js');
+const Project = require('/Users/jiashunli/Desktop/legendary-waffle/Mern Stack/backend/controllers/projectController.js');
 
 describe('searchProject function', () => {
   beforeAll(async () => {

@@ -84,10 +84,22 @@ const Search = () => {
         setSelectedTags(selectedTags.filter((t) => t !== tag));
     }
 
+    const [dropdownVisible, setDropdownVisible] = useState(false);
+
+    const toggleDropdown = () => {
+        setDropdownVisible(!dropdownVisible);
+    };
+
     return (
         <form className="create" onSubmit={handleSubmit}>
             <div className="search-container">
                 <div className="tags-container">
+                <div className="search-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#657789" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-search">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        </div>
                     {selectedTags.map((tag) => (
                         <div key={tag} className="tag-box" onClick={() => handleTagRemove(tag)}>
                             {tag}
@@ -104,15 +116,27 @@ const Search = () => {
                         }}
                     />
                 </div>
+                <button type="button" className="advanced-search-btn" onClick={toggleDropdown}>
+                    Select Tags
+                </button>
+                {dropdownVisible && (
+                    <div className="dropdown-container">
+                        {tagOptions.map((tag) => (
+                            <div key={tag} className="tag-option" onClick={() => handleTagSelect(tag)}>
+                                {tag}
+                            </div>
+                        ))}
+                    </div>
+                )}
                 <button type="submit">Search</button>
             </div>
-            <div className="tag-options-container">
+            {/* <div className="tag-options-container">
                 {tagOptions.map((tag) => (
                     <div key={tag} className="tag-option" onClick={() => handleTagSelect(tag)}>
                         {tag}
                     </div>
                 ))}
-            </div>
+            </div> */}
         </form>
     );
 };
