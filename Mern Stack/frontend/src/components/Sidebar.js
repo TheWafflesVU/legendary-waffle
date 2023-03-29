@@ -1,5 +1,5 @@
 import React from 'react'
-import SideNav, {Toggle, NavItem, NavIcon, NavText} from "@trendmicro/react-sidenav";
+import SideNav, {NavItem, NavIcon, NavText} from "@trendmicro/react-sidenav";
 import './Sidebar.css';
 import {useNavigate} from 'react-router-dom';
 
@@ -14,7 +14,7 @@ function Sidebar() {
     >
       <SideNav.Toggle />
       <SideNav.Nav defaultSelected="home">
-        <NavItem eventKey='home'>
+        <NavItem eventKey='homepage'>
           <NavIcon><i className='fa fa-fw fa-home' style={{fontSize:"1.5em"}}></i></NavIcon>
           <NavText>Home</NavText>
         </NavItem>

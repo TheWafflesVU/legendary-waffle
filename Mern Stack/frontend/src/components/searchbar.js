@@ -36,10 +36,6 @@
 
 // export default Search;
 
-
-
-
-
 import styles from "./search.css";
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -66,6 +62,10 @@ const Search = () => {
         // Check if both textInput and selectedTags are empty
         if (textInput.trim() === '' && selectedTags.length === 0) {
             window.location.href = `/projectsearchres?search=NULL/NULL`; // Redirect with the desired search query
+        } else if (textInput.trim() === ''){
+            window.location.href = `/projectsearchres?search=${tagsString}/NULL`
+        } else if (selectedTags.length === 0){
+            window.location.href = `/projectsearchres?search=NULL/${textInput}`
         } else {
             window.location.href = `/projectsearchres?search=${encodeURIComponent(searchQuery)}`;
         }
