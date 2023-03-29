@@ -9,8 +9,8 @@ const Profile = () => {
   const [lastname, setLastname] = useState('')
   const [phone, setPhone] = useState('')
   const [year, setYear] = useState('')
-  const [languages, setLanguages] = useState('')
-  const [roles, setRoles] = useState('')
+  const [languages, setLanguages] = useState([])
+  const [roles, setRoles] = useState([])
   const [error, setError] = useState(null)
   const [emptyFields, setEmptyFields] = useState([])
   
@@ -21,11 +21,31 @@ const Profile = () => {
     console.log(profile);
   }
 
+  const handleLanguages = (event) => {
+    const isChecked = event.target.checked;
+    const value = event.target.value;
+    if (isChecked) {
+      setLanguages([...languages, value]);
+    } else {
+      setLanguages(languages.filter((item) => item !== value));
+    }
+  };
+
+  const handleRoles = (event) => {
+    const isChecked = event.target.checked;
+    const value = event.target.value;
+    if (isChecked) {
+      setRoles([...roles, value]);
+    } else {
+      setRoles(roles.filter((item) => item !== value));
+    }
+  };
+
   return (
     <form className="profile" onSubmit={handleSubmit}>
 
         <div className="profile-image">
-          < img className="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" />
+          < img className="rounded-circle" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" />
         </div>
 
         <div className="profile-header">
@@ -47,53 +67,94 @@ const Profile = () => {
           <div className="last-name">
             <label className="labels">Last Name</label>
           <input 
-          type="text" 
-          className="form-control" 
-          placeholder="last Name" 
-          onChange={(e) => setLastname(e.target.value)}
-          required/>
+            type="text" 
+            className="form-control" 
+            placeholder="last Name" 
+            onChange={(e) => setLastname(e.target.value)}
+            required/>
           </div>
 
           <div className="number">
             <label className="labels">Mobile Number</label>
-            <input type="text" 
-            className="form-control" 
-            placeholder="enter phone number" 
-            onChange={(e) => setPhone(e.target.value)}
-            required/>
+            <input 
+              type="tel" 
+              className="form-control" 
+              placeholder="enter phone number" 
+              onChange={(e) => setPhone(e.target.value)}
+              onKeyDown={(e) => {
+                if (!((e.key >= '0' && e.key <= '9') || e.key === 'Backspace' || e.key === 'Delete')) {
+                  e.preventDefault();
+                }
+              }}
+              maxLength={10}
+              required
+            />
           </div>
 
           <div className="year">
             <label className="labels">Year</label>
-            <input type="text" 
-            className="form-control" 
-            placeholder="enter year you are in" 
-            onChange={(e) => setYear(e.target.value)}
-            required/>
+            <select className="form-control" onChange={(e) => setYear(e.target.value)} required>
+              <option value="">-- select a year --</option>
+              <option value="freshman">Freshman</option>
+              <option value="sophomore">Sophomore</option>
+              <option value="junior">Junior</option>
+              <option value="senior">Senior</option>
+            </select>
           </div>
 
           <div className="languages">
             <label className="labels">Proficient programming languages</label>
-            <input type="text" 
-            className="form-control" 
-            placeholder="e.g. C++, python, java" 
-            onChange={(e) => setLanguages(e.target.value)}
-            required/>
+            {/* <select className="form-control" onChange={(e) => setLanguages(e.target.value)} required>
+              <option value="">-- select a language --</option>
+              <option value="C++">C++</option>
+              <option value="Python">Python</option>
+              <option value="Java">Java</option>
+              <option value="JavaScript">JavaScript</option>
+              <option value="Ruby">Ruby</option>
+              <option value="PHP">PHP</option>
+              <option value="Swift">Swift</option>
+            </select> */}
+            <div className="form-control">
+              <input type="checkbox" id="c++" name="languages" value="C++" onChange={(e) => handleLanguages(e)} />
+              <label htmlFor="c++">C++</label>
+
+              <input type="checkbox" id="python" name="languages" value="Python" onChange={(e) => handleLanguages(e)} />
+              <label htmlFor="python">Python</label>
+
+              <input type="checkbox" id="java" name="languages" value="Java" onChange={(e) => handleLanguages(e)} />
+              <label htmlFor="java">Java</label>
+
+              <input type="checkbox" id="javascript" name="languages" value="JavaScript" onChange={(e) => handleLanguages(e)} />
+              <label htmlFor="javascript">JavaScript</label>
+
+              <input type="checkbox" id="ruby" name="languages" value="Ruby" onChange={(e) => handleLanguages(e)} />
+              <label htmlFor="ruby">Ruby</label>
+
+              <input type="checkbox" id="php" name="languages" value="PHP" onChange={(e) => handleLanguages(e)} />
+              <label htmlFor="php">PHP</label>
+
+              <input type="checkbox" id="swift" name="languages" value="Swift" onChange={(e) => handleLanguages(e)} />
+              <label htmlFor="swift">Swift</label>
+            </div>
           </div>
 
           <div className="roles">
             <label className="labels">Roles you have experienced</label>
-            <input type="text" 
-            className="form-control"  
-            placeholder="e.g. backend, frontend, full-stack" 
-            onChange={(e) => setRoles(e.target.value)}
-            required/>
+            <div className="form-control">
+                <input type="checkbox" id="frontend" name="roles" value="Frontend" onChange={(e) => handleRoles(e)} />
+                <label htmlFor="frontend">Frontend</label>
+
+                <input type="checkbox" id="backend" name="roles" value="Backend" onChange={(e) => handleRoles(e)} />
+                <label htmlFor="backend">Backend</label>
+
+                <input type="checkbox" id="fullstack" name="roles" value="Fullstack" onChange={(e) => handleRoles(e)} />
+                <label htmlFor="fullstack">Fullstack</label>
+              </div>
           </div>
 
           <div className="profile-actions">
             <button className="btn btn-primary profile-button" type="submit">Save Profile</button>
           </div>
-
       </div>
 </form>
   )

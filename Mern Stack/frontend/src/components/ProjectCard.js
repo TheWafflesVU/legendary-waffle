@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const ProjectCard = () => {
-
+  
   let {projects, dispatch} = useProjectsContext()
   const {user} = useAuthContext()
   let projectQueue = []
@@ -42,34 +42,6 @@ const ProjectCard = () => {
 
 
       return (
-
-      //   <div className="card-container">
-
-      //   {projects && projects.map(project =>
-      //     <TinderCard key={project._id} onCardLeftScreen={() => outOfFrame(project)} className="cards">
-      //       <div className="my-title">
-      //         <p className="card-title">{project.title}</p>
-      //       </div>
-
-      //       <div className="feature-line"> 
-      //         <p className="card-body"> Number of Teammates: {project.nums} </p>
-      //         <p className="card-body"> Tags: {" "}
-      //             {project.tags.map(tag => {
-      //               return <span key={tag} className="card-tag">
-      //                 {"[" + tag + "] "}
-      //               </span>})}
-      //         </p>
-      //       </div>
-           
-      //       <div>
-      //       <article>
-      //           <h3>Description: </h3>
-      //           <p className="card-des">{project.description}</p>
-      //         </article>
-      //       </div>
-      //     </TinderCard>
-      //   )}
-      // </div>
      
       <div className="card-container">
       {projects && projects.map(project =>
@@ -94,11 +66,7 @@ const ProjectCard = () => {
         </TinderCard>
       )}
     </div>
-
-
-
-      
-      )
+    )
 
 }
 
