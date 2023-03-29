@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
 
 // pages & components
-import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Navbar from './components/Navbar'
@@ -16,17 +15,20 @@ import Sidebar from './components/Sidebar.js'
 import Search from './components/searchbar.js'
 import { useState } from 'react'
 
+
+
 function App() {
   const { user } = useAuthContext()
   const [search, setSearch] = useState("");
+  console.log(search)
 
 
   return (
     <div className="App">
       <BrowserRouter>
-      <Sidebar />
+      {user && <Sidebar />}
         <Navbar />
-        <Search setSearch={(search) => setSearch(search)} />
+        {user && <Search setSearch={(search) => setSearch(search)} />}
         
         <div className="pages">
           <Routes>
