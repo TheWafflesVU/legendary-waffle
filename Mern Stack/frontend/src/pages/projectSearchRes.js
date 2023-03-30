@@ -6,6 +6,7 @@ import TinderCard from 'react-tinder-card'
 import styles from "./projectSearchRes.css"
 
 
+
 const Home = () => {
 
   const { user } = useAuthContext()
@@ -30,6 +31,14 @@ const Home = () => {
     setSearchResults(projectQueue)
   }
 
+  const highlightText = (text, keyword) => {
+    if (!keyword) {
+      return text;
+    }
+    const regex = new RegExp(`(${keyword})`, 'gi');
+    return text.replace(regex, '<span class="highlight">$1</span>');
+  };
+
   useEffect(() => {
     const fetchResults = async () => {
       if (user !== null) {
@@ -53,30 +62,35 @@ const Home = () => {
 
 
   return (
-     
-    <div className="card-container">
-    {searchResults && searchResults.map(project =>
-      <TinderCard key={project._id} onCardLeftScreen={() => outOfFrame(project)} className="cards">
-        <div className="card-body">
-          <h5 className="card-title">{project.title}</h5>
-          <div className="d-flex justify-content-between">
-            <p className="card-text mb-0">
-              <i className="bi bi-people"></i> Teammates: {project.nums}
-            </p>
-            <div className="tags">
-              {project.tags.map(tag => {
-                return <span key={tag} className="card-tag badge bg-primary">
-                  {tag}
-                </span>
-              })}
-            </div>
-          </div>
-          <hr />
-          <p className="card-des">{project.description}</p>
-        </div>
-      </TinderCard>
-    )}
+    <div>
+    <div className="result-info">
+      <p>Total search results: {searchResults.length}</p>
     </div>
+    
+    <div className="card-container">
+  {searchResults && searchResults.map(project =>
+    <TinderCard key={project._id} onCardLeftScreen={() => outOfFrame(project)} className="cards">
+      <div className="card-body">
+        <h5 className="card-title">{project.title}</h5>
+        <div className="d-flex justify-content-between">
+          <p className="card-text mb-0">
+            <i className="bi bi-people"></i> Teammates: {project.nums}
+          </p>
+          <div className="tags">
+            {project.tags.map(tag => {
+              const highlightedTag = highlightText(tag, searchTag);
+              return <span key={tag} className="card-tag badge bg-primary" dangerouslySetInnerHTML={{ __html: highlightedTag }} />;
+            })}
+          </div>
+        </div>
+        <hr />
+        <p className="card-des" dangerouslySetInnerHTML={{ __html: highlightText(project.description, searchKeyword) }}></p>
+      </div>
+    </TinderCard>
+  )}
+  </div>
+</div>
+    
   )
 };
 export default Home;
