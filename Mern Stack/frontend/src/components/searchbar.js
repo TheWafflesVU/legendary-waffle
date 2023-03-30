@@ -44,15 +44,15 @@ const Search = () => {
     const location = useLocation();
     
     const searchQuery = new URLSearchParams(location.search).get('search') || 'NULL/NULL';
-    const [selectedTags, setSelectedTags] = useState(searchQuery.split('/')[0].split(', ').filter(tag => tag !== 'NULL'));
+    const [selectedTags, setSelectedTags] = useState(searchQuery.split('/')[0].split(',').filter(tag => tag !== 'NULL'));
     const [textInput, setTextInput] = useState(searchQuery.split('/')[1] !== 'NULL' ? searchQuery.split('/')[1] : '');
-    const tagOptions = ['Python', 'C++', 'Java', 'Machine Learning', 'data analysis', 'smart devices', 'social network'];
+    const tagOptions = ['Python', 'C++', 'Java', 'Machine Learning', 'data analysis', 'smart devices', 'social network', 'visualization'];
 
     const handleSubmit = async (e) => {
         e.preventDefault();
     
         // Combine the selected tags into a single string separated by commas
-        const tagsString = selectedTags.join(', ');
+        const tagsString = selectedTags.join(',');
     
         // Create the search query using the new format
         const searchQuery = `${tagsString}/${textInput}`;
