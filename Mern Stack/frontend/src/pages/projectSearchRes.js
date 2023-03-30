@@ -96,12 +96,23 @@ const Home = () => {
     setCardContainerKey(prevKey => prevKey + 1);
   }
 
+  const highlightText = (text, keyword) => {
+    if (!keyword) {
+      return text;
+    }
+    const regex = new RegExp(`(${keyword})`, 'gi');
+    return text.replace(regex, '<span class="highlight">$1</span>');
+  };
+
+
   return (
      
     <div>
 
 
-
+    <div className="result-info">
+      <p>Total search results: {searchResults.length}</p>
+    </div>
     <div className="card-container" key={cardContainerKey}>
     {resultQueue.current && resultQueue.current.map((project, index) =>
       <TinderCard key={project._id} 
