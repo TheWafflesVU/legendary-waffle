@@ -13,8 +13,18 @@ import Chatroom from './pages/Chatroom'
 import ProjectSearchRes from './pages/projectSearchRes'
 import Sidebar from './components/Sidebar.js'
 import Search from './components/searchbar.js'
-import { useState } from 'react'
+import { React, useState } from 'react'
+import backgroundImage from './background.jpg';
 
+
+const appStyle = {
+  backgroundImage: `url(${backgroundImage})`,
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'center',
+  minHeight: '100vh',
+  width: '100%',
+};
 
 
 function App() {
@@ -24,7 +34,7 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="App" style={appStyle}>
       <BrowserRouter>
       {user && <Sidebar />}
         <Navbar />
