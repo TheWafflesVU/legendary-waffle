@@ -126,15 +126,18 @@ const searchProject = async (req, res) => {
             description: 1,
             tags: 1,
             nums: 1,
-            matchedTags: { $size: { $setIntersection: [tagsFilter, "$tags"] } } // count the number of matched tags
+            matchedTags: { $size: { $setIntersection: ["$tags", tagsFilter] } }, // count the number of matched tags
+            temp: { $setIntersection: [tagsFilter, "$tags"] }
           }
         },
         {
           $sort: {
-            matchedTags: -1, // sort by the number of matched tags, in descending order
+            matchedTags: 1, // sort by the number of matched tags, in descending order
           }
         }
       ])
+
+      console.log(pro);
   } else if (tagsFilter[0] == 'NULL'){
     console.log("Search based on keywords")
     pro = await Project.aggregate([
@@ -189,7 +192,7 @@ const searchProject = async (req, res) => {
       },
       {
         $sort: {
-          matchedTags: -1, // sort by the number of matched tags, in descending order
+          matchedTags: 1, // sort by the number of matched tags, in descending order
           score: { $meta: "textScore" } // then sort by relevance score, in descending order
         }
       }
