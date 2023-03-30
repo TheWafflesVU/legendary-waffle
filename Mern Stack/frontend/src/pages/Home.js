@@ -9,7 +9,6 @@ import ProjectForm from '../components/ProjectForm'
 const Home = () => {
   const {projects, dispatch} = useProjectsContext()
   const {user} = useAuthContext()
-  const [searchResults, setSearchResults] = useState([]);
   
   useEffect(() => {
     const fetchProjects = async () => {

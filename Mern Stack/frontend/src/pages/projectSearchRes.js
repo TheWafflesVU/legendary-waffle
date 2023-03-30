@@ -1,38 +1,46 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useAuthContext } from "../hooks/useAuthContext";
-import { useProjectsContext } from "../hooks/useProjectsContext"
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import TinderCard from 'react-tinder-card'
 import styles from "./projectSearchRes.css"
 
 
 const Home = () => {
 
-  const { user } = useAuthContext()
-  const [searchResults, setSearchResults] = useState([])
-  let projectQueue = []
-
-  // Extract search keyword from query parameter
+  // Extract search tag from query parameter
   const searchTag = useMemo(() => {
     const params = new URLSearchParams(window.location.search);
     return params.get('tag') || '';
   }, []);
 
+  // Extract search keywords from query parameter
   const searchKeyword = useMemo(() => {
     const params = new URLSearchParams(window.location.search);
     return params.get('search') || '';
   }, []);
 
-  // When card leaves the screen, print a message and reset the state of queue
-  const outOfFrame = (project) => {
-    console.log(project.title + ' left the screen!')
-    projectQueue = searchResults.filter(pro => pro._id !== project._id)
-    setSearchResults(projectQueue)
-  }
+  // Authentication & Projects
+  const { user } = useAuthContext()
+  const [searchResults, setSearchResults] = useState([])
+
+  // Store query from database
+  const resultQueue = useRef([])
+
+  // Store reference & value of index to the last element of current queue
+  const lastRef = useRef(0)
+  const [last, setlast] = useState(0)
+
+  // Store reference to the TinderCard compoenents
+  const proRef = useRef([])
+
+  // Helpers for re-rendering & refetching
+  const [cardContainerKey, setCardContainerKey] = useState(0);
+  const [refresh, setRefresh] = useState(true)
+
 
   useEffect(() => {
     const fetchResults = async () => {
-      if (user !== null) {
+      if (user) {
         const response = await fetch(`/api/projects/search/${searchTag}/${searchKeyword}`, {
           headers: {
             'Content-Type': 'application/json',
@@ -44,19 +52,65 @@ const Home = () => {
       }
     }
 
-    if (user){
+    if (user) {
+      console.log("fetching projects")
       fetchResults()
-      projectQueue = searchResults
     }
+  }, [user, refresh])
 
-  }, [user]);
 
+  // Set the queues
+  useEffect(() => {
+    if (Array.isArray(searchResults)){
+      console.log("updating queues")
+      resultQueue.current = searchResults
+      lastRef.current = searchResults.length - 1 
+      setlast(lastRef)
+      proRef.current = Array(searchResults.length).fill(0).map((i) => React.createRef())
+      setCardContainerKey(prevKey => prevKey + 1);
+    }
+  }, [searchResults])
+
+  // Update current index
+  const updateIndex = (val) => {
+    lastRef.current = val
+    setlast(val)
+  }
+
+  // When card leaves the screen
+  const outOfFrame = (title, index) => {
+    console.log(title)
+    lastRef.current >= index && proRef.current[index].current.restoreCard()
+  }
+  
+  // Regret button
+  const goBack = async () => {
+    const newIndex = last + 1
+    updateIndex(newIndex)
+    await proRef.current[newIndex].current.restoreCard()
+  }
+
+  // Reset queue
+  const reset = () => {
+    setRefresh(!refresh)
+    setCardContainerKey(prevKey => prevKey + 1);
+  }
 
   return (
      
-    <div className="card-container">
-    {searchResults && searchResults.map(project =>
-      <TinderCard key={project._id} onCardLeftScreen={() => outOfFrame(project)} className="cards">
+    <div>
+
+
+
+    <div className="card-container" key={cardContainerKey}>
+    {resultQueue.current && resultQueue.current.map((project, index) =>
+      <TinderCard key={project._id} 
+        ref = {proRef.current[index]}
+        onSwipe ={() => updateIndex(index - 1)} 
+        onCardLeftScreen = {() => outOfFrame(project.title, index)}
+        preventSwipe={"down"} 
+        className="cards"
+        >
         <div className="card-body">
           <h5 className="card-title">{project.title}</h5>
           <div className="d-flex justify-content-between">
@@ -74,9 +128,17 @@ const Home = () => {
           <hr />
           <p className="card-des">{project.description}</p>
         </div>
-      </TinderCard>
-    )}
-    </div>
-  )
+    </TinderCard>
+  )}
+
+  </div>
+
+
+      <button onClick={goBack} className="button-51">Regret button</button>
+      <button onClick={reset} className="button-51">Show results again?</button>
+  
+  </div>
+)
+
 };
 export default Home;
