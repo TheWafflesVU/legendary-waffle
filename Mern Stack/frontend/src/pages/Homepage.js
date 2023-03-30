@@ -8,6 +8,7 @@ const Home = () => {
   
     <View>
 
+          
           <ProjectCard />
           
           
