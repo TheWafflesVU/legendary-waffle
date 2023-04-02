@@ -30,7 +30,6 @@ const appStyle = {
 function App() {
   const { user } = useAuthContext()
   const [search, setSearch] = useState("");
-  console.log(search)
 
 
   return (
