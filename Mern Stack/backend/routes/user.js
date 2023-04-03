@@ -2,7 +2,7 @@ const express = require('express')
 const auth = require('../middleware/requireAuth')
 
 // controller functions
-const { loginUser, signupUser, deleteUser } = require('../controllers/userController')
+const { loginUser, signupUser, updateUser, deleteUser } = require('../controllers/userController')
 
 const router = express.Router()
 
@@ -11,6 +11,9 @@ router.post('/login', loginUser)
 
 // signup route
 router.post('/signup', signupUser)
+
+// update route
+router.put('/:id', auth, updateUser)
 
 // delete route
 router.delete('/delete', auth, deleteUser)

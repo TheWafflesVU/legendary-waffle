@@ -56,4 +56,37 @@ const deleteUser = async (req, res) => {
   }
 }
 
-module.exports = { signupUser, loginUser, deleteUser }
+// update a user
+const updateUser = async (req, res) => {
+  const { lastName, firstName, phoneNumber, year, languages, roles } = req.body;
+
+  // Verify user is authenticated
+  const { _id } = req.user;
+
+  try {
+    // Find user by ID
+    const user = await User.findById(_id);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Update only the provided fields
+    if (lastName) user.lastName = lastName;
+    if (firstName) user.firstName = firstName;
+    if (phoneNumber) user.phoneNumber = phoneNumber;
+    if (year) user.year = year;
+    if (languages) user.languages = languages;
+    if (roles) user.roles = roles;
+
+    await user.save();
+
+    res.json({ message: 'User profile updated successfully' });
+
+  } catch (err) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+}
+
+module.exports = { signupUser, loginUser, deleteUser, updateUser }
