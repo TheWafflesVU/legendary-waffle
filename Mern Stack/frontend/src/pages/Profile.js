@@ -1,24 +1,30 @@
 import { useState } from "react"
-import { useAuthContext } from '../hooks/useAuthContext'
+import { useProfile } from "../hooks/useProfile"
 
 const Profile = () => {
- 
-  const { user } = useAuthContext()
-
-  const [firstname, setFirstname] = useState('')
-  const [lastname, setLastname] = useState('')
-  const [phone, setPhone] = useState('')
+  const [firstName, setFirstname] = useState('')
+  const [lastName, setLastname] = useState('')
+  const [phoneNumber, setPhone] = useState('')
   const [year, setYear] = useState('')
   const [languages, setLanguages] = useState([])
   const [roles, setRoles] = useState([])
-  const [error, setError] = useState(null)
-  const [emptyFields, setEmptyFields] = useState([])
+  const { updateProfile, isLoading, error } = useProfile()
   
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const profile = {firstname, lastname, phone, year, languages, roles};
-    console.log(profile);
+    const my_profile = { firstName, lastName, phoneNumber, year, languages, roles };
+    await updateProfile(my_profile);
+
+    if (isLoading) {
+      console.log("Updating profile...")
+    }
+
+    if (error) {
+      console.error(error)
+    }
+    
+    console.log(my_profile);
   }
 
   const handleLanguages = (event) => {
@@ -44,9 +50,9 @@ const Profile = () => {
   return (
     <form className="profile" onSubmit={handleSubmit}>
 
-        <div className="profile-image">
+        {/* <div className="profile-image">
           < img className="rounded-circle" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" />
-        </div>
+        </div> */}
 
         <div className="profile-header">
             <h3>Profile Settings</h3>
@@ -104,16 +110,6 @@ const Profile = () => {
 
           <div className="languages">
             <label className="labels">Proficient programming languages</label>
-            {/* <select className="form-control" onChange={(e) => setLanguages(e.target.value)} required>
-              <option value="">-- select a language --</option>
-              <option value="C++">C++</option>
-              <option value="Python">Python</option>
-              <option value="Java">Java</option>
-              <option value="JavaScript">JavaScript</option>
-              <option value="Ruby">Ruby</option>
-              <option value="PHP">PHP</option>
-              <option value="Swift">Swift</option>
-            </select> */}
             <div className="form-control">
               <input type="checkbox" id="c++" name="languages" value="C++" onChange={(e) => handleLanguages(e)} />
               <label htmlFor="c++">C++</label>

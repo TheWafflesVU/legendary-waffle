@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const validator = require('validator')
-// const { ObjectId } = require('mongodb')
 
 const Schema = mongoose.Schema
 
@@ -15,7 +14,12 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  
+  lastName: String,
+  firstName: String,
+  phoneNumber: String,
+  year: String,
+  languages: [String],
+  roles: [String]
 })
 
 // static signup method
@@ -48,7 +52,7 @@ userSchema.statics.signup = async function(email, password) {
 
   return user
 }
-
+ 
 // static login method
 userSchema.statics.login = async function(email, password) {
 
