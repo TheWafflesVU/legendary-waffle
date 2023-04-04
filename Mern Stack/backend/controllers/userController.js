@@ -46,13 +46,13 @@ const signupUser = async (req, res) => {
 
 // delete a user
 const deleteUser = async (req, res) => {
-  const {email, password} = req.body
+  const { _id } = req.user;
 
   try {
-    await User.findByIdAndDelete(req.user_id)
-    res.json({message: "User deleted Successfully"})
+    const user = await User.delete(_id)
+    res.status(200).json({ message: 'User deleted', user: user });
   } catch (error) {
-    res.status(400).json({error: error.message})
+    res.status(400).json({ message: error.message });
   }
 }
 
