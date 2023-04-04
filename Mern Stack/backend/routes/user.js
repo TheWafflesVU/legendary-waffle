@@ -16,6 +16,6 @@ router.post('/signup', signupUser)
 router.put('/:id', auth, updateUser)
 
 // delete route
-router.delete('/delete', auth, deleteUser)
+router.delete('/:email', auth, deleteUser)
 
 module.exports = router
