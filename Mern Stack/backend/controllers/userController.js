@@ -32,7 +32,7 @@ const signupUser = async (req, res) => {
     const r = await axios.put(
       "https://api.chatengine.io/users/",
       { username: email, secret: email},
-      { headers: { "Private-Key": "6db25de1-7712-4d48-a4b0-dc325eb36cf7" } }
+      { headers: { "Private-Key": "054ccfb1-b7e4-4701-8e4d-1746ffd49efb" } }
     )
 
     // create a token
@@ -40,6 +40,7 @@ const signupUser = async (req, res) => {
 
     res.status(200).json({email, token})
   } catch (error) {
+    console.log("error cathed");
     res.status(400).json({error: error.message})
   }
 }

@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 const projectRoutes = require('./routes/projects')
 const userRoutes = require('./routes/user')
 const cors = require("cors")
+const http = require('http')
+const { Server } = require('socket.io')
 
 // express app
 const app = express()
@@ -18,6 +20,36 @@ app.use((req, res, next) => {
     next()
 })
 
+const server = http.createServer(app)
+
+const io = new Server(server, {
+    cors: {
+      origin: 'http://localhost:3000',
+      methods: ['GET', 'POST'],
+    },
+  })
+
+io.on('connection', (socket) => {
+    console.log(`User connected ${socket.id}`)
+
+    socket.on("disconnect", () => {
+        console.log("User Disconnected", socket.id);
+    })
+
+
+    socket.on("join_room", (data) => {
+        socket.join(data);
+        console.log(`User with ID: ${socket.id} joined room: ${data}`);
+      });
+
+    socket.on("send_message", (data) => {
+
+        console.log(data)
+        socket.to(data.room).emit("receive_message", data)
+
+    })
+});
+
 // routes
 app.use('/api/projects', projectRoutes)
 app.use('/api/user', userRoutes)
@@ -28,7 +60,7 @@ mongoose.set('strictQuery', false);
 mongoose.connect(process.env.MONG_URI)
     .then(() => {
         // listen for requests
-        app.listen(process.env.PORT, () => {
+        server.listen(process.env.PORT, () => {
         console.log('connected to db & listening on port', process.env.PORT)
 })
     })
