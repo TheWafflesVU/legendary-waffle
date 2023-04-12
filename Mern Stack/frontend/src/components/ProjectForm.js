@@ -11,7 +11,28 @@ const ProjectForm = () => {
   const [nums, setNums] = useState('')
   const [error, setError] = useState(null)
   const [emptyFields, setEmptyFields] = useState([])
-  const [tags, setTags] = useState()
+  const [selectedTags, setSelectedTags] = useState(new Set())
+
+  const availableTags = [
+      'Python', 
+      'C++', 
+      'Java', 
+      'Machine Learning', 
+      'data analysis', 
+      'smart devices', 
+      'social network', 
+      'visualization'
+  ]
+
+  const handleTagChange = (tag) => {
+    const newSelectedTags = new Set(selectedTags)
+    if (newSelectedTags.has(tag)) {
+      newSelectedTags.delete(tag)
+    } else {
+      newSelectedTags.add(tag)
+    }
+    setSelectedTags(newSelectedTags)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -21,7 +42,7 @@ const ProjectForm = () => {
       return
     }
 
-    const project = {title, description, nums}
+    const project = {title, description, tags: Array.from(selectedTags), nums}
 
     const response = await fetch('/api/projects', {
       method: 'POST',
@@ -43,7 +64,6 @@ const ProjectForm = () => {
       setNums('')
       setError(null)
       setEmptyFields([])
-      setTags('')
       dispatch({type: 'CREATE_PROJECT', payload: json})
     }
   }
@@ -69,12 +89,20 @@ const ProjectForm = () => {
       />
 
       <label>Tags:</label>
+      <div className="proj-tag-container">
+        {availableTags.map((tag) => (
+        <div key={tag} className="proj-tag-option">
       <input 
-        type="text"
-        onChange={(e) => setDescription(e.target.value)}
-        value={description}
-        className={emptyFields.includes('description') ? 'error' : ''}
+        type="checkbox"
+        id={`tag-${tag}`}
+        className="proj-tag-checkbox"
+        checked={selectedTags.has(tag)}
+        onChange={() => handleTagChange(tag)}
       />
+      <label htmlFor={`tag-${tag}`} className="proj-tag-label">{tag}</label>
+    </div>
+      ))}
+    </div>
 
       <label>Required members:</label>
       <input 

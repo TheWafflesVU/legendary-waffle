@@ -6,7 +6,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Navbar from './components/Navbar'
 
-
+import Home from './pages/Home'
 import Homepage from './pages/Homepage'
 import Profile from './pages/Profile'
 import Chatroom from './pages/Chatroom'
@@ -55,6 +55,11 @@ function App() {
             <Route 
               path='/chatroom'
               element={user ? <Chatroom /> : <Navigate to="/" />}
+            />
+
+            <Route 
+              path='/home'
+              element={user ? <Home /> : <Navigate to="/" />}
             />
 
             <Route path='/projectSearchRes' element={<ProjectSearchRes/>} />
