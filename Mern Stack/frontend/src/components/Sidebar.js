@@ -29,6 +29,11 @@ function Sidebar() {
           <NavText>Chatroom</NavText>
         </NavItem>
 
+        <NavItem eventKey='home'>
+          <NavIcon><i className='fa fa-fw fa-comment' style={{fontSize:"1.5em"}}></i></NavIcon>
+          <NavText>Home</NavText>
+        </NavItem>
+
       </SideNav.Nav>
     </SideNav>);
 }
