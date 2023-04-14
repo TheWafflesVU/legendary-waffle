@@ -4,6 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const projectRoutes = require('./routes/projects')
 const userRoutes = require('./routes/user')
+const messageRoutes = require('./routes/message')
 const cors = require("cors")
 const http = require('http')
 const { Server } = require('socket.io')
@@ -24,8 +25,8 @@ const server = http.createServer(app)
 
 const io = new Server(server, {
     cors: {
-      origin: 'http://localhost:3000',
-      methods: ['GET', 'POST'],
+      origin: 'http://10.66.200.137:3000',
+      methods: ['GET', 'POST', 'DELETE'],
     },
   })
 
@@ -53,6 +54,7 @@ io.on('connection', (socket) => {
 // routes
 app.use('/api/projects', projectRoutes)
 app.use('/api/user', userRoutes)
+app.use('/api/message', messageRoutes)
 
 mongoose.set('strictQuery', false);
 

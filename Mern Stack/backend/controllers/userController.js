@@ -85,6 +85,7 @@ const updateUser = async (req, res) => {
   }
 }
 
+
 // get a user
 const getUser = async (req, res) => {
   const { _id } = req.user;
@@ -99,7 +100,61 @@ const getUser = async (req, res) => {
     console.error(err)
     res.status(500).json({ error: 'Server error' })
   }
+}
+
+// update user's room info
+const joinRoom = async (req, res) => {
+
+  const { room_number } = req.body
+
+  // Verify user is authenticated
+  const { _id } = req.user
+
+  try {
+    // Find user by ID
+    const user = await User.findById(_id)
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    } 
+
+    // Update only the provided fields
+    if (room_number && !user.rooms.includes(room_number)){
+        user.rooms = [...user.rooms, room_number]
+        await user.save()
+        res.json({ message: 'User room stored on backend successfully' });
+    
+    } else {
+      res.json({ message: 'You may have entered duplicate/invalid room number' });
+    }
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
 
 }
 
-module.exports = { signupUser, loginUser, deleteUser, updateUser, getUser }
+const getRoomNumber = async (req, res) => {
+  // Verify user is authenticated
+
+  const { _id } = req.user
+
+  try {
+    // Find user by ID
+    const user = await User.findById(_id)
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    } 
+
+    res.json(user.rooms)
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+}
+
+module.exports = { signupUser, loginUser, deleteUser, updateUser, joinRoom, getRoomNumber, getUser}
+

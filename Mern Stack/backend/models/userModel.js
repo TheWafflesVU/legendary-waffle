@@ -19,7 +19,8 @@ const userSchema = new Schema({
   phoneNumber: String,
   year: String,
   languages: [String],
-  roles: [String]
+  roles: [String],
+  rooms: [String],
 })
 
 // static signup method
