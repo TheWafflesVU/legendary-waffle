@@ -19,7 +19,7 @@ function Sidebar() {
           <NavText>Home</NavText>
         </NavItem>
 
-        <NavItem eventKey='profile'>
+        <NavItem eventKey='myprofile'>
           <NavIcon><i className='fa fa-fw fa-user' style={{fontSize:"1.5em"}}></i></NavIcon>
           <NavText>Profile</NavText>
         </NavItem>
@@ -27,6 +27,11 @@ function Sidebar() {
         <NavItem eventKey='chatroom'>
           <NavIcon><i className='fa fa-fw fa-comment' style={{fontSize:"1.5em"}}></i></NavIcon>
           <NavText>Chatroom</NavText>
+        </NavItem>
+
+        <NavItem eventKey='home'>
+          <NavIcon><i className='fa fa-fw fa-comment' style={{fontSize:"1.5em"}}></i></NavIcon>
+          <NavText>Home</NavText>
         </NavItem>
 
       </SideNav.Nav>

@@ -29,12 +29,6 @@ const signupUser = async (req, res) => {
   try {
     const user = await User.signup(email, password)
 
-    const r = await axios.put(
-      "https://api.chatengine.io/users/",
-      { username: email, secret: email},
-      { headers: { "Private-Key": "054ccfb1-b7e4-4701-8e4d-1746ffd49efb" } }
-    )
-
     // create a token
     const token = createToken(user._id)
 
@@ -82,7 +76,8 @@ const updateUser = async (req, res) => {
 
     await user.save();
 
-    res.json({ message: 'User profile updated successfully' });
+    const token = createToken(user._id)
+    res.status(200).json({ email: user.email, token })
 
   } catch (err) {
     console.error(error);
@@ -90,4 +85,21 @@ const updateUser = async (req, res) => {
   }
 }
 
-module.exports = { signupUser, loginUser, deleteUser, updateUser }
+// get a user
+const getUser = async (req, res) => {
+  const { _id } = req.user;
+
+  try {
+    const user = await User.findById(_id)
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' })
+    }
+    res.json(user)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: 'Server error' })
+  }
+
+}
+
+module.exports = { signupUser, loginUser, deleteUser, updateUser, getUser }

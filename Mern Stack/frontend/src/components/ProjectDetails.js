@@ -29,10 +29,16 @@ const ProjectDetails = ({ project }) => {
   return (
     <div className="project-details">
       <h4>{project.title}</h4>
+      <p><strong>User Email: </strong>{project.email}</p>
       <p><strong>Description: </strong>{project.description}</p>
       <p><strong>Required members: </strong>{project.nums}</p>
+      <p><strong>Tags: </strong>
+          {project.tags.map((tag, index) => (
+            <span key={index} className="tag">{tag}</span>
+          ))}
+      </p>
       <p>{formatDistanceToNow(new Date(project.createdAt), { addSuffix: true })}</p>
-      <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
+      <span1 className="material-symbols-outlined" onClick={handleClick}>delete</span1>
     </div>
   )
 }
