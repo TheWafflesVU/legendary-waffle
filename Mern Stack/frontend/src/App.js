@@ -1,12 +1,15 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
 
+
 // pages & components
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Navbar from './components/Navbar'
 
+
 import Home from './pages/Home'
+
 import Homepage from './pages/Homepage'
 import Profile from './pages/Profile'
 import MyProfile from './pages/MyProfile'
@@ -16,7 +19,10 @@ import Sidebar from './components/Sidebar.js'
 import Search from './components/searchbar.js'
 import { React, useState } from 'react'
 import backgroundImage from './background.jpg';
+
 import backgroundImage2 from './background2.jpg';
+import io from 'socket.io-client'
+
 
 const appStyle = {
   // backgroundImage: `url(${backgroundImage})`,
@@ -28,6 +34,7 @@ const appStyle = {
   width: '100%',
 };
 
+const socket = io('http://10.76.70.176:4000')
 
 function App() {
   const { user } = useAuthContext()
@@ -56,7 +63,7 @@ function App() {
             />
             <Route 
               path='/chatroom'
-              element={user ? <Chatroom /> : <Navigate to="/" />}
+              element={user ? <Chatroom socket={socket} /> : <Navigate to="/" />}
             />
 
             <Route path="/myprofile" element={<MyProfile/>} />
