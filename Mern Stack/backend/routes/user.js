@@ -2,7 +2,7 @@ const express = require('express')
 const auth = require('../middleware/requireAuth')
 
 // controller functions
-const { loginUser, signupUser, updateUser, deleteUser } = require('../controllers/userController')
+const { loginUser, signupUser, updateUser, deleteUser, getUser } = require('../controllers/userController')
 
 const router = express.Router()
 
@@ -17,5 +17,8 @@ router.put('/:id', auth, updateUser)
 
 // delete route
 router.delete('/:email', auth, deleteUser)
+
+// GET a user profile
+router.get('/:id', auth, getUser)
 
 module.exports = router

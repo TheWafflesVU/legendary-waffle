@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useProfile } from "../hooks/useProfile"
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   const [firstName, setFirstname] = useState('')
@@ -9,6 +10,7 @@ const Profile = () => {
   const [languages, setLanguages] = useState([])
   const [roles, setRoles] = useState([])
   const { updateProfile, isLoading, error } = useProfile()
+  const navigate = useNavigate()
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +26,9 @@ const Profile = () => {
       console.error(error)
     }
     
-    console.log(my_profile);
+    console.log(my_profile)
+
+    navigate('/myprofile')
   }
 
   const handleLanguages = (event) => {
