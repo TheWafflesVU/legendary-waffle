@@ -100,7 +100,8 @@ input.text-input {
 }
 
 button[type="submit"] {
-  background-color: #0a0b0b;
+  /* background-color: #11b7b7; */
+  background-color: #3c99dc;
   border: none;
   border-radius: 20px;
   color: #fff;

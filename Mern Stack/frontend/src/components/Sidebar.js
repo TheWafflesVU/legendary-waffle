@@ -19,7 +19,7 @@ function Sidebar() {
           <NavText>Home</NavText>
         </NavItem>
 
-        <NavItem eventKey='profile'>
+        <NavItem eventKey='myprofile'>
           <NavIcon><i className='fa fa-fw fa-user' style={{fontSize:"1.5em"}}></i></NavIcon>
           <NavText>Profile</NavText>
         </NavItem>
