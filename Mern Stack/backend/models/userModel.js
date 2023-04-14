@@ -76,7 +76,7 @@ userSchema.statics.login = async function(email, password) {
 // static delete method
 userSchema.statics.delete = async function(_id) {
 
-  const user = await this.findByIdAndDelete({ _id });
+  const user = await this.findByIdAndDelete({  });
   if (!user) {
     throw Error('User not found');
   }
