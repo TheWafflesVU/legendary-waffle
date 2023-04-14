@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useProjectsContext } from "../hooks/useProjectsContext"
 import { useAuthContext } from '../hooks/useAuthContext'
 
@@ -12,6 +12,7 @@ const ProjectForm = () => {
   const [error, setError] = useState(null)
   const [emptyFields, setEmptyFields] = useState([])
   const [selectedTags, setSelectedTags] = useState(new Set())
+  // const [email, setEmail] = useState('')
 
   const availableTags = [
       'Python', 
@@ -40,16 +41,16 @@ const ProjectForm = () => {
     if (!user) {
       setError('You must be logged in')
       return
-    }
-
+    } 
+  
     const project = {title, description, tags: Array.from(selectedTags), nums}
 
-    const response = await fetch('/api/projects', {
+    const response = await fetch('/api/projects/', {
       method: 'POST',
       body: JSON.stringify(project),
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${user.token}`
+        'Authorization': `Bearer ${user.token}`,
+        'Content-Type': 'application/json'
       }
     })
     const json = await response.json()
@@ -64,6 +65,7 @@ const ProjectForm = () => {
       setNums('')
       setError(null)
       setEmptyFields([])
+      
       dispatch({type: 'CREATE_PROJECT', payload: json})
     }
   }
@@ -112,6 +114,9 @@ const ProjectForm = () => {
         className={emptyFields.includes('nums') ? 'error' : ''}
       />
 
+    
+
+      
       <button>Add Project</button>
       {error && <div className="error">{error}</div>}
     </form>

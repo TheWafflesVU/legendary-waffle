@@ -2,6 +2,7 @@ const Project = require('../models/projectModel')
 const mongoose = require('mongoose')
 
 
+
 // get all projects
 const getProjects = async (req, res) => {
 
@@ -30,7 +31,7 @@ const getProject = async (req, res) => {
 
 // create new project
 const createProject = async (req, res) => {
-  const { title, description, tags, nums } = req.body;
+  const { title, description, tags, nums} = req.body;
 
   let emptyFields = [];
 
@@ -46,38 +47,21 @@ const createProject = async (req, res) => {
   if (!tags) {
     emptyFields.push("tags");
   }
+  
   if (emptyFields.length > 0) {
     return res
       .status(400)
       .json({ error: "Please fill in all the fields", emptyFields });
   }
 
-  // // Define the allowed tags
-  // const allowedTags = [
-  //   'Python', 
-  //   'C++', 
-  //   'Java', 
-  //   'Machine Learning', 
-  //   'data analysis', 
-  //   'smart devices', 
-  //   'social network', 
-  //   'visualization'
-  // ];
-
-  // // Check if the submitted tags are within the allowed set
-  // const invalidTags = tags.filter((tag) => !allowedTags.includes(tag));
-  // if (invalidTags.length > 0) {
-  //   return res.status(400).json({
-  //     error: "Please select tags from the allowed options",
-  //     invalidTags,
-  //   });
-  // }
-
-
+  
+  
   // add doc to db
   try {
     const user_id = req.user._id;
-    const project = await Project.create({ title, description, nums, tags, user_id });
+    const email = req.user.email;
+    
+    const project = await Project.create({ title, description, nums, tags, email, user_id });
     res.status(200).json(project);
   } catch (error) {
     res.status(400).json({ error: error.message });

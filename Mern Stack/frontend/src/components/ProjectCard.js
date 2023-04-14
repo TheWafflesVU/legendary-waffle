@@ -99,6 +99,7 @@ const ProjectCard = () => {
           className="cards"
           >
           <div className="card-body">
+          <h5 className="creator">Creator: {project.email}</h5>
             <h5 className="card-title">{project.title}</h5>
             <div className="d-flex justify-content-between">
               <p className="card-text mb-0">

@@ -29,6 +29,7 @@ const ProjectDetails = ({ project }) => {
   return (
     <div className="project-details">
       <h4>{project.title}</h4>
+      <p><strong>User Email: </strong>{project.email}</p>
       <p><strong>Description: </strong>{project.description}</p>
       <p><strong>Required members: </strong>{project.nums}</p>
       <p><strong>Tags: </strong>
