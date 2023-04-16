@@ -5,19 +5,9 @@ import ProjectCard from '../components/ProjectCard'
 const Home = () => {
 
   return (
-  
     <View>
-
-          
-          <ProjectCard />
-          
-          
-        
+      <ProjectCard />
     </View>
-
-    
-
-    
   )
 }
 

@@ -57,7 +57,7 @@ header a {
   font-size: 0.9em;
   color: #555;
 }
-.project-details span {
+.project-details span1 {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -66,6 +66,16 @@ header a {
   padding: 6px;
   border-radius: 50%;
   color: #333;
+}
+
+/* tag styling */
+.project-details span {
+  background-color: #e0e0e0;
+  color: #333;
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin-right: 5px;
+  font-size: 0.8em;
 }
 
 /* new project form */
@@ -101,6 +111,42 @@ div.error {
 input.error {
   border: 1px solid var(--error);
 }
+
+.proj-tag-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.proj-tag-option {
+  margin: 5px;
+}
+
+.proj-tag-checkbox {
+  display: none;
+}
+
+.proj-tag-label {
+  display: inline-block;
+  padding: 8px 12px;
+  background-color: #f0e7e7;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.proj-tag-label:hover {
+  background-color: #e1e1e1;
+}
+
+.proj-tag-checkbox:checked + .tag-label {
+  background-color: #1aac83;
+  color: #fff;
+  border-color: #1aac83;
+}
+
+
+
 
 /* navbar */
  /* nav {
@@ -231,7 +277,7 @@ form.signup, form.login {
 }
 
 .profile-actions button {
-  background-color: #007bff;
+  background-color: #1aac83;
   color: #fff;
   border: none;
   padding: 10px 20px;

@@ -18,11 +18,15 @@ const projectSchema = new Schema({
   description: {
     type: String,
     required: true
+   },
+  email: {
+    type: String,
+    required: true
   },
   user_id: {
     type: String,
     required: true
-  }
+  },
 }, { timestamps: true })
 
 projectSchema.index({ title: 'text', description: 'text' })

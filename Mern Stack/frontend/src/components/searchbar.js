@@ -46,7 +46,10 @@ const Search = () => {
     const searchQuery = new URLSearchParams(location.search).get('search') || 'NULL/NULL';
     const [selectedTags, setSelectedTags] = useState(searchQuery.split('/')[0].split(',').filter(tag => tag !== 'NULL'));
     const [textInput, setTextInput] = useState(searchQuery.split('/')[1] !== 'NULL' ? searchQuery.split('/')[1] : '');
-    const tagOptions = ['Python', 'C++', 'Java', 'Machine Learning', 'data analysis', 'smart devices', 'social network', 'visualization'];
+    const tagOptions = ['Python', 'C++', 'Java', 'JavaScript', 'C',
+                        'Front-end', 'Back-end', 'Full-stack',
+                        'Machine Learning', 'Data Analysis', 'Smart Devices', 'Artificial Intelligence',
+                        'Social Network', 'Visualization'];
 
     const handleSubmit = async (e) => {
         e.preventDefault();

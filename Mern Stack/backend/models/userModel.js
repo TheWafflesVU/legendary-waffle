@@ -27,8 +27,14 @@ const userSchema = new Schema({
   confirmed: {
     type: Boolean,
     defaultValue: false
-  }
-  
+  },
+  lastName: String,
+  firstName: String,
+  phoneNumber: String,
+  year: String,
+  languages: [String],
+  roles: [String],
+  rooms: [String],
 })
 
 // static signup method
@@ -83,7 +89,7 @@ userSchema.statics.signup = async function(email, password) {
 
   return user
 }
-
+ 
 // static login method
 userSchema.statics.login = async function(email, password) {
 
@@ -107,5 +113,16 @@ userSchema.statics.login = async function(email, password) {
 
   return user
 }
+
+// static delete method
+userSchema.statics.delete = async function(_id) {
+
+  const user = await this.findByIdAndDelete({  });
+  if (!user) {
+    throw Error('User not found');
+  }
+
+  return user;
+};
 
 module.exports = mongoose.model('User', userSchema)

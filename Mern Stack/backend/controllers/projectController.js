@@ -2,6 +2,7 @@ const Project = require('../models/projectModel')
 const mongoose = require('mongoose')
 
 
+
 // get all projects
 const getProjects = async (req, res) => {
 
@@ -30,32 +31,42 @@ const getProject = async (req, res) => {
 
 // create new project
 const createProject = async (req, res) => {
-  const {title, description, tags, nums} = req.body
+  const { title, description, tags, nums} = req.body;
 
-  let emptyFields = []
+  let emptyFields = [];
 
-  if(!title) {
-    emptyFields.push('title')
+  if (!title) {
+    emptyFields.push("title");
   }
-  if(!description) {
-    emptyFields.push('description')
+  if (!description) {
+    emptyFields.push("description");
   }
-  if(!nums) {
-    emptyFields.push('nums')
+  if (!nums) {
+    emptyFields.push("nums");
   }
-  if(emptyFields.length > 0) {
-    return res.status(400).json({ error: 'Please fill in all the fields', emptyFields })
+  if (!tags) {
+    emptyFields.push("tags");
+  }
+  
+  if (emptyFields.length > 0) {
+    return res
+      .status(400)
+      .json({ error: "Please fill in all the fields", emptyFields });
   }
 
+  
+  
   // add doc to db
   try {
-    const user_id = req.user._id
-    const project = await Project.create({title, description, nums, tags, user_id})
-    res.status(200).json(project)
+    const user_id = req.user._id;
+    const email = req.user.email;
+    
+    const project = await Project.create({ title, description, nums, tags, email, user_id });
+    res.status(200).json(project);
   } catch (error) {
-    res.status(400).json({error: error.message})
+    res.status(400).json({ error: error.message });
   }
-}
+};
 
 // delete a project
 const deleteProject = async (req, res) => {
