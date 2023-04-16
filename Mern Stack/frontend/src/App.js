@@ -15,7 +15,9 @@ import Sidebar from './components/Sidebar.js'
 import Search from './components/searchbar.js'
 import { React, useState } from 'react'
 import backgroundImage from './background.jpg';
-
+import Confirmation from './pages/Confirmation'
+import PasswordReset from "./components/PasswordReset";
+import ForgotPassword from "./components/ForgotPassword";
 
 const appStyle = {
   backgroundImage: `url(${backgroundImage})`,
@@ -58,6 +60,10 @@ function App() {
             />
 
             <Route path='/projectSearchRes' element={<ProjectSearchRes/>} />
+            <Route path='/confirmation/:email/:emailToken' element={<Confirmation />} />
+            <Route path="/forgotpassword/:email/:token" element={<ForgotPassword />} />
+            <Route path="/password-reset" element={<PasswordReset />} />
+
           </Routes>
         </div>
       </BrowserRouter>

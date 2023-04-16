@@ -5,13 +5,12 @@ const bcrypt = require('bcrypt')
 const validator = require('validator')
 
 const transporter = nodemailer.createTransport({
-  service: 'Gmail',
+  service: "hotmail",
   auth: {
-    user: "vu.legendary.waffle@gmail.com",
-    pass: "ABCabc123!",
+    user: "legendary.waffle@outlook.com",
+    pass: "VUCS4278!",
   },
 });
-// const { ObjectId } = require('mongodb')
 
 const Schema = mongoose.Schema
 
@@ -58,27 +57,29 @@ userSchema.statics.signup = async function(email, password) {
   const salt = await bcrypt.genSalt(10)
   const hash = await bcrypt.hash(password, salt)
   const user = await this.create({ email, password: hash })
-   // async email
-   jwt.sign(
-    {
-      user: user.id,
-    },
-    process.env.SECRET, // ask
-    {
-      expiresIn: '1d',
-    },
-    (err) => {
-      const url = `http://localhost:3000/confirmation/${ process.env.SECRET }`; // ask
 
-      transporter.sendMail({
-        to: email,
-        subject: 'Confirm Email',
-        html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
-      });
-    },
-  );
 
-  
+  try {
+        const emailToken = jwt.sign(
+          {
+            user: user._id,
+          },
+          process.env.SECRET,
+          {
+            expiresIn: '1d',
+          },
+        );
+
+        const url = `http://localhost:3000/confirmation/${email}/${emailToken}`;
+
+        await transporter.sendMail({
+          to: email,
+          subject: 'Confirm Email',
+          html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
+        });
+      } catch (e) {
+        console.log(e);
+      }
 
   return user
 }

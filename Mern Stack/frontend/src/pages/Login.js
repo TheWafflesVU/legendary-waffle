@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { NavLink } from 'react-router-dom';
 import { useLogin } from "../hooks/useLogin"
 
 const Login = () => {
@@ -29,7 +30,8 @@ const Login = () => {
         value={password} 
       />
 
-      <button disabled={isLoading}>Log in</button>
+      <button disabled={isLoading} style={{ marginTop: '10px', marginBottom: '10px' }}>Log in</button>
+      <p><NavLink to="/password-reset">Forgot Password?</NavLink></p>
       {error && <div className="error">{error}</div>}
     </form>
   )

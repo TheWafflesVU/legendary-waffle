@@ -18,17 +18,6 @@ app.use((req, res, next) => {
     next()
 })
 
-app.get('/confirmation/:token', async (req, res) => {
-    try {
-      const { user: { id } } = jwt.verify(req.params.token, process.env.SECRET); // ask
-      await models.User.update({ confirmed: true }, { where: { id } });
-    } catch (e) {
-      res.send('error');
-    }
-  
-    return res.redirect('http://localhost:3000/login');
-  });
-
 // routes
 app.use('/api/projects', projectRoutes)
 app.use('/api/user', userRoutes)
