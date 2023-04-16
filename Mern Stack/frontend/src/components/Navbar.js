@@ -41,7 +41,7 @@ const Navbar = () => {
           )}
           {!user && (
             <div>
-              <Link to="/login">Login</Link>
+              <Link to="/login" style={{ marginRight: '10px' }}>Login</Link>
               <Link to="/signup">Signup</Link>
             </div>
           )}
