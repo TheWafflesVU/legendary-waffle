@@ -135,7 +135,16 @@ const Profile = () => {
               <label htmlFor="php">PHP</label>
 
               <input type="checkbox" id="swift" name="languages" value="Swift" onChange={(e) => handleLanguages(e)} />
-              <label htmlFor="swift">Swift</label>
+              <label htmlFor="Swift">Swift</label>
+
+              <input type="checkbox" id="go" name="languages" value="Go" onChange={(e) => handleLanguages(e)} />
+              <label htmlFor="Go">Go</label>
+
+              <input type="checkbox" id="html/css" name="languages" value="HTML/CSS" onChange={(e) => handleLanguages(e)} />
+              <label htmlFor="HTML/CSS">HTML/CSS</label>
+
+              <input type="checkbox" id="sql" name="languages" value="SQL" onChange={(e) => handleLanguages(e)} />
+              <label htmlFor="SQL">SQL</label>
             </div>
           </div>
 
@@ -143,13 +152,32 @@ const Profile = () => {
             <label className="labels">Roles you have experienced</label>
             <div className="form-control">
                 <input type="checkbox" id="frontend" name="roles" value="Frontend" onChange={(e) => handleRoles(e)} />
-                <label htmlFor="frontend">Frontend</label>
+                <label htmlFor="frontend">Frontend Developer</label>
 
                 <input type="checkbox" id="backend" name="roles" value="Backend" onChange={(e) => handleRoles(e)} />
-                <label htmlFor="backend">Backend</label>
+                <label htmlFor="backend">Backend Developer</label>
 
                 <input type="checkbox" id="fullstack" name="roles" value="Fullstack" onChange={(e) => handleRoles(e)} />
-                <label htmlFor="fullstack">Fullstack</label>
+                <label htmlFor="fullstack">Fullstack Developer</label>
+
+                <input type="checkbox" id="ui designer" name="roles" value="UI Designer" onChange={(e) => handleRoles(e)} />
+                <label htmlFor="UI Designer">UI Designer</label>
+
+                <input type="checkbox" id="web graphic designer" name="roles" value="Web Graphic Designer" onChange={(e) => handleRoles(e)} />
+                <label htmlFor="Web Graphic Designer">Web Graphic Designer</label>
+
+                <input type="checkbox" id="web analyst" name="roles" value="Web Analyst" onChange={(e) => handleRoles(e)} />
+                <label htmlFor="Web Analyst">Web Analyst</label>
+
+                <input type="checkbox" id="web content writer" name="roles" value="Web Content Writer" onChange={(e) => handleRoles(e)} />
+                <label htmlFor="Web Content Writer">Web Content Writer</label>
+
+                <input type="checkbox" id="quality assurance (QA) engineer" name="roles" value="Quality Assurance (QA) Engineer" onChange={(e) => handleRoles(e)} />
+                <label htmlFor="Quality Assurance (QA) Engineer">Quality Assurance (QA) Engineer</label>
+
+                <input type="checkbox" id="web project manager" name="roles" value="Web Project Manager" onChange={(e) => handleRoles(e)} />
+                <label htmlFor="Web Project Manager">Web Project Manager</label>
+
               </div>
           </div>
 

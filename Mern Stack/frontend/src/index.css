@@ -31,6 +31,10 @@ header a {
   padding: 20px;
   margin: 0 auto;
 }
+.App{
+  max-width: 3000px;
+  overflow-x: auto;
+}
 
 /* homepage */
 .home {
@@ -325,13 +329,13 @@ input[type="checkbox"]:checked + label[for] {
 }
 
 .languages .form-control {
-  column-count: 4; /* set the number of columns */
+  column-count: 5; /* set the number of columns */
   column-gap: 2em; /* set the gap between columns */
   margin-bottom: 1em;
 }
 
 .roles .form-control {
-  column-count: 4; /* set the number of columns */
+  column-count: 3; /* set the number of columns */
   column-gap: 2em; /* set the gap between columns */
   margin-bottom: 1em;
 }
@@ -340,9 +344,6 @@ input[type="checkbox"]:checked + label[for] {
   display: block;
   margin-bottom: 0.5em;
 }
-
-
-
 
 /* search */
 .search-results-container {
@@ -375,4 +376,325 @@ input[type="checkbox"]:checked + label[for] {
 
 .search-result strong {
   font-weight: bold;
+}
+
+/* Cards */
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  flex-direction: column;
+}
+
+.card-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.card-body {
+  font-size: 16px;
+  margin-right: 16px;
+}
+
+.card-des {
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+  color: #333;
+}
+
+.cards {
+  position: absolute;
+  background-color: #fffefc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 5%;
+  width: 60%;
+  height: 80%;
+  display: inline-block;
+  font-family: Arial, sans-serif;
+  font-size: 1.2rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Regret Button for Cards */
+.button-51 {
+  background-color: transparent;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  color: #00132C;
+  font-family: "Avenir Next LT W01 Bold",sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  padding: 16px 23px;
+  position: absolute;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  left: 25%;
+  display: inline-block;
+}
+
+.button-51:hover,
+.button-51:active {
+  outline: 0;
+}
+
+.button-51:hover {
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.button-51:before {
+  background-color: #f3e7ae;
+  content: "";
+  height: calc(100% + 3px);
+  position: absolute;
+  right: -7px;
+  top: -9px;
+  transition: background-color 300ms ease-in;
+  width: 100%;
+  z-index: -1;
+}
+
+.button-51:hover:before {
+  background-color: #fffca9;
+}
+
+@media (min-width: 768px) {
+  .button-51 {
+    padding: 16px 32px;
+  }
+}
+
+/* Show reulsts again Button */
+.button-52 {
+  background-color: transparent;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  color: #00132C;
+  font-family: "Avenir Next LT W01 Bold",sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  padding: 16px 23px;
+  position: absolute;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  right: 25%;
+  display: inline-block;
+}
+
+.button-52:hover,
+.button-52:active {
+  outline: 0;
+}
+
+.button-52:hover {
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.button-52:before {
+  background-color: #f3e7ae;
+  content: "";
+  height: calc(100% + 3px);
+  position: absolute;
+  right: -7px;
+  top: -9px;
+  transition: background-color 300ms ease-in;
+  width: 100%;
+  z-index: -1;
+}
+
+.button-52:hover:before {
+  background-color: #fffca9;
+}
+
+@media (min-width: 768px) {
+  .button-52 {
+    padding: 16px 32px;
+  }
+}
+
+
+/* Cards */
+.card-container-result-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  flex-direction: column;
+  margin-top: 5%;
+  margin-bottom: 3%;
+}
+
+.card-title-result-page {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.card-body-result-page {
+  font-size: 16px;
+  margin-right: 16px;
+}
+
+.card-des-result-page {
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+  color: #333;
+}
+
+.cards-result-page {
+  position: absolute;
+  background-color: #fffefc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 5%;
+  width: 50%;
+  height: 60%;
+  display: inline-block;
+  font-family: Arial, sans-serif;
+  font-size: 1.2rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.interested {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #f1f1f1;
+  color: #333;
+  font-size: 40px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  position: absolute;
+  right: 5%;
+  bottom: 5%;
+}
+
+.interested:hover {
+  background-color: #868686;
+  color: #f1f1f1;
+}
+
+/* Regret Button for Cards */
+.button-51-result-page {
+  z-index: 0;
+  background-color: transparent;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  color: #00132C;
+  font-family: "Avenir Next LT W01 Bold",sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  padding: 16px 23px;
+  position: absolute;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  left: 30%;
+  display: inline-block;
+}
+
+.button-51-result-page:hover,
+.button-51-result-page:active {
+  outline: 0;
+}
+
+.button-51-result-page:hover {
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.button-51-result-page:before {
+  background-color: #f3e7ae;
+  content: "";
+  height: calc(100% + 3px);
+  position: absolute;
+  right: -7px;
+  top: -9px;
+  transition: background-color 300ms ease-in;
+  width: 100%;
+  z-index: -1;
+}
+
+.button-51-result-page:hover:before {
+  background-color: #fffca9
+}
+
+@media (min-width: 768px) {
+  .button-51-result-page {
+    padding: 16px 32px;
+  }
+}
+
+/* Show reulsts again Button */
+.button-52-result-page {
+  background-color: transparent;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  color: #00132C;
+  font-family: "Avenir Next LT W01 Bold",sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  padding: 16px 23px;
+  position: absolute;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  right: 30%;
+  display: inline-block;
+  z-index: 0;
+}
+
+.button-52-result-page:hover,
+.button-52-result-page:active {
+  outline: 0;
+}
+
+.button-52-result-page:hover {
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.button-52-result-page:before {
+  background-color: #f3e7ae;
+  content: "";
+  height: calc(100% + 3px);
+  position: absolute;
+  right: -7px;
+  top: -9px;
+  transition: background-color 300ms ease-in;
+  width: 100%;
+  z-index: -1;
+}
+
+.button-52-result-page:hover:before {
+  background-color: #fffca9;
+}
+
+@media (min-width: 768px) {
+  .button-52-result-page {
+    padding: 16px 32px;
+  }
 }

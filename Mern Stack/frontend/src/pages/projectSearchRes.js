@@ -1,9 +1,8 @@
-import { useMemo } from 'react';
+import "../index.css"
 import { useAuthContext } from "../hooks/useAuthContext";
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import TinderCard from 'react-tinder-card'
-import styles from "./projectSearchRes.css"
-
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
 
@@ -37,6 +36,7 @@ const Home = () => {
   const [cardContainerKey, setCardContainerKey] = useState(0);
   const [refresh, setRefresh] = useState(true)
 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -85,9 +85,12 @@ const Home = () => {
   
   // Regret button
   const goBack = async () => {
-    const newIndex = last + 1
-    updateIndex(newIndex)
-    await proRef.current[newIndex].current.restoreCard()
+    console.log(last);
+    if (last < proRef.current.length - 1){
+      const newIndex = last + 1
+      updateIndex(newIndex)
+      await proRef.current[newIndex].current.restoreCard()
+    }
   }
 
   // Reset queue
@@ -96,39 +99,67 @@ const Home = () => {
     setCardContainerKey(prevKey => prevKey + 1);
   }
 
-  const highlightText = (text, keyword) => {
-    if (!keyword) {
-      return text;
-    }
-    const regex = new RegExp(`(${keyword})`, 'gi');
-    return text.replace(regex, '<span class="highlight">$1</span>');
-  };
+  const handleKeyDown = async (event) => {
 
+    const { tagName } = event.target;
+
+    if (tagName === 'INPUT' || tagName === 'TEXTAREA') {
+      return
+    }
+
+    console.log("pressed" + event.key)
+
+    if (last >= 0){
+      if (event.key === 'ArrowLeft') {
+        console.log(lastRef.current)
+        await proRef.current[lastRef.current].current.swipe("left")
+      }
+  
+      if (event.key === 'ArrowRight') {
+        console.log(lastRef.current)
+        await proRef.current[lastRef.current].current.swipe("right")
+      }
+    }
+
+  }
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [])
+
+
+  const handleChat = async (id, auth_email, name) => {
+    if (auth_email === user.email){
+      alert("You can't chat with yourself!")
+    } else {
+      navigate('/chatroom', { state: { fromRedirect: true, proj_id: id, auth_email: auth_email, proj_name: name} })
+    }
+}
 
   return (
      
     <div>
-
-
-    <div className="result-info">
-      <p>Total search results: {searchResults.length}</p>
-    </div>
-    <div className="card-container" key={cardContainerKey}>
+      
+    <div className="card-container-result-page" key={cardContainerKey}>
     {resultQueue.current && resultQueue.current.map((project, index) =>
       <TinderCard key={project._id} 
         ref = {proRef.current[index]}
         onSwipe ={() => updateIndex(index - 1)} 
         onCardLeftScreen = {() => outOfFrame(project.title, index)}
-        preventSwipe={"down"} 
-        className="cards"
+        preventSwipe={["down","up"]} 
+        className="cards-result-page"
         >
-        <div className="card-body">
-          <h5 className="card-title">{project.title}</h5>
+        <div className="card-body-result-page">
+        <h5 className="creator">Creator: {project.email}</h5>
+          <h5 className="card-title-result-page">{project.title}</h5>
           <div className="d-flex justify-content-between">
             <p className="card-text mb-0">
               <i className="bi bi-people"></i> Teammates: {project.nums}
             </p>
-            <div className="tags">
+            <div className="tags-result-page">
               {project.tags.map(tag => {
                 return <span key={tag} className="card-tag badge bg-primary">
                   {tag}
@@ -137,16 +168,16 @@ const Home = () => {
             </div>
           </div>
           <hr />
-          <p className="card-des">{project.description}</p>
+          <p className="card-des-result-page">{project.description}</p>
+          <button className="interested" onClick={() => {handleChat(project._id, project.email, project.title)}}>💬</button>
         </div>
     </TinderCard>
   )}
 
   </div>
 
-
-      <button onClick={goBack} className="button-51">Regret button</button>
-      <button onClick={reset} className="button-51">Show results again?</button>
+      <button onClick={goBack} className="button-51-result-page">Regret button</button>
+      <button onClick={reset} className="button-52-result-page">Show results again?</button>
   
   </div>
 )
