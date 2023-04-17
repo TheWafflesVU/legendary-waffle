@@ -6,7 +6,7 @@ const nodemailer = require('nodemailer')
 const bcrypt = require('bcrypt')
 
 // controller functions
-const { loginUser, signupUser, updateUser, deleteUser, joinRoom, getRoomNumber, getUser } = require('../controllers/userController')
+const { loginUser, signupUser, updateUser, deleteUser, joinRoom, getRoomNumber, getUser, joinRoomByProject, leaveRoom } = require('../controllers/userController')
 
 const router = express.Router()
 
@@ -161,5 +161,11 @@ router.get('/room_num', auth, getRoomNumber)
 
 // GET a user profile
 router.get('/:id', auth, getUser)
+
+// join room by project id
+router.patch('/by_id', auth, joinRoomByProject)
+
+// Leave room
+router.patch('/leave', auth, leaveRoom)
 
 module.exports = router

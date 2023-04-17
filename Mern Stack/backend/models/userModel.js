@@ -35,7 +35,8 @@ const userSchema = new Schema({
   languages: [String],
   roles: [String],
   rooms: [String],
-  socialInfo: String
+  socialInfo: String,
+  project_room_map: [{project_id: String, room_num: String}],
 })
 
 // static signup method
