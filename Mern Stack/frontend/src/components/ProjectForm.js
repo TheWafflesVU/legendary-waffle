@@ -14,16 +14,48 @@ const ProjectForm = () => {
   const [selectedTags, setSelectedTags] = useState(new Set())
   // const [email, setEmail] = useState('')
 
-  const availableTags = [
-      'Python', 
-      'C++', 
-      'Java', 
-      'Machine Learning', 
-      'data analysis', 
-      'smart devices', 
-      'social network', 
-      'visualization'
-  ]
+  const availableTags = {
+    languages: ['Python', 'C++', 'Java', 'JavaScript', 'C', 'HTML/CSS', 'PHP', 'SQL', 'Swift', 'Go', 'Kotlin'],
+    projectType: [
+      'Front-end',
+      'Back-end',
+      'Full-stack',
+      'React',
+      'Flask',
+      "Rest",
+      'Machine Learning',
+      'Data Analysis',
+      'Smart Devices',
+      'Artificial Intelligence',
+      'Social Network',
+      'Visualization',
+    ],
+    courseNumber: ['CS1101', 'CS2201', 'CS2212', 'CS3250', 'CS3251', 'CS3281', 'CS3270','CS4278', 'CS3265', 'CS4260', 'CS4288','CS3891'],
+    More: ['Others'],
+  };
+
+  const renderTagSubList = (category) => (
+    <>
+      <label>{category}:</label>
+      <div className="proj-tag-container">
+        {availableTags[category].map((tag) => (
+          <div key={tag} className="proj-tag-option">
+            <input
+              type="checkbox"
+              id={`tag-${tag}`}
+              className="proj-tag-checkbox"
+              checked={selectedTags.has(tag)}
+              onChange={() => handleTagChange(tag)}
+            />
+            <label htmlFor={`tag-${tag}`} className="proj-tag-label">
+              {tag}
+            </label>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+
 
   const handleTagChange = (tag) => {
     const newSelectedTags = new Set(selectedTags)
@@ -92,18 +124,10 @@ const ProjectForm = () => {
 
       <label>Tags:</label>
       <div className="proj-tag-container">
-        {availableTags.map((tag) => (
-        <div key={tag} className="proj-tag-option">
-      <input 
-        type="checkbox"
-        id={`tag-${tag}`}
-        className="proj-tag-checkbox"
-        checked={selectedTags.has(tag)}
-        onChange={() => handleTagChange(tag)}
-      />
-      <label htmlFor={`tag-${tag}`} className="proj-tag-label">{tag}</label>
-    </div>
-      ))}
+      {renderTagSubList("languages")}
+      {renderTagSubList("projectType")}
+      {renderTagSubList("courseNumber")}
+      {renderTagSubList("More")}
     </div>
 
       <label>Required members:</label>
