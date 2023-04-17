@@ -11,6 +11,16 @@ const getProjects = async (req, res) => {
   res.status(200).json(projects)
 }
 
+// get all projects in CP
+const getProjectsH = async (req, res) => {
+
+  const user_id = req.user._id
+
+  const projects = await Project.find({user_id}).sort({createdAt: -1})
+
+  res.status(200).json(projects)
+}
+
 // get a single project
 const getProject = async (req, res) => {
   const { id } = req.params
@@ -219,6 +229,7 @@ const searchProject = async (req, res) => {
 module.exports = {
   getProjects,
   getProject,
+  getProjectsH,
   createProject,
   deleteProject,
   updateProject,

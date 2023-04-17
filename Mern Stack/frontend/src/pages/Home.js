@@ -12,7 +12,7 @@ const Home = () => {
   
   useEffect(() => {
     const fetchProjects = async () => {
-      const response = await fetch('/api/projects', {
+      const response = await fetch('/api/projects/cp', {
         headers: {'Authorization': `Bearer ${user.token}`},
       })
       const json = await response.json()
