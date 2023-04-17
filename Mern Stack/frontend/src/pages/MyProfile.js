@@ -75,6 +75,10 @@ const Profile = () => {
                 <span className="myprofile-info-label">Languages:</span>
                 <span className="myprofile-info-value">{profile.languages ? profile.languages.join(", ") : ''}</span>
               </p>
+              <p className="myprofile-info">
+                <span className="myprofile-info-label">GitHub:</span>
+                <span className="myprofile-info-value">{profile.socialInfo}</span>
+              </p>
             </div>
           </div>
           <div className="myprofile-edit-button-container">

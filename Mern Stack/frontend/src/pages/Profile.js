@@ -9,13 +9,14 @@ const Profile = () => {
   const [year, setYear] = useState('')
   const [languages, setLanguages] = useState([])
   const [roles, setRoles] = useState([])
+  const [socialInfo, setSocialInfo] = useState('')
   const { updateProfile, isLoading, error } = useProfile()
   const navigate = useNavigate()
   
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const my_profile = { firstName, lastName, phoneNumber, year, languages, roles };
+    const my_profile = { firstName, lastName, phoneNumber, year, languages, roles, socialInfo };
     await updateProfile(my_profile);
 
     if (isLoading) {
@@ -150,6 +151,16 @@ const Profile = () => {
                 <input type="checkbox" id="fullstack" name="roles" value="Fullstack" onChange={(e) => handleRoles(e)} />
                 <label htmlFor="fullstack">Fullstack</label>
               </div>
+          </div>
+
+          <div className="social_info">
+            <label className="labels">GitHub</label>
+            <input 
+            type="text" 
+            className="form-control" 
+            placeholder="social information" 
+            onChange={(e) => setSocialInfo(e.target.value)}
+            required/>
           </div>
 
           <div className="profile-actions">
