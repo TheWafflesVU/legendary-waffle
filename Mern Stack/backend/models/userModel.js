@@ -1,6 +1,16 @@
+const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const validator = require('validator')
+
+const transporter = nodemailer.createTransport({
+  service: "hotmail",
+  auth: {
+    user: "legendary.waffle@outlook.com",
+    pass: "VUCS4278!",
+  },
+});
 
 const Schema = mongoose.Schema
 
@@ -13,6 +23,10 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  confirmed: {
+    type: Boolean,
+    defaultValue: false
   },
   lastName: String,
   firstName: String,
@@ -48,8 +62,30 @@ userSchema.statics.signup = async function(email, password) {
 
   const salt = await bcrypt.genSalt(10)
   const hash = await bcrypt.hash(password, salt)
-
   const user = await this.create({ email, password: hash })
+
+
+  try {
+        const emailToken = jwt.sign(
+          {
+            user: user._id,
+          },
+          process.env.SECRET,
+          {
+            expiresIn: '1d',
+          },
+        );
+
+        const url = `http://localhost:3000/confirmation/${email}/${emailToken}`;
+
+        await transporter.sendMail({
+          to: email,
+          subject: 'Confirm Email',
+          html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
+        });
+      } catch (e) {
+        console.log(e);
+      }
 
   return user
 }
@@ -64,6 +100,10 @@ userSchema.statics.login = async function(email, password) {
   const user = await this.findOne({ email })
   if (!user) {
     throw Error('Incorrect email')
+  }
+
+  if (!user.confirmed) {
+    throw Error('Please confirm your email to login')
   }
 
   const match = await bcrypt.compare(password, user.password)
