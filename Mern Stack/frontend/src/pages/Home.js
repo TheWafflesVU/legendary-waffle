@@ -1,7 +1,7 @@
 import { useEffect }from 'react'
 import { useProjectsContext } from "../hooks/useProjectsContext"
 import { useAuthContext } from "../hooks/useAuthContext"
-import React, { useState, useMemo } from 'react'
+import React from 'react'
 // components
 import ProjectDetails from '../components/ProjectDetails'
 import ProjectForm from '../components/ProjectForm'

@@ -5,7 +5,10 @@
 }
 
 .title {
-    margin-left: 100px;
+    font-family: 'Roboto', sans-serif; /* Use a clean and modern font */
+    font-weight: 700; /* Use a bold font weight */
+    text-decoration: none; /* Remove any text decoration */
+    margin-left: 2rem;
 }
 
 .logout {

@@ -168,12 +168,6 @@ button[type="submit"]:hover {
   stroke: #657789;
 }
 
-.result-info {
-  margin: 20px 0;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-}
 
 .highlight {
   background-color: rgb(246, 25, 125);

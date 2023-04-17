@@ -12,7 +12,6 @@ const ProjectForm = () => {
   const [error, setError] = useState(null)
   const [emptyFields, setEmptyFields] = useState([])
   const [selectedTags, setSelectedTags] = useState(new Set())
-  // const [email, setEmail] = useState('')
 
   const availableTags = [
       'Python', 
@@ -22,7 +21,8 @@ const ProjectForm = () => {
       'data analysis', 
       'smart devices', 
       'social network', 
-      'visualization'
+      'visualization',
+      'Full-Stack'
   ]
 
   const handleTagChange = (tag) => {

@@ -156,5 +156,91 @@ const getRoomNumber = async (req, res) => {
   }
 }
 
-module.exports = { signupUser, loginUser, deleteUser, updateUser, joinRoom, getRoomNumber, getUser}
+const joinRoomByProject = async (req, res) => {
+  // Verify user is authenticated
+
+  const { _id } = req.user
+
+  const { proj_id, author_email, proj_name } = req.body
+
+  try {
+    // Find user by ID
+    const user = await User.findById(_id)
+
+    // Find author by email
+    const author = await User.findOne({email: author_email})
+
+    console.log(author);
+
+    if (!user) {
+      return res.status(404).json({ message: 'user not found' })
+    } 
+
+    if (!author) {
+      return res.status(404).json({ message: 'author not found' })
+    } 
+
+    let curRoom = "N.A."
+    for (let i = 0; i < user.project_room_map.length; ++i){
+      if (user.project_room_map[i].project_id === proj_id){
+        curRoom = user.project_room_map[i].room_num
+        break
+      }
+    }
+    console.log("\n" + curRoom + "\n")
+
+    if (curRoom === "N.A."){
+
+      const new_room = String(user.email) + '|' + String(proj_name) + '|' + String(author_email)
+      user.rooms = [...user.rooms, new_room]
+      user.project_room_map = [...user.project_room_map, {"project_id": proj_id, "room_num": new_room}]
+      await user.save()
+
+      author.rooms = [...author.rooms, new_room]
+      author.project_room_map = [...author.project_room_map, {"project_id": proj_id, "room_num": new_room}]
+      await author.save()
+      
+      res.json(new_room)
+
+    } else {
+
+      res.json(curRoom)
+
+    }
+    
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+}
+
+const leaveRoom = async (req, res) => {
+// Verify user is authenticated
+
+const { _id } = req.user
+
+try {
+  // Find user by ID
+  const user = await User.findById(_id)
+
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' })
+  } 
+
+  const { room_num } = req.body
+
+  console.log(user.email + " leaving room: " + room_num);
+
+  user.rooms = user.rooms.filter((room) => room !== room_num)
+  user.project_room_map = user.project_room_map.filter((project_room) => project_room.room_num !== room_num)
+  await user.save()
+  res.json({ message: 'Left room' + room_num })
+
+} catch (err) {
+  console.error(err);
+  res.status(500).json({ message: 'Server error' });
+}
+}
+
+module.exports = { signupUser, loginUser, deleteUser, updateUser, joinRoom, getRoomNumber, getUser, joinRoomByProject, leaveRoom}
 
