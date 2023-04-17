@@ -53,7 +53,7 @@ const deleteUser = async (req, res) => {
 
 // update a user
 const updateUser = async (req, res) => {
-  const { lastName, firstName, phoneNumber, year, languages, roles } = req.body;
+  const { lastName, firstName, phoneNumber, year, languages, roles, socialInfo } = req.body;
 
   // Verify user is authenticated
   const { _id } = req.user;
@@ -73,6 +73,7 @@ const updateUser = async (req, res) => {
     if (year) user.year = year;
     if (languages) user.languages = languages;
     if (roles) user.roles = roles;
+    if (socialInfo) user.socialInfo = socialInfo;
 
     await user.save();
 
