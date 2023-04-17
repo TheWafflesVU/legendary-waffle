@@ -1,44 +1,27 @@
-// import styles from "./search.css";
-// import { useState } from 'react';
-
-// const Search = ({ }) => {
-//     const [search, setSearch] = useState('');
-
-//     const handleSubmit = async (e) => {
-//         e.preventDefault()
-//         // Navigate to projectsearchres.js page
-//         console.log(search);
-//         window.location.href = `/projectsearchres?search=${search}`;
-        
-//     }
-
-//     return (
-//         <form className="create" onSubmit={handleSubmit}>
-//             <div className="search-container">
-//                 <div className="Icon">
-//                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#657789" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="feather feather-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-
-//                         <circle cx="11" cy="11" r="8"></circle>
-//                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-//                     </svg>
-//                 </div>
-//                 <input
-//                     type="text"
-//                     className="search"
-//                     placeholder="Search Projects by Tag/Keywords"
-//                     onChange={({ currentTarget: input }) => setSearch(input.value)}
-//                 />
-//                 <button type="submit">Search</button>
-//             </div>
-//         </form>
-//     );
-// };
 
 // export default Search;
 
 import styles from "./search.css";
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+
+const languageOptions = ['Python', 'C++', 'Java', 'JavaScript', 'C', 'HTML/CSS', 'PHP', 'SQL', 'Swift', 'Go', ];
+const projectTypeOptions = [
+  'Front-end',
+  'Back-end',
+  'Full-stack',
+  'React',
+  'Flask',
+  "Rest",
+  'Machine Learning',
+  'Data Analysis',
+  'Smart Devices',
+  'Artificial Intelligence',
+  'Social Network',
+  'Visualization',
+];
+const courseNumberOptions = ['CS1101', 'CS2201', 'CS2212', 'CS3250', 'CS3251', 'CS3281', 'CS3270','CS4278', 'CS3265', 'CS4260', 'CS4288','CS3891'];
+
 
 const Search = () => {
     const location = useLocation();
@@ -123,14 +106,33 @@ const Search = () => {
                     Select Tags
                 </button>
                 {dropdownVisible && (
-                    <div className="dropdown-container">
-                        {tagOptions.map((tag) => (
-                            <div key={tag} className="tag-option" onClick={() => handleTagSelect(tag)}>
-                                {tag}
-                            </div>
-                        ))}
-                    </div>
-                )}
+  <div className="dropdown-container">
+    <div className="dropdown-subcategory">
+      <h4>Languages</h4>
+      {languageOptions.map((tag) => (
+        <div key={tag} className="tag-option" onClick={() => handleTagSelect(tag)}>
+          {tag}
+        </div>
+      ))}
+    </div>
+    <div className="dropdown-subcategory">
+      <h4>Project Type</h4>
+      {projectTypeOptions.map((tag) => (
+        <div key={tag} className="tag-option" onClick={() => handleTagSelect(tag)}>
+          {tag}
+        </div>
+      ))}
+    </div>
+    <div className="dropdown-subcategory">
+      <h4>Course Number</h4>
+      {courseNumberOptions.map((tag) => (
+        <div key={tag} className="tag-option" onClick={() => handleTagSelect(tag)}>
+          {tag}
+        </div>
+      ))}
+    </div>
+  </div>
+)}
                 <button type="submit">Search</button>
             </div>
             {/* <div className="tag-options-container">
