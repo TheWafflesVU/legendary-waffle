@@ -1,8 +1,6 @@
 const Project = require('../models/projectModel')
 const mongoose = require('mongoose')
 
-
-
 // get all projects
 const getProjects = async (req, res) => {
 
@@ -38,7 +36,6 @@ const getProject = async (req, res) => {
   res.status(200).json(project)
 }
 
-
 // create new project
 const createProject = async (req, res) => {
   const { title, description, tags, nums} = req.body;
@@ -64,8 +61,6 @@ const createProject = async (req, res) => {
       .json({ error: "Please fill in all the fields", emptyFields });
   }
 
-  
-  
   // add doc to db
   try {
     const user_id = req.user._id;

@@ -7,7 +7,6 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Navbar from './components/Navbar'
 
-
 import Home from './pages/Home'
 
 import Homepage from './pages/Homepage'
