@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 import TinderCard from 'react-tinder-card'
 import { useEffect, useState, useRef }from 'react'
 import { useProjectsContext } from "../hooks/useProjectsContext"
@@ -55,7 +55,7 @@ const ProjectCard = () => {
   useEffect(() => {
     if (Array.isArray(projects)){
       console.log("updating queues")
-      resultQueue.current = projects
+      resultQueue.current = [...projects]
       lastRef.current = projects.length - 1 
       setlast(lastRef.current)
       proRef.current = Array(projects.length).fill(0).map((i) => React.createRef())
@@ -78,6 +78,7 @@ const ProjectCard = () => {
   // Regret button
   const goBack = async () => {
     console.log(last);
+    console.log(proRef);
     if (last < proRef.current.length - 1){
       const newIndex = last + 1
       updateIndex(newIndex)

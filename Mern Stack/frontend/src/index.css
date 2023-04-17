@@ -583,16 +583,14 @@ input[type="checkbox"]:checked + label[for] {
   border: none;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
+  position: absolute;
+  right: 5%;
+  bottom: 5%;
 }
 
 .interested:hover {
   background-color: #868686;
   color: #f1f1f1;
-}
-
-.button-group-header {
-  font-size: 20px;
-  opacity: 60%;
 }
 
 /* Regret Button for Cards */

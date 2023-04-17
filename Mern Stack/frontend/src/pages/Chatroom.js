@@ -197,7 +197,7 @@ function Chatroom({socket}) {
 
   return (
     <div className="chat-app-container">
-      {roomList.length !== 0 && <h2 className="button-group-header">Double-click the buttons to join room</h2>}
+    
       <div className="room-name-container">
 
         <div className="joinChatContainer">
@@ -257,7 +257,7 @@ function Chatroom({socket}) {
       </div>
       {joined && <button className="leave" onClick={leaveRoom}>Leave Room</button>}
 
-
+      {roomList.length !== 0 && <h2 className="button-group-header">Double-click the buttons to join room</h2>}
       <div className="button-group">
           {roomList.length !== 0 && roomList.map((single_room) => {
               return (<button onClick={() => reJoin(single_room)}>{handleRoomName(single_room)}</button>)
