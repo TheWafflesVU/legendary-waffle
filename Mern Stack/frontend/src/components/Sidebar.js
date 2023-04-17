@@ -30,7 +30,7 @@ function Sidebar() {
         </NavItem>
 
         <NavItem eventKey='home'>
-          <NavIcon><i className='fa fa-fw fa-comment' style={{fontSize:"1.5em"}}></i></NavIcon>
+          <NavIcon><i className='fa fa-fw fa-thumbs-up' style={{fontSize:"1.5em"}}></i></NavIcon>
           <NavText>Home</NavText>
         </NavItem>
 

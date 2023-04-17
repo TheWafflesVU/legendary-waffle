@@ -9,13 +9,14 @@ const Profile = () => {
   const [year, setYear] = useState('')
   const [languages, setLanguages] = useState([])
   const [roles, setRoles] = useState([])
+  const [socialInfo, setSocialInfo] = useState('')
   const { updateProfile, isLoading, error } = useProfile()
   const navigate = useNavigate()
   
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const my_profile = { firstName, lastName, phoneNumber, year, languages, roles };
+    const my_profile = { firstName, lastName, phoneNumber, year, languages, roles, socialInfo };
     await updateProfile(my_profile);
 
     if (isLoading) {
@@ -54,9 +55,9 @@ const Profile = () => {
   return (
     <form className="profile" onSubmit={handleSubmit}>
 
-        {/* <div className="profile-image">
+        <div className="profile-image">
           < img className="rounded-circle" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" />
-        </div> */}
+        </div>
 
         <div className="profile-header">
             <h3>Profile Settings</h3>
@@ -150,6 +151,16 @@ const Profile = () => {
                 <input type="checkbox" id="fullstack" name="roles" value="Fullstack" onChange={(e) => handleRoles(e)} />
                 <label htmlFor="fullstack">Fullstack</label>
               </div>
+          </div>
+
+          <div className="social_info">
+            <label className="labels">GitHub</label>
+            <input 
+            type="text" 
+            className="form-control" 
+            placeholder="social information" 
+            onChange={(e) => setSocialInfo(e.target.value)}
+            required/>
           </div>
 
           <div className="profile-actions">

@@ -1,12 +1,20 @@
 const Project = require('../models/projectModel')
 const mongoose = require('mongoose')
 
-
-
 // get all projects
 const getProjects = async (req, res) => {
 
   const projects = await Project.find()
+
+  res.status(200).json(projects)
+}
+
+// get all projects in CP
+const getProjectsH = async (req, res) => {
+
+  const user_id = req.user._id
+
+  const projects = await Project.find({user_id}).sort({createdAt: -1})
 
   res.status(200).json(projects)
 }
@@ -27,7 +35,6 @@ const getProject = async (req, res) => {
   
   res.status(200).json(project)
 }
-
 
 // create new project
 const createProject = async (req, res) => {
@@ -54,8 +61,6 @@ const createProject = async (req, res) => {
       .json({ error: "Please fill in all the fields", emptyFields });
   }
 
-  
-  
   // add doc to db
   try {
     const user_id = req.user._id;
@@ -219,6 +224,7 @@ const searchProject = async (req, res) => {
 module.exports = {
   getProjects,
   getProject,
+  getProjectsH,
   createProject,
   deleteProject,
   updateProject,
