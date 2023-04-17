@@ -325,13 +325,13 @@ input[type="checkbox"]:checked + label[for] {
 }
 
 .languages .form-control {
-  column-count: 4; /* set the number of columns */
+  column-count: 5; /* set the number of columns */
   column-gap: 2em; /* set the gap between columns */
   margin-bottom: 1em;
 }
 
 .roles .form-control {
-  column-count: 4; /* set the number of columns */
+  column-count: 3; /* set the number of columns */
   column-gap: 2em; /* set the gap between columns */
   margin-bottom: 1em;
 }
