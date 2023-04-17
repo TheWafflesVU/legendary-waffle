@@ -221,7 +221,7 @@ form.signup, form.login {
   background-color: #f9f9f9;
   padding: 20px;
   text-align: center;
-  margin-left: 95px;
+  margin-left: 83px;
 }
 
 .profile-header h3 {
@@ -240,7 +240,7 @@ form.signup, form.login {
   width: 200px;
   height: 190px;
   border-radius: 50%;
-  margin-left: 637px;
+  margin-left: 620px;
   margin-bottom: 10px;
   overflow: hidden;
   display: block;
@@ -329,13 +329,13 @@ input[type="checkbox"]:checked + label[for] {
 }
 
 .languages .form-control {
-  column-count: 4; /* set the number of columns */
+  column-count: 5; /* set the number of columns */
   column-gap: 2em; /* set the gap between columns */
   margin-bottom: 1em;
 }
 
 .roles .form-control {
-  column-count: 4; /* set the number of columns */
+  column-count: 3; /* set the number of columns */
   column-gap: 2em; /* set the gap between columns */
   margin-bottom: 1em;
 }

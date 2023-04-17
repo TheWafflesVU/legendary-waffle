@@ -30,8 +30,9 @@ function Sidebar() {
         </NavItem>
 
         <NavItem eventKey='home'>
-          <NavIcon><i className='fa-solid fa-pen-nib' style={{fontSize:"1.5em"}}></i></NavIcon>
-          <NavText>Home</NavText>
+          <NavIcon><i className='fa fa-fw fa-thumbs-up' style={{fontSize:"1.5em"}}></i></NavIcon>
+          <NavText>Create Projects</NavText>
+
         </NavItem>
 
       </SideNav.Nav>

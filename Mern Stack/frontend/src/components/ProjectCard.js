@@ -34,7 +34,7 @@ const ProjectCard = () => {
 
     // Fetch all projects
     const fetchProjects = async () => {
-      const response = await fetch('/api/projects', {
+      const response = await fetch('/api/projects/all', {
         headers: {'Authorization': `Bearer ${user.token}`},
       })
       const json = await response.json()

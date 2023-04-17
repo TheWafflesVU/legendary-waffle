@@ -1,6 +1,26 @@
+// export default Search;
 import "./search.css";
+
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+
+const languageOptions = ['Python', 'C++', 'Java', 'JavaScript', 'C', 'HTML/CSS', 'PHP', 'SQL', 'Swift', 'Go', ];
+const projectTypeOptions = [
+  'Front-end',
+  'Back-end',
+  'Full-stack',
+  'React',
+  'Flask',
+  "Rest",
+  'Machine Learning',
+  'Data Analysis',
+  'Smart Devices',
+  'Artificial Intelligence',
+  'Social Network',
+  'Visualization',
+];
+const courseNumberOptions = ['CS1101', 'CS2201', 'CS2212', 'CS3250', 'CS3251', 'CS3281', 'CS3270','CS4278', 'CS3265', 'CS4260', 'CS4288','CS3891'];
+
 
 const Search = () => {
     const location = useLocation();
@@ -85,14 +105,33 @@ const Search = () => {
                     Select Tags
                 </button>
                 {dropdownVisible && (
-                    <div className="dropdown-container">
-                        {tagOptions.map((tag) => (
-                            <div key={tag} className="tag-option" onClick={() => handleTagSelect(tag)}>
-                                {tag}
-                            </div>
-                        ))}
-                    </div>
-                )}
+  <div className="dropdown-container">
+    <div className="dropdown-subcategory">
+      <h4>Languages</h4>
+      {languageOptions.map((tag) => (
+        <div key={tag} className="tag-option" onClick={() => handleTagSelect(tag)}>
+          {tag}
+        </div>
+      ))}
+    </div>
+    <div className="dropdown-subcategory">
+      <h4>Project Type</h4>
+      {projectTypeOptions.map((tag) => (
+        <div key={tag} className="tag-option" onClick={() => handleTagSelect(tag)}>
+          {tag}
+        </div>
+      ))}
+    </div>
+    <div className="dropdown-subcategory">
+      <h4>Course Number</h4>
+      {courseNumberOptions.map((tag) => (
+        <div key={tag} className="tag-option" onClick={() => handleTagSelect(tag)}>
+          {tag}
+        </div>
+      ))}
+    </div>
+  </div>
+)}
                 <button type="submit">Search</button>
             </div>
             {/* <div className="tag-options-container">
