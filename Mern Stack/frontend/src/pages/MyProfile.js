@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import './MyProfile.css'
 import { useNavigate} from 'react-router-dom'
+import profileImage from './profile.png'
+import dog from './dog.png'
+import waffle from './waffle.png'
 
 const Profile = () => {
   const [profile, setProfile] = useState({})
@@ -49,7 +52,9 @@ const Profile = () => {
         <div>
           <div className="myprofile-wrapper">
             <div className="myprofile-left">
-              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" className="rounded-circle" width="150" height="150" />
+              <img src={profileImage} alt="" className="rounded-circle" width="150" height="150" />
+              {/* <img src={dog} alt="" className="rounded-circle" width="150" height="150" /> */}
+              {/* <img src={waffle} alt="" className="rounded-circle" width="150" height="150" /> */}
               <p className="myprofile-info">{profile.firstName} {profile.lastName}</p>
               <p className="myprofile-info">{profile.roles?.join(", ")}</p>
             </div>

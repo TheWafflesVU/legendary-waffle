@@ -114,9 +114,6 @@ const ProjectForm = () => {
         className={emptyFields.includes('nums') ? 'error' : ''}
       />
 
-    
-
-      
       <button>Add Project</button>
       {error && <div className="error">{error}</div>}
     </form>

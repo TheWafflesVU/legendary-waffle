@@ -217,7 +217,7 @@ form.signup, form.login {
   background-color: #f9f9f9;
   padding: 20px;
   text-align: center;
-  margin-left: 95px;
+  margin-left: 83px;
 }
 
 .profile-header h3 {
@@ -236,7 +236,7 @@ form.signup, form.login {
   width: 200px;
   height: 190px;
   border-radius: 50%;
-  margin-left: 637px;
+  margin-left: 620px;
   margin-bottom: 10px;
   overflow: hidden;
   display: block;

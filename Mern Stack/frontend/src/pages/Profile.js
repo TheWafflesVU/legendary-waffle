@@ -54,9 +54,9 @@ const Profile = () => {
   return (
     <form className="profile" onSubmit={handleSubmit}>
 
-        {/* <div className="profile-image">
+        <div className="profile-image">
           < img className="rounded-circle" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" />
-        </div> */}
+        </div>
 
         <div className="profile-header">
             <h3>Profile Settings</h3>
