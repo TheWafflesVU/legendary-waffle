@@ -1,7 +1,6 @@
-
 // export default Search;
+import "./search.css";
 
-import styles from "./search.css";
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 

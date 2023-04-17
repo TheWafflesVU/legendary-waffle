@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
+import './index.css'
 
 // pages & components
 import Login from './pages/Login'
@@ -7,7 +8,6 @@ import Signup from './pages/Signup'
 import Navbar from './components/Navbar'
 
 import Home from './pages/Home'
-
 import Homepage from './pages/Homepage'
 import Profile from './pages/Profile'
 import MyProfile from './pages/MyProfile'
@@ -16,26 +16,23 @@ import ProjectSearchRes from './pages/projectSearchRes'
 import Sidebar from './components/Sidebar.js'
 import Search from './components/searchbar.js'
 import { React, useState } from 'react'
-import backgroundImage from './background.jpg';
 import Confirmation from './pages/Confirmation'
 import PasswordReset from "./components/PasswordReset";
 import ForgotPassword from "./components/ForgotPassword";
-
-import backgroundImage2 from './background2.jpg';
+import backgroundImage2 from './FrightenedNaughtyDarwinsfox-size_restricted.gif'
 import io from 'socket.io-client'
 
 
 const appStyle = {
-  // backgroundImage: `url(${backgroundImage})`,
   backgroundImage: `url(${backgroundImage2})`,
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
   minHeight: '100vh',
-  width: '100%',
-};
+  width: '100%',  
+}
 
-const socket = io('http://10.66.200.137:4000')
+const socket = io('http://10.76.70.176:4000')
 
 function App() {
   const { user } = useAuthContext()

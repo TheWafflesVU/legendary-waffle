@@ -12,7 +12,7 @@ const ProjectForm = () => {
   const [error, setError] = useState(null)
   const [emptyFields, setEmptyFields] = useState([])
   const [selectedTags, setSelectedTags] = useState(new Set())
-  // const [email, setEmail] = useState('')
+
 
   const availableTags = {
     languages: ['Python', 'C++', 'Java', 'JavaScript', 'C', 'HTML/CSS', 'PHP', 'SQL', 'Swift', 'Go', 'Kotlin'],
@@ -55,7 +55,6 @@ const ProjectForm = () => {
       </div>
     </>
   );
-
 
   const handleTagChange = (tag) => {
     const newSelectedTags = new Set(selectedTags)

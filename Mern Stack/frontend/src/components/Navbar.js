@@ -29,7 +29,7 @@ const Navbar = () => {
     <header>
       <div className="container">
         <Link to="/">
-          <h1 className="title">Legendary Waffle</h1>
+          <h1 className="title">Waffle</h1>
         </Link>
         <div className="logout">
           {user && (
