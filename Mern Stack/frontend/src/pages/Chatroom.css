@@ -16,6 +16,12 @@
   max-width: 80%;
 }
 
+.button-group-header {
+  margin-top: 20px;
+  font-size: 20px;
+  opacity: 60%;
+}
+
 /* Button Styles */
 .button-group button {
   background-color: #263238;
