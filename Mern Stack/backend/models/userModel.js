@@ -78,7 +78,7 @@ userSchema.statics.signup = async function(email, password) {
           },
         );
 
-        const url = `http://localhost:3000/confirmation/${email}/${emailToken}`;
+        const url = `http://waffle.onrender.com/confirmation/${email}/${emailToken}`;
 
         await transporter.sendMail({
           to: email,
