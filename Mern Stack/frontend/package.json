@@ -1,5 +1,5 @@
 {
-  "proxy": "https://waffle.onrender.com",
+  "proxy": "https://waffle.onrender.com:10000",
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
