@@ -31,12 +31,13 @@
     "socket.io-client": "^4.6.1",
     "web-vitals": "^2.1.4"
   },
+{
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
+    "start": "react-scripts start --config-overrides=config-overrides.js",
+    "build": "react-scripts build --config-overrides=config-overrides.js",
+    "test": "react-scripts test --env=jsdom --config-overrides=config-overrides.js"
+  }
+},
   "eslintConfig": {
     "extends": [
       "react-app",
