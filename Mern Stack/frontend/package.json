@@ -31,13 +31,11 @@
     "socket.io-client": "^4.6.1",
     "web-vitals": "^2.1.4"
   },
-{
   "scripts": {
     "start": "react-scripts start --config-overrides=config-overrides.js",
     "build": "react-scripts build --config-overrides=config-overrides.js",
     "test": "react-scripts test --env=jsdom --config-overrides=config-overrides.js"
-  }
-},
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -55,7 +53,7 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-    },
+  },
   "devDependencies": {
     "customize-cra": "^1.0.0"
   }
