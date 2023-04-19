@@ -32,7 +32,7 @@ const appStyle = {
   width: '100%',  
 }
 
-const socket = io('https://waffle.onrender.com')
+const socket = io('http://10.76.70.176:4000')
 
 function App() {
   const { user } = useAuthContext()
