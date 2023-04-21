@@ -41,7 +41,7 @@ const Home = () => {
   useEffect(() => {
     const fetchResults = async () => {
       if (user) {
-        const response = await fetch(`/api/projects/search/${searchTag}/${searchKeyword}`, {
+        const response = await fetch(`/api/projects/search${searchTag}/${searchKeyword}`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${user.token}`
