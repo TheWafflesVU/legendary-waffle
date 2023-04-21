@@ -1,3 +1,9 @@
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
 [[rewrites]]
   from = "/api/*"
   to = "https://waffle.onrender.com/:splat"
