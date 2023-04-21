@@ -2,7 +2,6 @@ services:
   - type: web
     name: legendary-waffle
     env: static
-    buildCommand: npm run build
     routes:
       - type: rewrite
         source: /api/(.*)
