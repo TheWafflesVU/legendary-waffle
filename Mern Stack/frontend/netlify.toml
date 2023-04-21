@@ -4,7 +4,7 @@
   status = 200
   force = false
 
-[[rewrites]]
+[[redirects]]
   from = "/api/*"
   to = "https://waffle.onrender.com/:splat"
   status = 200
