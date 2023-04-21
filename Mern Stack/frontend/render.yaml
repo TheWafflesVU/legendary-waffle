@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: legendary-waffle
-    env: static
-    routes:
-      - type: rewrite
-        source: /api/(.*)
-        destination: https://waffle.onrender.com/api/$1
-        
