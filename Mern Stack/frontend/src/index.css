@@ -210,12 +210,12 @@ form.signup, form.login {
 }
 
 /* Style the profile image */
-
 .profile-image {
-  width: 200px;
+  width: 25%;
+  max-width: 200px;
   height: 190px;
+  margin: 0 45.5%;
   border-radius: 50%;
-  margin-left: 620px;
   margin-bottom: 10px;
   overflow: hidden;
   display: block;
@@ -224,10 +224,9 @@ form.signup, form.login {
 
 .profile-image img {
   width: 100%;
-  height: 97.6%;
+  height: 98.6%;
   object-fit: cover;
 }
-
 
 /* Style the profile content section */
 .profile-content {
@@ -255,7 +254,7 @@ form.signup, form.login {
   text-align: center;
 }
 
-.profile-actions button {
+.profile-actions button[type="submit"] {
   background-color: #1aac83;
   color: #fff;
   border: none;
