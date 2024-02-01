@@ -78,13 +78,13 @@ userSchema.statics.signup = async function(email, password) {
           },
         );
 
-        const url = `http://waffle.onrender.com/confirmation/${email}/${emailToken}`;
+        // const url = `https://waffle.onrender.com/confirmation/${email}/${emailToken}`;
 
-        await transporter.sendMail({
-          to: email,
-          subject: 'Confirm Email',
-          html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
-        });
+        // await transporter.sendMail({
+        //   to: email,
+        //   subject: 'Confirm Email',
+        //   html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
+        // });
       } catch (e) {
         console.log(e);
       }
@@ -104,9 +104,9 @@ userSchema.statics.login = async function(email, password) {
     throw Error('Incorrect email')
   }
 
-  if (!user.confirmed) {
-    throw Error('Please confirm your email to login')
-  }
+  // if (!user.confirmed) {
+  //   throw Error('Please confirm your email to login')
+  // }
 
   const match = await bcrypt.compare(password, user.password)
   if (!match) {

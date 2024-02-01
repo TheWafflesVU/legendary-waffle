@@ -24,7 +24,7 @@ export const useSignup = () => {
     if (response.ok) {
       // save the user to local storage
       localStorage.setItem('user', JSON.stringify(json))
-      alert('An email has been sent to your email address with instructions on how to verify your email address.')
+    
 
       // update the auth context
       //dispatch({type: 'LOGIN', payload: json})
