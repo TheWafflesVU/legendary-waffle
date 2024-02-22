@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import './MyProfile.css'
 import { useNavigate} from 'react-router-dom'
 import profileImage from './profile.png'
-import dog from './dog.png'
-import waffle from './waffle.png'
 
 const Profile = () => {
   const [profile, setProfile] = useState({})

@@ -2,7 +2,6 @@ const express = require('express')
 const {
   createProject,
   getProjects,
-  getProjectsH,
   getProject,
   deleteProject,
   updateProject,
@@ -17,9 +16,6 @@ router.use(requireAuth)
 
 // GET all projects
 router.get('/all', getProjects)
-
-//GET all projects in CP
-router.get('/cp', getProjectsH)
 
 // GET a single project
 router.get('/:id', getProject)
