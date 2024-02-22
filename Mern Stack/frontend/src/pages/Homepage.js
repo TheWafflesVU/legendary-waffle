@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import ProjectCard from '../components/ProjectCard'
+import ProjectCard from '../components/project card/ProjectCard'
 
 
 const Home = () => {

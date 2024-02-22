@@ -9,15 +9,6 @@ const getProjects = async (req, res) => {
   res.status(200).json(projects)
 }
 
-// get all projects in CP
-const getProjectsH = async (req, res) => {
-
-  const user_id = req.user._id
-
-  const projects = await Project.find({user_id}).sort({createdAt: -1})
-
-  res.status(200).json(projects)
-}
 
 // get a single project
 const getProject = async (req, res) => {
@@ -122,12 +113,12 @@ const searchProject = async (req, res) => {
 
   let pro = {}
 
-  if (searchQuery == "NULL" && tagsFilter[0] == "NULL"){
+  if (searchQuery === "NULL" && tagsFilter[0] === "NULL"){
     console.log("List all projects")
     pro = await Project.find()
   } else {
     
-    if (searchQuery == "NULL"){
+    if (searchQuery === "NULL"){
       console.log("Search based on tag")
       pro = await Project.aggregate([
         {
@@ -154,7 +145,7 @@ const searchProject = async (req, res) => {
       ])
 
       console.log(pro);
-  } else if (tagsFilter[0] == 'NULL'){
+  } else if (tagsFilter[0] === 'NULL'){
     console.log("Search based on keywords")
     pro = await Project.aggregate([
       {
@@ -224,7 +215,6 @@ const searchProject = async (req, res) => {
 module.exports = {
   getProjects,
   getProject,
-  getProjectsH,
   createProject,
   deleteProject,
   updateProject,
