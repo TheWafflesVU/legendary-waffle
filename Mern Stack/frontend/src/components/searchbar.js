@@ -76,7 +76,7 @@ const Search = () => {
     };
 
     return (
-        <form className="create" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div className="search-container">
                 <div className="tags-container">
                 <div className="search-icon">

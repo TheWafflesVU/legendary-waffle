@@ -30,30 +30,36 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+
       {user && <Sidebar />}
-        <Navbar />
-        {user && <Search setSearch={(search) => setSearch(search)} />}
-        
-        <div className="pages">
-          <Routes>
-            <Route 
-              path="/" element={<Navigate to="/login" />}
-            />
-            <Route path="/login" element={!user ? <Login /> : <Navigate to="/homepage" />} />
-            <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/homepage" />} />
-            <Route path="/homepage" element={<Homepage/>} />
 
-            <Route path='/profile' element={user ? <Profile /> : <Navigate to="/login" />}/>
-            {/*<Route path='/chatroom' element={user ? <Chatroom socket={socket} /> : <Navigate to="/" />}/>*/}
-            <Route path="/myprofile" element={<MyProfile/>} />
+        <div className="main-content">
 
-            <Route path='/projectSearchRes' element={<ProjectSearchRes/>} />
-            <Route path='/confirmation/:email/:emailToken' element={<Confirmation />} />
-            <Route path="/forgotpassword/:email/:token" element={<ForgotPassword />} />
-            <Route path="/password-reset" element={<PasswordReset />} />
+          <Navbar />
 
-          </Routes>
+          {/*{user && <Search setSearch={(search) => setSearch(search)} />}*/}
+
+          <div className="pages">
+            <Routes>
+              <Route path="/" element={<Navigate to="/login" />} />
+              <Route path="/login" element={!user ? <Login /> : <Navigate to="/homepage" />} />
+              <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/homepage" />} />
+              <Route path="/homepage" element={<Homepage/>} />
+
+              <Route path='/profile' element={user ? <Profile /> : <Navigate to="/login" />}/>
+              <Route path='/chatroom' element={user ? <Chatroom socket={socket} /> : <Navigate to="/" />}/>
+              <Route path="/myprofile" element={<MyProfile/>} />
+
+              <Route path='/projectSearchRes' element={<ProjectSearchRes/>} />
+              <Route path='/confirmation/:email/:emailToken' element={<Confirmation />} />
+              <Route path="/forgotpassword/:email/:token" element={<ForgotPassword />} />
+              <Route path="/password-reset" element={<PasswordReset />} />
+
+            </Routes>
+          </div>
         </div>
+
+
       </BrowserRouter>
     </div>
 

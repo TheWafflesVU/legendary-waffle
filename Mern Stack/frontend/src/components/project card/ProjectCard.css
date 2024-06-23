@@ -1,0 +1,97 @@
+.mainCardsView {
+    height: 70vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardListContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    height: 100%;
+}
+
+.cardListBase {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: thick dashed lightgrey;
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    color: grey;
+    border-radius: 10px;
+    flex-direction: column;
+}
+
+.cardContainer {
+    background-color: #fffefc;
+    height: 100%;
+    width: 97%;
+    position: absolute;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.cardContent {
+    user-select: none;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    padding-top: 3%;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.cardHeader {
+    width: 100%;
+    background-color: #404040;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.cardHeader button {
+    background-color: #FEC500;
+    color: black;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.cardHeader button:hover {
+    background-color: black;
+    color: #FEC500;
+}
+
+.helper-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2%;
+    width: 100%;
+}
+
+.restore-leftArrow-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 10%;
+}
+
+.leftSwipeArrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 10%;
+}
+

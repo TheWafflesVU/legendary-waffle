@@ -18,7 +18,7 @@ const receivedMessage = async (req, res) => {
     const {room, author, message, time} = req.body
 
     try {
-        const messgae = await Message.create({room, author, message, time})
+        const messgae = await Message.create({room, author, message})
         res.status(200).json(messgae)
       } catch (error) {
         res.status(400).json({error: error.message})

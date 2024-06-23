@@ -1,3 +1,4 @@
+import React from 'react'
 import "./Chatroom.css"
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext"
@@ -22,7 +23,7 @@ function Chatroom({socket}) {
   const location = useLocation()
 
   // const [messageFetched, setMessageFetched] = useState(false)
-  
+
   // Function for fetching all the rooms current user is in
   // Author: Junhao Hui
   const fetchRooms = async () => {
@@ -66,7 +67,7 @@ function Chatroom({socket}) {
       })
 
     const json = await response
-  } 
+  }
 
   // Function for adding the current room number to current user
   // Author: Junhao Hui
@@ -98,9 +99,9 @@ function Chatroom({socket}) {
       }
       await fetchMessages()
       setJoined(true)
-    } 
+    }
   }
-  
+
   // Leave Current Room
   // Author: Junhao Hui
   const leaveRoom = async () => {
@@ -127,12 +128,12 @@ function Chatroom({socket}) {
 
     if (currentMessage !== ""){
       const messageData = {
-        room: room, 
+        room: room,
         author: user.email,
         message: currentMessage,
-        time: 
-          new Date(Date.now()).getHours() + 
-          ":" + 
+        time:
+          new Date(Date.now()).getHours() +
+          ":" +
           new Date(Date.now()).getMinutes()
       }
 
@@ -148,7 +149,7 @@ function Chatroom({socket}) {
       setRoom(roomNumber)
       setJoined(false)
     }
-    joinRoom() 
+    joinRoom()
   }
 
   useEffect(() =>{
@@ -158,8 +159,9 @@ function Chatroom({socket}) {
   }, [socket])
 
   useEffect(() => {
-    if (user)
+    if (user) {
       fetchRooms()
+    }
   }, [user])
 
   useEffect(() => {
@@ -174,7 +176,7 @@ function Chatroom({socket}) {
             },
             body: JSON.stringify({ "proj_id": location.state.proj_id, "author_email": location.state.auth_email, "proj_name": location.state.proj_name})
           })
-        
+
         const json = await response.json()
         setRoom(json)
         joinRoom()
@@ -192,30 +194,22 @@ function Chatroom({socket}) {
     } else {
       return one_room
     }
-    
+
   }
 
   return (
     <div className="chat-app-container">
-    
-      <div className="room-name-container">
 
-        <div className="joinChatContainer">
-          <input
-            type="text"
-            placeholder="Room ID..."
-            onChange={(e) => setRoom(e.target.value)}
-            />
-            <button onClick={joinRoom}>Join A Room</button>
-        </div>
 
-        
+      <div className="chatroom-list">
+        {roomList.length !== 0 && roomList.map((single_room) => {
+          return (<button onClick={() => reJoin(single_room)}>{handleRoomName(single_room)}</button>)
+        })}
       </div>
 
-   
-        <div className="chat-window">
+      {joined && <div className="chat-window">
           <div className="chat-header">
-            {joined ? <p>{handleRoomName(room)}</p> : <p>Join/Select Room</p> }
+            <p>{handleRoomName(room)}</p>
           </div>
           <div className="chat-body">
             <ScrollToBottom className="message-container">
@@ -244,29 +238,18 @@ function Chatroom({socket}) {
             <input
               type="text"
               value={currentMessage}
-              placeholder="Spotlight's on you. Don't say anything bad plz"
-              onChange={(event) => {
-                setCurrentMessage(event.target.value);
-              }}
-              onKeyPress={(event) => {
-                event.key === "Enter" && sendMessage();
-              }}
+              placeholder="Spotlight's on you."
+              onChange={(event) => setCurrentMessage(event.target.value)}
             />
             <button onClick={sendMessage}>&#9658;</button>
           </div>
-      </div>
-      {joined && <button className="leave" onClick={leaveRoom}>Leave Room</button>}
 
-      {roomList.length !== 0 && <h2 className="button-group-header">Double-click the buttons to join room</h2>}
-      <div className="button-group">
-          {roomList.length !== 0 && roomList.map((single_room) => {
-              return (<button onClick={() => reJoin(single_room)}>{handleRoomName(single_room)}</button>)
-            })}
-        </div>
+        <button className="leave" onClick={leaveRoom}>Leave Room</button>
+      </div>}
 
     </div>
 
-    
+
   );
 }
 

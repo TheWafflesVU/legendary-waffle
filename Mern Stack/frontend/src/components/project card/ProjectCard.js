@@ -4,17 +4,13 @@ import { useEffect, useState, useRef }from 'react'
 import { useProjectsContext } from "../../hooks/useProjectsContext"
 import { useAuthContext } from "../../hooks/useAuthContext"
 import { useNavigate } from 'react-router-dom'
-import styled from 'styled-components';
+import UserSnapshot from "./UserSnapshot"
+import ProjectDetails from "./ProjectDetails"
+import './ProjectCard.css'
 
-
-const CardContainer = styled.div`
-  height: 50vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
-
+import RestorePageIcon from '@mui/icons-material/RestorePage'
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
 
 const ProjectCard = () => {
 
@@ -25,14 +21,36 @@ const ProjectCard = () => {
   // For navigating the user to chatroom
   const navigate = useNavigate()
 
-  // This will always store a copy of the resulting array of project from the initial database query. (all projects)
-  const allProjectRefs = useRef([])
-
-  // This will always store an array of the references to the initial TinderCard components (even if they are swiped)
+  // This will always store an array of the references to all TinderCard components (even if they are swiped/out of frame)
   const cardRefs = useRef([])
 
   // Store the index of the top of project array. Changing this will trigger re-render
   const [last, setLast] = useState(0)
+
+  // Used for outOfFrame closure
+  const lastIndexRef = useRef({})
+
+  // Used for locking the view when swiping
+  const cardContainerRef = useRef({})
+
+  useEffect(() => {
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'ArrowLeft') {
+        swipe('left')
+      } else if (event.key === 'ArrowRight') {
+        swipe('right')
+      } else if (event.key === 'ArrowDown') {
+        GetLastCard()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [last])
 
   // When user is changed, fetch the projects again
   useEffect(() =>  {
@@ -56,42 +74,110 @@ const ProjectCard = () => {
   // setLast()
   useEffect(() => {
     if (Array.isArray(projects)){
-      allProjectRefs.current = [...projects]
       setLast(projects.length - 1 )
-      cardRefs.current = Array(projects.length).fill(0).map((i) => React.createRef())
+      cardRefs.current = Array(projects.length).fill(0).map(() => React.createRef())
+      lastIndexRef.current = last
     }
   }, [projects])
 
+  // This function will update the index to the last project as well as the reference to the last project
+  const updateCurrentIndex = (val) => {
+    setLast(val)
+    lastIndexRef.current = val
+  }
+
+  const HandleOutOfFrame = (idx) => {
+
+    cardContainerRef.current.style.pointerEvents = 'auto'
+    // handle the case in which go back is pressed before card goes outOfFrame
+    if (lastIndexRef.current >= idx){
+      cardRefs[idx].current.restoreCard()
+    }
+  }
+
+  const swipe = async (dir) => {
+    if (cardRefs.current.length > 0 && last < cardRefs.current.length) {
+      await cardRefs.current[last].current.swipe(dir) // Swipe the card!
+    }
+  }
 
   // Get the last swiped card back. Can be clicked multiple times to retrieve multiple cards.
   const GetLastCard = async () => {
     if (last < cardRefs.current.length - 1){
       const newIndex = last + 1
-      setLast(newIndex)
+      updateCurrentIndex(newIndex)
       await cardRefs.current[newIndex].current.restoreCard()
     }
   }
 
+  const onSwipeHandler = () => {
+    updateCurrentIndex(last - 1)
+    cardContainerRef.current.style.pointerEvents = 'none'
+  }
+
+
 
   // Redirects the user to chatroom page
   const handleChat =  (id, auth_email, name) => {
-      if (auth_email !== user.email){
-        navigate('/chatroom', { state: { fromRedirect: true, proj_id: id, auth_email: auth_email, proj_name: name} })
-      }
+    if (auth_email !== user.email){
+      navigate('/chatroom', { state: { fromRedirect: true, proj_id: id, auth_email: auth_email, proj_name: name} })
+    }
   }
 
 
   return (
 
-        <CardContainer>
-          {allProjectRefs.current && allProjectRefs.current.map((project, index) =>(
-              <TinderCard key={project._id}
-                          ref={cardRefs.current[index]}
-                          onSwipe={() => setLast(index - 1)}
-                          preventSwipe={["down", "up"]}
-                          className="cards">
-              </TinderCard>))}
-        </CardContainer>
+      <div className="mainCardsView">
+
+        <div className="cardListContainer" ref={cardContainerRef}>
+
+          <div className="cardListBase">
+            <p>All Projects displayed!</p>
+            <button>Wanna see more?</button>
+          </div>
+
+          {projects && projects.map((project, index) => {
+
+            return (
+                <TinderCard key={project._id}
+                            ref={cardRefs.current[index]}
+                            swipeRequirementType="position"
+                            preventSwipe={['up', 'down']}
+                            onSwipe={onSwipeHandler}
+                            onCardLeftScreen={(index) => HandleOutOfFrame(index)}
+                            className="cardContainer">
+
+                  <div className="cardHeader">
+                    <button>Interested?</button>
+                  </div>
+
+                  <div className="cardContent">
+                    <UserSnapshot userId={project.user_id} />
+                    <ProjectDetails project={project} />
+                  </div>
+
+                </TinderCard>
+            )})}
+
+        </div>
+
+        <div className="helper-button-container">
+
+          <div className="restore-leftArrow-button">
+            <ArrowCircleLeftIcon fontSize="large" onClick={() => {swipe('left')}}/>
+          </div>
+
+          <div className="restore-leftArrow-button">
+            <RestorePageIcon fontSize="large" onClick={() => {GetLastCard()}}/>
+          </div>
+
+
+          <div className="restore-leftArrow-button">
+            <ArrowCircleRightIcon fontSize="large" onClick={() => {swipe('right')}}/>
+          </div>
+        </div>
+
+      </div>
   )
 
 }

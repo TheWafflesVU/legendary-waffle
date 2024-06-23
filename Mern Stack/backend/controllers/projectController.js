@@ -29,7 +29,7 @@ const getProject = async (req, res) => {
 
 // create new project
 const createProject = async (req, res) => {
-  const { title, description, tags, nums} = req.body;
+  const { title, description, tags, num_teammates} = req.body;
 
   let emptyFields = [];
 
@@ -39,8 +39,8 @@ const createProject = async (req, res) => {
   if (!description) {
     emptyFields.push("description");
   }
-  if (!nums) {
-    emptyFields.push("nums");
+  if (!num_teammates) {
+    emptyFields.push("num_teammates");
   }
   if (!tags) {
     emptyFields.push("tags");
@@ -57,7 +57,7 @@ const createProject = async (req, res) => {
     const user_id = req.user._id;
     const email = req.user.email;
     
-    const project = await Project.create({ title, description, nums, tags, email, user_id });
+    const project = await Project.create({ title, description, num_teammates, tags, email, user_id });
     res.status(200).json(project);
   } catch (error) {
     res.status(400).json({ error: error.message });

@@ -1,53 +1,11 @@
 .chat-app-container {
+  height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
 }
 
-.room-name-container{
- display: inline; 
-}
-
-.button-group {
-  display: flex;
-  flex-direction: column;
-  margin: 20px 0;
-  max-width: 80%;
-}
-
-.button-group-header {
-  margin-top: 20px;
-  font-size: 20px;
-  opacity: 60%;
-}
-
-/* Button Styles */
-.button-group button {
-  background-color: #263238;
-  border: none;
-  color: rgb(251, 251, 251);
-  font-size: 12px;
-  font-weight: 500;
-  padding: 12px 24px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-/* Button Hover Styles */
-.button-group button:hover {
-  background-color: #f3dfb6;
-  color: #000000;;
-  transform: scale(1.05);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-}
 
 .joinChatContainer {
   flex-direction: column;

@@ -11,7 +11,7 @@ const projectSchema = new Schema({
     type: [String],
     required: true
   },
-  nums: {
+  num_teammates: {
     type: Number,
     required: true
   },
@@ -24,8 +24,9 @@ const projectSchema = new Schema({
     required: true
   },
   user_id: {
-    type: String,
-    required: true
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User' // Assuming you have a User model
   },
 }, { timestamps: true })
 
