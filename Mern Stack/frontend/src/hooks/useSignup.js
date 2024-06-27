@@ -16,8 +16,8 @@ export const useSignup = () => {
       body: JSON.stringify({
         'email': email,
         'password': password,
-        'first_name' : firstName,
-        'last_name': lastName,
+        'firstName' : firstName,
+        'lastName': lastName,
         'year': year
       })
     })

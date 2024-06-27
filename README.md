@@ -1,13 +1,10 @@
-# Project Title
+# Waffle
 
-A brief description of what your project does.
+Welcome to Waffle! Waffle is a platform designed to help software developers establish collaboration. It allows users to post their projects with tags and descriptions, search for other projects, and chat with fellow developers.
 
 ## Table of Contents
 1. [Installation](#installation)
 2. [Usage](#usage)
-3. [Contributing](#contributing)
-4. [License](#license)
-5. [Contact](#contact)
 
 ## Installation
 

@@ -7,8 +7,7 @@ import Signup from './pages/Signup'
 import Navbar from './components/Navbar'
 
 import Homepage from './pages/Homepage'
-import Profile from './pages/Profile'
-import MyProfile from './pages/MyProfile'
+import UserProfile from './pages/UserProfile'
 import Chatroom from './pages/Chatroom'
 import ProjectSearchRes from './pages/projectSearchRes'
 import Sidebar from './components/Sidebar.js'
@@ -46,9 +45,8 @@ function App() {
               <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/homepage" />} />
               <Route path="/homepage" element={<Homepage/>} />
 
-              <Route path='/profile' element={user ? <Profile /> : <Navigate to="/login" />}/>
-              <Route path='/chatroom' element={user ? <Chatroom socket={socket} /> : <Navigate to="/" />}/>
-              <Route path="/myprofile" element={<MyProfile/>} />
+              {/*<Route path='/chatroom' element={user ? <Chatroom socket={socket} /> : <Navigate to="/" />}/>*/}
+              <Route path="/profile" element={<UserProfile/>} />
 
               <Route path='/projectSearchRes' element={<ProjectSearchRes/>} />
               <Route path='/confirmation/:email/:emailToken' element={<Confirmation />} />

@@ -22,7 +22,7 @@ const UserSnapshot = ({userId}) => {
 
     return (
         <div className="userSnapshot">
-            <p className="userName">{userProfile.first_name + " " + userProfile.last_name}</p>
+            <p className="userName">{userProfile.firstName + " " + userProfile.lastName}</p>
             <p className="userDetails">{userProfile.year}</p>
             <p className="userDetails">{userProfile.email}</p>
         </div>

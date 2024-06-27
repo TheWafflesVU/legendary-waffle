@@ -99,22 +99,6 @@ input.text-input {
   color: #ffffff;
 }
 
-button[type="submit"] {
-  /* background-color: #11b7b7; */
-  background-color: #3c99dc;
-  border: none;
-  border-radius: 20px;
-  color: #fff;
-  padding: 5px 15px;
-  margin-left: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-button[type="submit"]:hover {
-  background-color: #4ab2cc;
-  box-shadow: 0 2px 4px rgb(246, 243, 243);
-}
 
 .search-icon {
   display: flex;

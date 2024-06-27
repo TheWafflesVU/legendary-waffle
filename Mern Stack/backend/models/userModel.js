@@ -15,11 +15,11 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  last_name: {
+  lastName: {
     type: String,
     required: true
   },
-  first_name: {
+  firstName: {
     type: String,
     required: true
   },
@@ -29,20 +29,20 @@ const userSchema = new Schema({
     required: true,
     default: 'Unknown'
   },
-  programming_languages: [String],
+  programmingLanguages: [String],
   chat_room_map: [{project_id: String, room_num: String}],
 }, { timestamps: true })
 
 userSchema.pre('save', function(next) {
   // Sanitize strings
-  this.first_name = this.first_name.replace(/<(?:.|\n)*?>/gm, '');
-  this.last_name = this.last_name.replace(/<(?:.|\n)*?>/gm, '');
+  this.firstName = this.firstName.replace(/<(?:.|\n)*?>/gm, '');
+  this.lastName = this.lastName.replace(/<(?:.|\n)*?>/gm, '');
   next();
 });
 
 
 // static signup method
-userSchema.statics.signup = async function(email, password, first_name, last_name, year) {
+userSchema.statics.signup = async function(email, password, firstName, lastName, year) {
 
   // validation
   if (!email || !password) {
@@ -66,7 +66,7 @@ userSchema.statics.signup = async function(email, password, first_name, last_nam
 
   const salt = await bcrypt.genSalt(10)
   const hash = await bcrypt.hash(password, salt)
-  const user = await this.create({ email, password: hash, first_name, last_name, year })
+  const user = await this.create({ email, password: hash, firstName, lastName, year })
 
 
   try {
@@ -86,7 +86,7 @@ userSchema.statics.signup = async function(email, password, first_name, last_nam
 
   return user
 }
- 
+
 // static login method
 userSchema.statics.login = async function(email, password) {
 

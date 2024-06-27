@@ -16,7 +16,10 @@ const loginUser = async (req, res) => {
     // create a token
     const token = createToken(user._id)
 
-    res.status(200).json({email, token})
+    // Also get the id
+    const user_id = user._id
+
+    res.status(200).json({email, token, user_id})
   } catch (error) {
     res.status(400).json({error: error.message})
   }
@@ -24,15 +27,18 @@ const loginUser = async (req, res) => {
 
 // signup a user
 const signupUser = async (req, res) => {
-  const {email, password, first_name, last_name, year} = req.body
+  const {email, password, firstName, lastName, year} = req.body
 
   try {
-    const user = await User.signup(email, password, first_name, last_name, year)
+    const user = await User.signup(email, password, firstName, lastName, year)
+
+    // Also get the id
+    const user_id = user._id
 
     // create a token
     const token = createToken(user._id)
 
-    res.status(200).json({email, token})
+    res.status(200).json({email, token, user_id})
   } catch (error) {
     console.log("error cathed");
     res.status(400).json({error: error.message})
@@ -53,7 +59,7 @@ const deleteUser = async (req, res) => {
 
 // update a user
 const updateUser = async (req, res) => {
-  const { lastName, firstName, phoneNumber, year, languages, roles, socialInfo } = req.body;
+  const { lastName, firstName, phoneNumber, year, languages, roles, socialInfo, programmingLanguages } = req.body;
 
   // Verify user is authenticated
   const { _id } = req.user;
@@ -74,6 +80,8 @@ const updateUser = async (req, res) => {
     if (languages) user.languages = languages;
     if (roles) user.roles = roles;
     if (socialInfo) user.socialInfo = socialInfo;
+    if (programmingLanguages) user.programmingLanguages = programmingLanguages;
+
 
     await user.save();
 
@@ -89,7 +97,7 @@ const updateUser = async (req, res) => {
 
 // get a user
 const getUser = async (req, res) => {
-  
+
   const { id } = req.params;
 
   try {
