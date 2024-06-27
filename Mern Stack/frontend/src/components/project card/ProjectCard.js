@@ -138,26 +138,27 @@ const ProjectCard = () => {
 
           {projects && projects.map((project, index) => {
 
-            return (
-                <TinderCard key={project._id}
-                            ref={cardRefs.current[index]}
-                            swipeRequirementType="position"
-                            preventSwipe={['up', 'down']}
-                            onSwipe={onSwipeHandler}
-                            onCardLeftScreen={(index) => HandleOutOfFrame(index)}
-                            className="cardContainer">
+            if (project.email !== user.email){
+              return (
+                  <TinderCard key={project._id}
+                              ref={cardRefs.current[index]}
+                              swipeRequirementType="position"
+                              preventSwipe={['up', 'down']}
+                              onSwipe={onSwipeHandler}
+                              onCardLeftScreen={(index) => HandleOutOfFrame(index)}
+                              className="cardContainer">
 
-                  <div className="cardHeader">
-                    <button>Interested?</button>
-                  </div>
+                    <div className="cardHeader">
+                      <button>Interested?</button>
+                    </div>
 
-                  <div className="cardContent">
-                    <UserSnapshot userId={project.user_id} />
-                    <ProjectDetails project={project} />
-                  </div>
+                    <div className="cardContent">
+                      <UserSnapshot userId={project.user_id} />
+                      <ProjectDetails project={project} />
+                    </div>
 
-                </TinderCard>
-            )})}
+                  </TinderCard>
+              )}})}
 
         </div>
 

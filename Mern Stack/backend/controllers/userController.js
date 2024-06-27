@@ -146,8 +146,8 @@ const joinRoom = async (req, res) => {
 }
 
 const getRoomNumber = async (req, res) => {
-  // Verify user is authenticated
 
+  // Verify user is authenticated
   const { _id } = req.user
 
   try {
@@ -158,7 +158,9 @@ const getRoomNumber = async (req, res) => {
       return res.status(404).json({ message: 'User not found' })
     }
 
-    res.json(user.rooms)
+
+    res.status(200).json(user.rooms)
+
 
   } catch (err) {
     console.error(err);

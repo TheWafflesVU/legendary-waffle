@@ -1,33 +1,30 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { React, useState } from 'react'
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
 import './index.css'
 
+import Navbar from './components/Navbar'
+import Sidebar from './components/Sidebar.js'
+import SearchBar from './components/SearchBar.js'
+import PasswordReset from "./components/PasswordReset";
+import ForgotPassword from "./components/ForgotPassword";
+
 import Login from './pages/Login'
 import Signup from './pages/Signup'
-import Navbar from './components/Navbar'
-
 import Homepage from './pages/Homepage'
 import UserProfile from './pages/UserProfile'
 import Chatroom from './pages/Chatroom'
 import ProjectSearchRes from './pages/projectSearchRes'
-import Sidebar from './components/Sidebar.js'
-import Search from './components/searchbar.js'
-import { React, useState } from 'react'
 import Confirmation from './pages/Confirmation'
-import PasswordReset from "./components/PasswordReset";
-import ForgotPassword from "./components/ForgotPassword";
-import io from 'socket.io-client'
 
-
-
-// const socket = io('https://waffle.onrender.com')
 
 function App() {
   const { user } = useAuthContext()
-  const [search, setSearch] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <div className="App">
+
       <BrowserRouter>
 
       {user && <Sidebar />}
@@ -36,17 +33,17 @@ function App() {
 
           <Navbar />
 
-          {/*{user && <Search setSearch={(search) => setSearch(search)} />}*/}
+          {user && window.location.pathname !== '/profile' && <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />}
 
           <div className="pages">
             <Routes>
               <Route path="/" element={<Navigate to="/login" />} />
               <Route path="/login" element={!user ? <Login /> : <Navigate to="/homepage" />} />
               <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/homepage" />} />
-              <Route path="/homepage" element={<Homepage/>} />
 
-              {/*<Route path='/chatroom' element={user ? <Chatroom socket={socket} /> : <Navigate to="/" />}/>*/}
+              <Route path="/homepage" element={<Homepage/>} />
               <Route path="/profile" element={<UserProfile/>} />
+              <Route path='/chatroom' element={user ? <Chatroom /> : <Navigate to="/" />}/>
 
               <Route path='/projectSearchRes' element={<ProjectSearchRes/>} />
               <Route path='/confirmation/:email/:emailToken' element={<Confirmation />} />
@@ -54,14 +51,14 @@ function App() {
               <Route path="/password-reset" element={<PasswordReset />} />
 
             </Routes>
+
           </div>
+
         </div>
 
-
       </BrowserRouter>
+
     </div>
-
-
   );
 }
 
