@@ -6,14 +6,17 @@
   --primary: black;
   --error: #e7195a;
 }
+
 body {
   background: #f1f1f1;
   margin: 0;
   font-family: "Poppins";
 }
+
 header {
   background: #fff;
 }
+
 header .container {
   max-width: 1400px;
   margin: 0 auto;
@@ -22,16 +25,19 @@ header .container {
   align-items: center;
   justify-content: space-between;
 }
+
 header a {
   color: #333;
   text-decoration: none;
 }
-.pages{
+
+.pages {
   max-width: 1400px;
   padding: 20px;
   margin: 0 auto;
 }
-.App{
+
+.App {
   max-width: 3000px;
   overflow-x: auto;
 }
@@ -40,7 +46,6 @@ header a {
   margin-left: 64px;
 }
 
-
 /* auth forms */
 form.signup, form.login {
   max-width: 400px;
@@ -48,4 +53,51 @@ form.signup, form.login {
   padding: 20px;
   background: #fff;
   border-radius: 4px;
+}
+
+.signup label, .signup input, .login label, .login input {
+  display: block;
+}
+
+.signup input, .login input {
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.signup select, .login select {
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.signup button, .login button {
+  background: var(--primary);
+  border: 0;
+  color: #fff;
+  padding: 10px;
+  font-family: "Poppins";
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.signup .error, .login .error {
+  padding: 10px;
+  background: #ffefef;
+  border: 1px solid var(--error);
+  color: var(--error);
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
+.signup input.error, .login input.error {
+  border: 1px solid var(--error);
 }

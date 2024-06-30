@@ -1,5 +1,12 @@
-.userSnapshot {
-    flex: 0 0 26%;
+.cardContent .userSnapshot {
+    flex: 0 0 25%;
+    padding-left: 2%;
+}
+
+
+.search-result-view .userSnapshot {
+    flex: 0 0 20%;
+    padding-left: 2%;
 }
 
 .userName {

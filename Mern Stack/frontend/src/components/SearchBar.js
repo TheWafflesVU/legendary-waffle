@@ -1,6 +1,6 @@
 import "./SearchBar.css";
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 
 const languageOptions = ['Python', 'C++', 'Java', 'JavaScript', 'C', 'HTML/CSS', 'PHP', 'SQL', 'Swift', 'Go'];
 const projectTypeOptions = [
@@ -11,25 +11,29 @@ const courseNumberOptions = [
     'CS1101', 'CS2201', 'CS2212', 'CS3250', 'CS3251', 'CS3281', 'CS3270', 'CS4278', 'CS3265', 'CS4260', 'CS4288', 'CS3891'
 ];
 
-const SearchBar = ({ searchQuery, setSearchQuery }) => {
+const SearchBar = ({setRefresh, refresh}) => {
     const location = useLocation();
     const [selectedTags, setSelectedTags] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
     const [dropdownVisible, setDropdownVisible] = useState(false);
+    const navigate = useNavigate()
 
     const handleSubmit = () => {
         const tagsString = selectedTags.join(',');
-        const searchStr = `${tagsString}/${searchQuery}`;
+        const params = new URLSearchParams();
 
-        if (searchStr.trim() === '' && selectedTags.length === 0) {
-            window.location.href = `/projectsearchres?search=NULL/NULL`;
-        } else if (searchStr.trim() === '') {
-            window.location.href = `/projectsearchres?search=${tagsString}/NULL`;
-        } else if (selectedTags.length === 0) {
-            window.location.href = `/projectsearchres?search=NULL/${searchStr}`;
-        } else {
-            window.location.href = `/projectsearchres?search=${encodeURIComponent(searchStr)}`;
+        if (tagsString.trim() !== '') {
+            params.set('tags', tagsString);
         }
-    };
+
+        if (searchQuery.trim() !== '') {
+            params.set('query', searchQuery);
+        }
+
+        const searchParams = params.toString() || 'tags=NULL&query=NULL';
+        navigate(`/search?${searchParams}`);
+        setRefresh(!refresh)
+    }
 
     const handleTagSelect = (tag) => {
         if (!selectedTags.includes(tag)) {
