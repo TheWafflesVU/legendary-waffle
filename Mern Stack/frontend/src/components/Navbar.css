@@ -1,20 +1,26 @@
+header {
+    background: #fff;
+}
 
-.container {
-    margin-left: 100px;
-    
+header .container {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header a {
+    color: #333;
+    text-decoration: none;
 }
 
 .title {
-    font-family: 'Roboto', sans-serif; /* Use a clean and modern font */
-    font-weight: 700; /* Use a bold font weight */
-    text-decoration: none; /* Remove any text decoration */
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    text-decoration: none;
     margin-left: 2rem;
 }
 
-.logout {
-    display: flex;
-    align-items: center;
-}
 .logout button {
     background: #fff;
     color: var(--primary);

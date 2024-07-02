@@ -1,15 +1,7 @@
 import "./SearchBar.css";
 import { useState } from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
-
-const languageOptions = ['Python', 'C++', 'Java', 'JavaScript', 'C', 'HTML/CSS', 'PHP', 'SQL', 'Swift', 'Go'];
-const projectTypeOptions = [
-    'Front-end', 'Back-end', 'Full-stack', 'React', 'Flask', "Rest", 'Machine Learning',
-    'Data Analysis', 'Smart Devices', 'Artificial Intelligence', 'Social Network', 'Visualization',
-];
-const courseNumberOptions = [
-    'CS1101', 'CS2201', 'CS2212', 'CS3250', 'CS3251', 'CS3281', 'CS3270', 'CS4278', 'CS3265', 'CS4260', 'CS4288', 'CS3891'
-];
+import useFetchTag from '../hooks/useFetchTag'
 
 const SearchBar = ({setRefresh, refresh}) => {
     const location = useLocation();
@@ -17,6 +9,12 @@ const SearchBar = ({setRefresh, refresh}) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const navigate = useNavigate()
+
+    const { tags: programmingLanguage, loading: loadingLanguage } = useFetchTag('programmingLanguage');
+    const { tags: projectType, loading: loadingProjectType } = useFetchTag('projectType');
+    const { tags: VUCourse, loading: loadingCourseNumber } = useFetchTag('VUCourse');
+
+    if (loadingLanguage || loadingProjectType || loadingCourseNumber) return <p>Loading...</p>;
 
     const handleSubmit = () => {
         const tagsString = selectedTags.join(',');
@@ -84,7 +82,7 @@ const SearchBar = ({setRefresh, refresh}) => {
                 <div className="dropdown-menu">
                     <div>
                         <h4>Languages</h4>
-                        {languageOptions.map((lang) => (
+                        {programmingLanguage && programmingLanguage.map((lang) => (
                             <div key={lang}
                                  className={`dropdown-item ${selectedTags.includes(lang) ? 'selected' : ''}`}
                                  onClick={() => handleTagSelect(lang)}>
@@ -95,7 +93,7 @@ const SearchBar = ({setRefresh, refresh}) => {
 
                     <div>
                         <h4>Project Types</h4>
-                        {projectTypeOptions.map((type) => (
+                        {projectType && projectType.map((type) => (
                             <div key={type}
                                  className={`dropdown-item ${selectedTags.includes(type) ? 'selected' : ''}`}
                                  onClick={() => handleTagSelect(type)}>
@@ -106,7 +104,7 @@ const SearchBar = ({setRefresh, refresh}) => {
 
                     <div>
                         <h4>Course Numbers</h4>
-                        {courseNumberOptions.map((course) => (
+                        {VUCourse && VUCourse.map((course) => (
                             <div key={course}
                                  className={`dropdown-item ${selectedTags.includes(course) ? 'selected' : ''}`}
                                  onClick={() => handleTagSelect(course)}>

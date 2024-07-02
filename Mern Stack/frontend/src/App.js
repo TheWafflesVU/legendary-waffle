@@ -4,7 +4,6 @@ import { useAuthContext } from './hooks/useAuthContext'
 import './index.css'
 
 import Navbar from './components/Navbar'
-import Sidebar from './components/Sidebar.js'
 import SearchBar from './components/SearchBar.js'
 import PasswordReset from "./components/PasswordReset";
 import ForgotPassword from "./components/ForgotPassword";
@@ -16,6 +15,8 @@ import UserProfile from './pages/UserProfile'
 import Chatroom from './pages/Chatroom'
 import Confirmation from './pages/Confirmation'
 import {SearchResult} from "./pages/SearchResult";
+import PostProject from "./pages/PostProject";
+import SideNavBar from "./components/SideNavBar";
 
 
 function App() {
@@ -27,31 +28,37 @@ function App() {
 
       <BrowserRouter>
 
-      {user && <Sidebar />}
+        <div className="main-container">
 
-        <div className="main-content">
+          <SideNavBar/>
 
-          <Navbar />
+          <div className="content-container">
 
-          {user && window.location.pathname !== '/profile' && <SearchBar setRefresh={setRefresh} refresh={refresh}/>}
+            <Navbar />
 
-          <div className="pages">
-            <Routes>
-              <Route path="/" element={<Navigate to="/login" />} />
-              <Route path="/login" element={!user ? <Login /> : <Navigate to="/homepage" />} />
-              <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/homepage" />} />
+            {user && <SearchBar setRefresh={setRefresh} refresh={refresh}/>}
 
-              <Route path="/homepage" element={<Homepage/>} />
-              <Route path="/profile" element={<UserProfile/>} />
-              <Route path='/chatroom' element={user ? <Chatroom /> : <Navigate to="/" />}/>
-              <Route path="/search" element={<SearchResult refresh={refresh}/>} />
+            <div className="pages">
+              <Routes>
+                <Route path="/login" element={!user ? <Login /> : <Navigate to="/homepage" />} />
+                <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/homepage" />} />
 
-              <Route path='/confirmation/:email/:emailToken' element={<Confirmation />} />
-              <Route path="/forgotpassword/:email/:token" element={<ForgotPassword />} />
-              <Route path="/password-reset" element={<PasswordReset />} />
+                <Route path="/homepage" element={<Homepage/>} />
+                <Route path="/profile" element={<UserProfile/>} />
+                <Route path='/chatroom' element={user ? <Chatroom /> : <Navigate to="/homepage" />}/>
+                <Route path="/search" element={<SearchResult refresh={refresh}/>} />
+                <Route path="/create" element={<PostProject />} />
 
-            </Routes>
+                <Route path='/confirmation/:email/:emailToken' element={<Confirmation />} />
+                <Route path="/forgotpassword/:email/:token" element={<ForgotPassword />} />
+                <Route path="/password-reset" element={<PasswordReset />} />
 
+                <Route path="/" element={<Navigate to="/login" />} />
+
+
+              </Routes>
+
+            </div>
           </div>
 
         </div>

@@ -1,0 +1,15 @@
+.pro-sidebar {
+    height: 100vh;
+    background-color: #404040;
+}
+
+.nav-icons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.active {
+    background-color: #ffffff;
+    font-weight: bold;
+}

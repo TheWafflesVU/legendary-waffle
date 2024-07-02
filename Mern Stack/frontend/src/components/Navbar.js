@@ -18,7 +18,7 @@ const Navbar = () => {
 
   const handleDeleteAccount = async () => {
     // Once the account is deleted, log the user out
-    if (window.confirm('Are you sure you want to delete your account?')) {
+    if (window.confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
       await deleteUser(user.email);
       logout();
       navigate('/login');
@@ -41,8 +41,8 @@ const Navbar = () => {
           )}
           {!user && (
             <div>
-              <Link to="/login" style={{ marginRight: '10px' }}>Login</Link>
-              <Link to="/signup">Signup</Link>
+              <button onClick={() => navigate("/login")}>Login</button>
+              <button onClick={() => navigate("/signup")}>Signup</button>
             </div>
           )}
         </div>

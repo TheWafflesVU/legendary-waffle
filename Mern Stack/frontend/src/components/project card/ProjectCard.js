@@ -11,12 +11,16 @@ import './ProjectCard.css'
 import RestorePageIcon from '@mui/icons-material/RestorePage'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
+import {useChatContext} from "../../hooks/useChatContext";
 
 const ProjectCard = () => {
 
   // Authentication & Projects
   const {projects, dispatch} = useProjectsContext()
   const {user} = useAuthContext()
+
+  // Chatroom
+  const {createAndJoin} = useChatContext()
 
   // For navigating the user to chatroom
   const navigate = useNavigate()
@@ -55,7 +59,7 @@ const ProjectCard = () => {
   // When user is changed, fetch the projects again
   useEffect(() =>  {
     const fetchProjects = async () => {
-      const response = await fetch('/api/projects/all', {
+      const response = await fetch('/api/project/all', {
         headers: {'Authorization': `Bearer ${user.token}`},
       })
       const json = await response.json()
@@ -116,12 +120,14 @@ const ProjectCard = () => {
   }
 
 
-
   // Redirects the user to chatroom page
-  const handleChat =  (id, auth_email, name) => {
-    if (auth_email !== user.email){
-      navigate('/chatroom', { state: { fromRedirect: true, proj_id: id, auth_email: auth_email, proj_name: name} })
+  const handleChat =  (id, project_id) => {
+
+    if (user) {
+      createAndJoin(user.user_id, id, project_id)
+      navigate(`/chatroom`)
     }
+
   }
 
 
@@ -149,7 +155,7 @@ const ProjectCard = () => {
                               className="cardContainer">
 
                     <div className="cardHeader">
-                      <button>Interested?</button>
+                      <button onClick={() => {handleChat(project.user_id, project._id)}}>Interested?</button>
                     </div>
 
                     <div className="cardContent">

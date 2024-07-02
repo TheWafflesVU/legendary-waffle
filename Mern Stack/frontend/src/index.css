@@ -13,23 +13,6 @@ body {
   font-family: "Poppins";
 }
 
-header {
-  background: #fff;
-}
-
-header .container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-header a {
-  color: #333;
-  text-decoration: none;
-}
 
 .pages {
   max-width: 1400px;
@@ -42,8 +25,15 @@ header a {
   overflow-x: auto;
 }
 
-.main-content {
-  margin-left: 64px;
+.main-container {
+  display: flex;
+  flex: 1;
+
+}
+
+.content-container {
+  flex: 1;
+
 }
 
 /* auth forms */

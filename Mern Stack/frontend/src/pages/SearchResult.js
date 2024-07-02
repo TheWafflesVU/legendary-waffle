@@ -16,13 +16,12 @@ export const SearchResult = ({refresh}) => {
     const query = new URLSearchParams(location.search);
     const searchTags = query.get('tags') || 'NULL';
     const searchQuery = query.get('query') || 'NULL';
-    console.log(`/api/projects/search/${searchTags}/${searchQuery}`)
 
     useEffect(() => {
         const fetchResults = async () => {
             if (user) {
                 setLoading(true);
-                const response = await fetch(`/api/projects/search/${searchTags}/${searchQuery}`, {
+                const response = await fetch(`/api/project/search/${searchTags}/${searchQuery}`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${user.token}`
