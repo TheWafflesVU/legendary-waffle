@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
-import { useAuthContext } from '../../hooks/useAuthContext';
-import { useChatContext } from '../../hooks/useChatContext';
+import { useAuthContext } from '../../../hooks/useAuthContext';
+import { useChatContext } from '../../../hooks/useChatContext';
 
 export const ChatWindow = () => {
     const { user } = useAuthContext();

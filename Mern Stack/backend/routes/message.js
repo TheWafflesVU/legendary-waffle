@@ -1,7 +1,7 @@
 const express = require('express')
 const {
     getMessage,
-    receivedMessage
+    sendMessage
 } = require('../controllers/messageController')
 const requireAuth = require('../middleware/requireAuth')
 
@@ -11,9 +11,9 @@ const router = express.Router()
 router.use(requireAuth)
 
 // Get the messages based on room number
-router.get('/:room_num', getMessage)
+router.get('/:chatroom_id', getMessage)
 
-// Create new messages in database
-router.post('/', receivedMessage)
+// Create & Broadcast a new messages in database
+router.post('/send', sendMessage)
 
 module.exports = router

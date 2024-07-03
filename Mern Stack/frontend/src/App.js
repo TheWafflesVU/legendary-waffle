@@ -3,10 +3,13 @@ import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
 import './index.css'
 
-import Navbar from './components/Navbar'
-import SearchBar from './components/SearchBar.js'
-import PasswordReset from "./components/PasswordReset";
-import ForgotPassword from "./components/ForgotPassword";
+
+import Navbar from './pages/components/Navbar'
+import SearchBar from './pages/components/SearchBar.js'
+import PasswordReset from "./pages/components/PasswordReset";
+import ForgotPassword from "./pages/components/ForgotPassword";
+import SideNavBar from "./pages/components/SideNavBar";
+
 
 import Login from './pages/Login'
 import Signup from './pages/Signup'
@@ -14,9 +17,9 @@ import Homepage from './pages/Homepage'
 import UserProfile from './pages/UserProfile'
 import Chatroom from './pages/Chatroom'
 import Confirmation from './pages/Confirmation'
-import {SearchResult} from "./pages/SearchResult";
+import SearchResult from "./pages/SearchResult";
 import PostProject from "./pages/PostProject";
-import SideNavBar from "./components/SideNavBar";
+import {TagsProvider} from "./context/TagContext";
 
 
 function App() {
@@ -30,15 +33,16 @@ function App() {
 
         <div className="main-container">
 
-          <SideNavBar/>
+          {user && <SideNavBar/>}
 
           <div className="content-container">
 
             <Navbar />
 
-            {user && <SearchBar setRefresh={setRefresh} refresh={refresh}/>}
-
             <div className="pages">
+
+              {user && <SearchBar setRefresh={setRefresh} refresh={refresh}/>}
+
               <Routes>
                 <Route path="/login" element={!user ? <Login /> : <Navigate to="/homepage" />} />
                 <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/homepage" />} />

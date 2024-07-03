@@ -1,20 +1,9 @@
-header {
-    background: #fff;
-}
-
-header .container {
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-header a {
+.header-container a {
     color: #333;
     text-decoration: none;
 }
 
-.title {
+.header-container .title {
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
     text-decoration: none;

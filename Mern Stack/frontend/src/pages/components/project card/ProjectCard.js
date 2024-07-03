@@ -1,17 +1,17 @@
 import React from 'react'
 import TinderCard from 'react-tinder-card'
 import { useEffect, useState, useRef }from 'react'
-import { useProjectsContext } from "../../hooks/useProjectsContext"
-import { useAuthContext } from "../../hooks/useAuthContext"
+import { useProjectsContext } from "../../../hooks/useProjectsContext"
+import { useAuthContext } from "../../../hooks/useAuthContext"
+import {useChatContext} from "../../../hooks/useChatContext";
 import { useNavigate } from 'react-router-dom'
 import UserSnapshot from "./UserSnapshot"
 import ProjectDetails from "./ProjectDetails"
 import './ProjectCard.css'
 
-import RestorePageIcon from '@mui/icons-material/RestorePage'
+import ModelTrainingIcon from '@mui/icons-material/ModelTraining';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight'
-import {useChatContext} from "../../hooks/useChatContext";
 
 const ProjectCard = () => {
 
@@ -36,6 +36,8 @@ const ProjectCard = () => {
 
   // Used for locking the view when swiping
   const cardContainerRef = useRef({})
+
+  const [refresh, setRefresh] = useState(false)
 
   useEffect(() => {
 
@@ -78,7 +80,7 @@ const ProjectCard = () => {
   // setLast()
   useEffect(() => {
     if (Array.isArray(projects)){
-      setLast(projects.length - 1 )
+      setLast(projects.length - 1)
       cardRefs.current = Array(projects.length).fill(0).map(() => React.createRef())
       lastIndexRef.current = last
     }
@@ -133,58 +135,68 @@ const ProjectCard = () => {
 
   return (
 
-      <div className="mainCardsView">
+      <div className="projectCardContainer">
 
-        <div className="cardListContainer" ref={cardContainerRef}>
-
-          <div className="cardListBase">
-            <p>All Projects displayed!</p>
-            <button>Wanna see more?</button>
-          </div>
-
-          {projects && projects.map((project, index) => {
-
-            if (project.email !== user.email){
-              return (
-                  <TinderCard key={project._id}
-                              ref={cardRefs.current[index]}
-                              swipeRequirementType="position"
-                              preventSwipe={['up', 'down']}
-                              onSwipe={onSwipeHandler}
-                              onCardLeftScreen={(index) => HandleOutOfFrame(index)}
-                              className="cardContainer">
-
-                    <div className="cardHeader">
-                      <button onClick={() => {handleChat(project.user_id, project._id)}}>Interested?</button>
-                    </div>
-
-                    <div className="cardContent">
-                      <UserSnapshot userId={project.user_id} />
-                      <ProjectDetails project={project} />
-                    </div>
-
-                  </TinderCard>
-              )}})}
-
+        <div className="restore-button">
+          <ModelTrainingIcon fontSize="large" onClick={GetLastCard}/>
         </div>
 
-        <div className="helper-button-container">
+        <div className="mainCardsView">
 
-          <div className="restore-leftArrow-button">
-            <ArrowCircleLeftIcon fontSize="large" onClick={() => {swipe('left')}}/>
+          <div className="arrow-button">
+            <ArrowCircleLeftIcon fontSize="large" onClick={() => {
+              swipe('left')
+            }}/>
           </div>
 
-          <div className="restore-leftArrow-button">
-            <RestorePageIcon fontSize="large" onClick={() => {GetLastCard()}}/>
+          <div className="cardListContainer" ref={cardContainerRef}>
+
+            <div className="cardListBase">
+              <p>All Projects displayed!</p>
+              <button>Wanna see more?</button>
+            </div>
+
+            {projects && projects.map((project, index) => {
+
+              if (project.email !== user.email) {
+                return (
+                    <TinderCard key={project._id}
+                                ref={cardRefs.current[index]}
+                                swipeRequirementType="position"
+                                preventSwipe={['up', 'down']}
+                                onSwipe={onSwipeHandler}
+                                onCardLeftScreen={(index) => HandleOutOfFrame(index)}
+                                className="cardContainer">
+
+                      <div className="cardHeader">
+                        <button onClick={() => {
+                          handleChat(project.user_id, project._id)
+                        }}>Interested?
+                        </button>
+                      </div>
+
+                      <div className="cardContent">
+                        <UserSnapshot userId={project.user_id}/>
+                        <ProjectDetails project={project}/>
+                      </div>
+
+                    </TinderCard>
+                )
+              }
+            })}
+
           </div>
 
-
-          <div className="restore-leftArrow-button">
-            <ArrowCircleRightIcon fontSize="large" onClick={() => {swipe('right')}}/>
+          <div className="arrow-button">
+            <ArrowCircleRightIcon fontSize="large" onClick={() => {
+              swipe('right')
+            }}/>
           </div>
+
         </div>
-
       </div>
+
+
   )
 
 }

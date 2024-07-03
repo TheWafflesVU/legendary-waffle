@@ -1,7 +1,7 @@
 import React from 'react'
 import "./Chatroom.css"
 import {useChatContext} from "../hooks/useChatContext";
-import ChatWindow from "../components/chatroom/ChatWindow";
+import ChatWindow from "./components/chatroom/ChatWindow";
 
 const Chatroom = () => {
 
@@ -22,12 +22,9 @@ const Chatroom = () => {
                     ))}
                 </ul>
             </div>
-            <ChatWindow />
+            <ChatWindow/>
         </div>
 
     );
-
-
 }
-
 export default Chatroom

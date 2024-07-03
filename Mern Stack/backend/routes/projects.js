@@ -5,7 +5,8 @@ const {
   getProject,
   deleteProject,
   updateProject,
-  searchProject
+  searchProject,
+  getProjectsByUser
 } = require('../controllers/projectController')
 const requireAuth = require('../middleware/requireAuth')
 
@@ -19,6 +20,9 @@ router.get('/all', getProjects)
 
 // GET a single project
 router.get('/:id', getProject)
+
+// GET all project of a user
+router.get('/byUser/:user_id', getProjectsByUser)
 
 // GET projects based on search
 router.get('/search/:tags/:q', searchProject)

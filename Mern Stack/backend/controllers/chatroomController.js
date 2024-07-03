@@ -5,7 +5,6 @@ const createChatroom = async (req, res) => {
 
     try {
         const { user1_id, user2_id, project_id } = req.body;
-        console.log(user1_id, user2_id, project_id)
 
         // Check if a chatroom already exists between these two users
         let chatroom = await Chatroom.findOne({
@@ -13,6 +12,7 @@ const createChatroom = async (req, res) => {
             project_id: project_id
         });
 
+        let statusCode = 200
         if (!chatroom) {
             // If chatroom doesn't exist, create a new one
             chatroom = new Chatroom({
@@ -20,21 +20,49 @@ const createChatroom = async (req, res) => {
                 project_id: project_id,
             });
             await chatroom.save();
+            statusCode = 201
         }
 
-        res.status(200).json(chatroom);
+        await chatroom.populate('project_id', 'title')
+        res.status(statusCode).json(chatroom);
 
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 }
 
-// Get all existing chatroom for a user
+// Get all existing chatroom for a user. Also get the project title
 const getAllChatrooms = async (req, res) => {
 
     try {
-        const chatrooms = await Chatroom.find({ users: req.params.userId }).populate('users');
+        const chatrooms = await Chatroom.find({
+            users: req.params.userId
+        })
+        .populate('project_id', 'title')
+        .exec();
         res.status(200).json(chatrooms);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+
+const getChatroomDetails = async (req, res) => {
+
+    try {
+        const { chatroom_id } = req.params;
+
+        const roomDetails = await Chatroom
+            .findOne({_id: chatroom_id})
+            .populate('project_id', 'title')
+            .populate('users', 'lastName firstName email')
+
+        if (!roomDetails) {
+            return res.status(404).json({ message: 'Chatroom not found' });
+        }
+
+        res.status(200).json(roomDetails)
+
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -42,7 +70,8 @@ const getAllChatrooms = async (req, res) => {
 
 module.exports = {
     createChatroom,
-    getAllChatrooms
+    getAllChatrooms,
+    getChatroomDetails
 }
 
 

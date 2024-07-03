@@ -1,13 +1,13 @@
-const Options = require('../models/option');
+const Tag = require('../models/tag');
 
-const getOption = async (req, res) => {
+const getTagsWithType = async (req, res) => {
     try {
         const { type } = req.params;
-        const options = await Options.findOne({ type });
-        if (options) {
-            res.status(200).json(options.values);
+        const tags = await Tag.find({ type }, {value: 1, _id: 0});
+        if (tags) {
+            res.status(200).json(tags.map(tag => tag.value));
         } else {
-            res.status(404).json({ message: 'Options not found' });
+            res.status(404).json({ message: 'Tags not found' });
         }
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -15,31 +15,45 @@ const getOption = async (req, res) => {
 }
 
 // Controller to add a new option
-const addOption = async (req, res) => {
-    const { type, values } = req.body;
+const addTag = async (req, res) => {
+    const { type, value } = req.body;
 
     try {
-        // Find if the options type already exists
-        let options = await Options.findOne({ type });
 
-        if (options) {
-            // If the type exists, update the values array
-            options.values = [...new Set([...options.values, ...values])];
-            await options.save();
-        } else {
-            // If the type doesn't exist, create a new document
-            options = new Options({ type, values });
-            await options.save();
-        }
+        const tag = new Tag({ type, value });
+        await tag.save();
+        res.status(201).json(tag);
 
-        res.status(201).json(options);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+
+        res.status(400).json({ message: error.message });
+
     }
+
+};
+
+// Controller to add a new option
+const addTagsWithType = async (req, res) => {
+    const { type } = req.params;
+    const { tags } = req.body; // Expecting an array of tags, each with type and value
+
+    try {
+        const tagDocuments = tags.map(tag => new Tag({type: type, value: tag}));
+        await Tag.insertMany(tagDocuments, { ordered: false }); // Insert all tags, continue on error
+        res.status(201).json({ message: 'Tags added successfully' });
+    } catch (error) {
+        if (error.code === 11000) { // Duplicate key error code
+            res.status(400).json({ message: 'Some tags already exist.' });
+        } else {
+            res.status(500).json({ message: error.message });
+        }
+    }
+
 };
 
 module.exports = {
-    getOption,
-    addOption
+    getTagsWithType,
+    addTag,
+    addTagsWithType
 }
 

@@ -3,10 +3,10 @@ import { useAuthContext } from "../hooks/useAuthContext"
 import {useProjectsContext} from "../hooks/useProjectsContext";
 import {useLocation} from 'react-router-dom'
 import './SearchResult.css'
-import UserSnapshot from "../components/project card/UserSnapshot";
+import UserSnapshot from "./components/project card/UserSnapshot";
 
 
-export const SearchResult = ({refresh}) => {
+const SearchResult = ({refresh}) => {
 
     const {projects, dispatch} = useProjectsContext()
     const {user} = useAuthContext()
@@ -75,4 +75,4 @@ export const SearchResult = ({refresh}) => {
 }
 
 
-
+export default SearchResult

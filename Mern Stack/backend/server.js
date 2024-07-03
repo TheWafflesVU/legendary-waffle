@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 const projectRoutes = require('./routes/projects')
 const userRoutes = require('./routes/user')
 const messageRoutes = require('./routes/message')
+const chatroomRoutes = require('./routes/chatroom')
+const tagRoutes = require('./routes/tag')
 const cors = require("cors")
 const http = require('http')
 const { Server } = require('socket.io')
@@ -37,24 +39,24 @@ io.on('connection', (socket) => {
         console.log("User Disconnected", socket.id);
     })
 
-
     socket.on("join_room", (data) => {
         socket.join(data);
         console.log(`User with ID: ${socket.id} joined room: ${data}`);
-      });
+    });
 
-    socket.on("send_message", (data) => {
+});
 
-        console.log(data)
-        socket.to(data.room).emit("receive_message", data)
-
-    })
+app.use((req, res, next) => {
+    req.io = io;
+    next();
 });
 
 // routes
-app.use('/api/projects', projectRoutes)
+app.use('/api/chatroom', chatroomRoutes)
+app.use('/api/project', projectRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/message', messageRoutes)
+app.use('/api/tag', tagRoutes)
 
 mongoose.set('strictQuery', false);
 

@@ -23,8 +23,11 @@ const useFetchTag = (type) => {
             }
         };
 
-        fetchTags();
-    }, [type]);
+        if (user) {
+            fetchTags();
+        }
+
+    }, [type, user]);
 
     return { tags, loading };
 }

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {useAuthContext} from "../../hooks/useAuthContext";
+import {useAuthContext} from "../../../hooks/useAuthContext";
 import './UserSnapShot.css'
 
 const UserSnapshot = ({userId}) => {

@@ -2,10 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap');
 
 /* layout */
-:root {
-  --primary: black;
-  --error: #e7195a;
-}
 
 body {
   background: #f1f1f1;
@@ -13,32 +9,47 @@ body {
   font-family: "Poppins";
 }
 
-
-.pages {
-  max-width: 1400px;
-  padding: 20px;
-  margin: 0 auto;
+:root {
+  --primary: black;
+  --error: #e7195a;
 }
 
 .App {
   max-width: 3000px;
-  overflow-x: auto;
 }
 
 .main-container {
   display: flex;
-  flex: 1;
-
 }
 
 .content-container {
-  flex: 1;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
 
+.header-container {
+  top: 0;
+  position: sticky;
+  height: 10vh;
+  background: #fff;
+  padding-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pages {
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 1%;
 }
 
 /* auth forms */
 form.signup, form.login {
-  max-width: 400px;
+  width: 25%;
   margin: 40px auto;
   padding: 20px;
   background: #fff;

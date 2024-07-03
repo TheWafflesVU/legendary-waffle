@@ -1,0 +1,13 @@
+.sidebar-container {
+    position: relative;
+
+}
+
+.menuItems {
+    margin-top: 20rem;
+}
+
+.active {
+    background-color: #ffffff;
+    font-weight: bold;
+}

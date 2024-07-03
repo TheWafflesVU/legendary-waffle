@@ -1,7 +1,8 @@
 const express = require('express')
 const {
-    getTag,
-    addTag
+    getTagsWithType,
+    addTag,
+    addTagsWithType
 } = require('../controllers/tagController')
 const requireAuth = require('../middleware/requireAuth')
 
@@ -11,9 +12,12 @@ const router = express.Router()
 router.use(requireAuth)
 
 // Get the messages based on room number
-router.get('/:type', getTag)
+router.get('/:type', getTagsWithType)
 
 // Route to add a new option
 router.post('/', addTag);
+
+// Route to add a new option to
+router.post('/:type', addTagsWithType);
 
 module.exports = router

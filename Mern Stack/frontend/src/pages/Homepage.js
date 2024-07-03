@@ -1,4 +1,4 @@
-import ProjectCard from '../components/project card/ProjectCard'
+import ProjectCard from './components/project card/ProjectCard'
 
 
 const Home = () => {

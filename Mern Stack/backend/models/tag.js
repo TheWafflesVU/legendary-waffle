@@ -1,15 +1,17 @@
 const mongoose = require('mongoose');
 
-const optionsSchema = new mongoose.Schema({
+const tagSchema = new mongoose.Schema({
     type: {
         type: String,
         enum: ['programmingLanguage', 'projectType', 'VUCourse', 'platform'],
         required: true,
     },
-    values: {
+    value: {
         type: String,
         required: true,
     },
 });
 
-module.exports = mongoose.model('Options', optionsSchema);
+tagSchema.index({ type: 1, value: 1 }, { unique: true })
+
+module.exports = mongoose.model('Tag', tagSchema);
