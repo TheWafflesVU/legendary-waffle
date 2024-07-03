@@ -68,9 +68,9 @@ const PostProject = () => {
             <div className="projects-list">
                 <h3>Existing Projects</h3>
                 <ul>
-                    {projects.map((project) => (
-                        <div key={project.id}>
-                            <ProjectDetails key={project.id} project={project} />
+                    {projects.map((project, i) => (
+                        <div key={i}>
+                            <ProjectDetails project={project} />
                         </div>
                     ))}
                 </ul>

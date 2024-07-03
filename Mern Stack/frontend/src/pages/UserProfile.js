@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './UserProfile.css';
-import profileImage from '../asset/default.png';
+import {useAuthContext} from "../hooks/useAuthContext";
 
 const Profile = () => {
     const [firstName, setFirstName] = useState('');
@@ -13,44 +13,50 @@ const Profile = () => {
     const [error, setError] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
 
+    const {user} = useAuthContext();
+
     const LANGUAGES = [
         'JavaScript', 'Python', 'Java', 'C++', 'Ruby', 'Go', 'PHP', 'C#', 'TypeScript'
     ];
 
     useEffect(() => {
-        const getProfile = async () => {
-            const token = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).token : null;
-            if (!token) {
-                setIsLoading(false);
-                setError('User is not authenticated');
-                return;
-            }
-            try {
-                const user_id = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).user_id : null;
-                const response = await fetch(`/api/user/${user_id}`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                const json = await response.json();
 
-                if (!response.ok) {
+        if (user) {
+            const getProfile = async () => {
+                const token = user.token
+                if (!token) {
                     setIsLoading(false);
-                    setError(json.error);
-                } else {
-                    setFirstName(json.firstName || '');
-                    setLastName(json.lastName || '');
-                    setEmail(json.email || '');
-                    setYear(json.year || '');
-                    setProgrammingLanguages(json.programmingLanguages || []);
-                    setSocialInfo(json.socialInfo || '');
-                    setIsLoading(false);
+                    setError('User is not authenticated');
+                    return;
                 }
-            } catch (e) {
-                setIsLoading(false);
-                setError(e.message);
-            }
-        };
-        getProfile();
-    }, []);
+                try {
+                    const user_id = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).user_id : null;
+                    const response = await fetch(`/api/user/${user_id}`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    const json = await response.json();
+
+                    if (!response.ok) {
+                        setIsLoading(false);
+                        setError(json.error);
+                    } else {
+                        setFirstName(json.firstName || '');
+                        setLastName(json.lastName || '');
+                        setEmail(json.email || '');
+                        setYear(json.year || '');
+                        setProgrammingLanguages(json.programmingLanguages || []);
+                        setSocialInfo(json.socialInfo || '');
+                        setIsLoading(false);
+                    }
+                } catch (e) {
+                    setIsLoading(false);
+                    setError(e.message);
+                }
+            };
+            getProfile();
+        }
+
+    }, [user]);
 
     const handleEditProfile = () => {
         setIsEditing(true);
@@ -58,15 +64,14 @@ const Profile = () => {
 
     const handleSaveProfile = async () => {
         setIsLoading(true);
-        const token = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).token : null;
+        const token = user.token
         if (!token) {
             setError('User is not authenticated');
             setIsLoading(false);
             return;
         }
         try {
-            const user_id = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).user_id : null;
-            const response = await fetch(`/api/user/${user_id}`, {
+            const response = await fetch(`/api/user/${user.user_id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -108,7 +113,6 @@ const Profile = () => {
             {error && <p>{error}</p>}
             {!isLoading && !error && (
                 <div className="myprofile-wrapper">
-                    <img src={profileImage} alt="Your avatar" className="rounded-circle avatar" width="200" height="200" />
                     <div className="myprofile-info-container">
                         {isEditing ? (
                             <div>
@@ -143,20 +147,23 @@ const Profile = () => {
                                         onChange={(e) => setYear(e.target.value)}
                                     />
                                 </p>
-                                <p className="myprofile-info">
-                                    <label className="myprofile-info-label">Language(s):</label>
-                                    {LANGUAGES.map((lang) => (
-                                        <label key={lang}>
-                                            <input
-                                                type="checkbox"
-                                                value={lang}
-                                                checked={programmingLanguages.includes(lang)}
-                                                onChange={handleLanguageChange}
-                                            />
-                                            {lang}
-                                        </label>
-                                    ))}
-                                </p>
+                                <div className="myprofile-info-tags">
+                                    <label className="myprofile-info-label-tags">Language(s):</label>
+                                    <div className="myprofile-tag">
+                                        {LANGUAGES.map((lang) => (
+                                            <div className="checkbox-container" key={lang}>
+                                                <input
+                                                    type="checkbox"
+                                                    id={lang}
+                                                    value={lang}
+                                                    checked={programmingLanguages.includes(lang)}
+                                                    onChange={handleLanguageChange}
+                                                />
+                                                <label htmlFor={lang}>{lang}</label>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
                                 <p className="myprofile-info">
                                     <label className="myprofile-info-label">GitHub:</label>
                                     <input
@@ -180,7 +187,8 @@ const Profile = () => {
                                 </p>
                                 <p className="myprofile-info">
                                     <span className="myprofile-info-label">Year:</span>
-                                    <span className="myprofile-info-value">{year.charAt(0).toUpperCase() + year.slice(1).toLowerCase()}</span>
+                                    <span
+                                        className="myprofile-info-value">{year.charAt(0).toUpperCase() + year.slice(1).toLowerCase()}</span>
                                 </p>
                                 <p className="myprofile-info">
                                     <span className="myprofile-info-label">Language(s):</span>
