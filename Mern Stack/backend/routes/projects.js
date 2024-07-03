@@ -6,7 +6,8 @@ const {
   deleteProject,
   updateProject,
   searchProject,
-  getProjectsByUser
+  getProjectsByUser,
+  getAllProjectsExceptThisUser
 } = require('../controllers/projectController')
 const requireAuth = require('../middleware/requireAuth')
 
@@ -17,6 +18,9 @@ router.use(requireAuth)
 
 // GET all projects
 router.get('/all', getProjects)
+
+// GET all projects except requester
+router.get('/allButThisUser/:user_id', getAllProjectsExceptThisUser)
 
 // GET a single project
 router.get('/:id', getProject)

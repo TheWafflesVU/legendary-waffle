@@ -37,17 +37,17 @@ const ProjectCard = () => {
   // Used for locking the view when swiping
   const cardContainerRef = useRef({})
 
-  const [refresh, setRefresh] = useState(false)
-
   useEffect(() => {
-
     const handleKeyDown = (event) => {
-      if (event.key === 'ArrowLeft') {
-        swipe('left')
-      } else if (event.key === 'ArrowRight') {
-        swipe('right')
-      } else if (event.key === 'ArrowDown') {
-        GetLastCard()
+      if (['ArrowLeft', 'ArrowRight', 'ArrowDown'].includes(event.key)) {
+        event.preventDefault(); // Prevent default scrolling behavior
+        if (event.key === 'ArrowLeft') {
+          swipe('left')
+        } else if (event.key === 'ArrowRight') {
+          swipe('right')
+        } else if (event.key === 'ArrowDown') {
+          GetLastCard()
+        }
       }
     }
 
@@ -61,7 +61,7 @@ const ProjectCard = () => {
   // When user is changed, fetch the projects again
   useEffect(() =>  {
     const fetchProjects = async () => {
-      const response = await fetch('/api/project/all', {
+      const response = await fetch(`/api/project/allButThisUser/${user.user_id}`, {
         headers: {'Authorization': `Bearer ${user.token}`},
       })
       const json = await response.json()
@@ -102,7 +102,7 @@ const ProjectCard = () => {
   }
 
   const swipe = async (dir) => {
-    if (cardRefs.current.length > 0 && last < cardRefs.current.length) {
+    if (last >= 0) {
       await cardRefs.current[last].current.swipe(dir) // Swipe the card!
     }
   }
@@ -144,9 +144,9 @@ const ProjectCard = () => {
         <div className="mainCardsView">
 
           <div className="arrow-button">
-            <ArrowCircleLeftIcon fontSize="large" onClick={() => {
-              swipe('left')
-            }}/>
+            <ArrowCircleLeftIcon
+                fontSize="large"
+                onClick={() => {swipe('left')}}/>
           </div>
 
           <div className="cardListContainer" ref={cardContainerRef}>
@@ -158,7 +158,6 @@ const ProjectCard = () => {
 
             {projects && projects.map((project, index) => {
 
-              if (project.email !== user.email) {
                 return (
                     <TinderCard key={project._id}
                                 ref={cardRefs.current[index]}
@@ -182,7 +181,7 @@ const ProjectCard = () => {
 
                     </TinderCard>
                 )
-              }
+
             })}
 
           </div>

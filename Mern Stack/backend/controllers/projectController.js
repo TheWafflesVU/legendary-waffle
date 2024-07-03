@@ -45,6 +45,30 @@ const getProjectsByUser = async (req, res) => {
   res.status(200).json(project)
 }
 
+
+const getAllProjectsExceptThisUser = async (req, res) => {
+
+  const { user_id } = req.params
+
+  if (!mongoose.Types.ObjectId.isValid(user_id)) {
+    return res.status(404).json({error: 'No such user'})
+  }
+
+  try {
+    const projects = await Project.find({ user_id: { $ne: user_id } });
+
+    if (!projects.length) {
+      return res.status(404).json({ error: 'No projects found' });
+    }
+
+    res.status(200).json(projects);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+
+
+}
+
 // create new project
 const createProject = async (req, res) => {
   const { title, description, tags, num_teammates} = req.body;
@@ -233,10 +257,11 @@ const searchProject = async (req, res) => {
 module.exports = {
   getProjects,
   getProject,
+  getProjectsByUser,
+  getAllProjectsExceptThisUser,
   createProject,
   deleteProject,
   updateProject,
   searchProject,
-  getProjectsByUser
 }
 

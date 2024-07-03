@@ -44,6 +44,13 @@
     position: absolute;
     border-radius: 5px;
     overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cardContainer:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .cardContent {
@@ -80,11 +87,23 @@
     color: #FEC500;
 }
 
-
 .arrow-button {
     margin: 2rem;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.arrow-button:hover {
+    transform: scale(1.4);
 }
 
 .restore-button {
     align-self: center;
+    cursor: pointer;
+    transition: transform 0.3s;
 }
+
+.restore-button:hover {
+    transform: rotate(360deg);
+}
+

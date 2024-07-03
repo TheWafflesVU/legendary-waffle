@@ -69,7 +69,7 @@ const PostProject = () => {
                 <h3>Existing Projects</h3>
                 <ul>
                     {projects.map((project) => (
-                        <div>
+                        <div key={project.id}>
                             <ProjectDetails key={project.id} project={project} />
                         </div>
                     ))}

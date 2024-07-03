@@ -19,7 +19,6 @@ import Chatroom from './pages/Chatroom'
 import Confirmation from './pages/Confirmation'
 import SearchResult from "./pages/SearchResult";
 import PostProject from "./pages/PostProject";
-import {TagsProvider} from "./context/TagContext";
 
 
 function App() {
