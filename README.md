@@ -7,6 +7,7 @@ Welcome to Waffle! Waffle is a platform designed to help software developers est
 2. [What's New in Waffle 2.0](#whats-new-in-waffle-20)
 3. [Performance Improvements](#performance-improvements)
 4. [Contribution](#contribution)
+5. [Contributors](#contributors)
 
 ## Deployment
 
@@ -20,12 +21,14 @@ Waffle is fully deployed on Render.com!
 - **Chatroom Integration**: Users can now create chat rooms for each project, allowing real-time collaboration and discussion.
 - **Tag Management**: Improved tag management with a dropdown menu for selecting tags and a separate endpoint for adding tags.
 - **Enhanced Project Posting**: Redesigned the project posting page to display existing projects on the left and a form for creating new projects on the right.
-- **User Profile Management**: Added a user profile page where users can update their information and select their programming languages with styled checkboxes.
 - **Card Interface Update**: Polished displaying of the projects with React-Tinder-Card. Animations now feel much smoother and more responsive.
+- **Overhaul in styling**: Enhanced user interface with a modern and intuitive design, providing a seamless and visually appealing user experience.
 
 ### Bug Fixes
+- Fixed sidebar overlapping with navbar.
 - Fixed issues with card references in the project card component.
-- Fixed error on profile page.
+- Fixed animation error if user clicks the card after swiping.
+- Fixed 404 error on profile page.
 - Resolved scrolling issues with the project card page.
 - Improved error handling for API requests.
 
@@ -45,9 +48,16 @@ These optimizations were achieved through effective use of tree shaking, code sp
 
 ## Contribution
 
-We welcome contributions to Waffle! If you have any ideas, bug fixes, or enhancements, feel free to fork the repository and submit a pull request. Please make sure to follow our [contribution guidelines](#).
+We welcome contributions to Waffle! If you have any ideas, bug fixes, or enhancements, feel free to fork the repository and submit a pull request.
 
-If you have any questions or need further assistance, please contact our support team at [support@waffle.com](mailto:support@waffle.com).
+If you have any questions or need further assistance, please contact me team at [junhao.hui@vanderbilt.edu]
+
+## Contributors
+
+We would like to thank the following people for their contributions to Waffle 2.0:
+
+- [Tony Hui](https://github.com/Junhao-Hui)
+
 
 ---
 
