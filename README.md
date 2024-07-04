@@ -1,5 +1,7 @@
 # Waffle 2.0
 
+![MERN Stack](MERN.png)
+
 Welcome to Waffle! Waffle is a platform designed to help software developers establish collaboration. It allows users to post their projects with tags and descriptions, search for other projects, and chat with fellow developers.
 
 ## Table of Contents
