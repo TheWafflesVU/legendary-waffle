@@ -1,9 +1,8 @@
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
-const axios = require("axios")
 
 const createToken = (_id) => {
-  return jwt.sign({_id}, process.env.SECRET, { expiresIn: '3d' })
+  return jwt.sign({_id}, process.env.SECRET, { expiresIn: '1d' })
 }
 
 // login a user
@@ -16,7 +15,10 @@ const loginUser = async (req, res) => {
     // create a token
     const token = createToken(user._id)
 
-    res.status(200).json({email, token})
+    // Also get the id
+    const user_id = user._id
+
+    res.status(200).json({email, token, user_id})
   } catch (error) {
     res.status(400).json({error: error.message})
   }
@@ -24,15 +26,18 @@ const loginUser = async (req, res) => {
 
 // signup a user
 const signupUser = async (req, res) => {
-  const {email, password} = req.body
+  const {email, password, firstName, lastName, year} = req.body
 
   try {
-    const user = await User.signup(email, password)
+    const user = await User.signup(email, password, firstName, lastName, year)
+
+    // Also get the id
+    const user_id = user._id
 
     // create a token
     const token = createToken(user._id)
 
-    res.status(200).json({email, token})
+    res.status(200).json({email, token, user_id})
   } catch (error) {
     console.log("error cathed");
     res.status(400).json({error: error.message})
@@ -53,7 +58,7 @@ const deleteUser = async (req, res) => {
 
 // update a user
 const updateUser = async (req, res) => {
-  const { lastName, firstName, phoneNumber, year, languages, roles, socialInfo } = req.body;
+  const { lastName, firstName, phoneNumber, year, languages, roles, socialInfo, programmingLanguages } = req.body;
 
   // Verify user is authenticated
   const { _id } = req.user;
@@ -74,6 +79,8 @@ const updateUser = async (req, res) => {
     if (languages) user.languages = languages;
     if (roles) user.roles = roles;
     if (socialInfo) user.socialInfo = socialInfo;
+    if (programmingLanguages) user.programmingLanguages = programmingLanguages;
+
 
     await user.save();
 
@@ -81,7 +88,7 @@ const updateUser = async (req, res) => {
     res.status(200).json({ email: user.email, token })
 
   } catch (err) {
-    console.error(error);
+    console.error(err);
     res.status(500).json({ message: 'Server error' });
   }
 }
@@ -89,10 +96,11 @@ const updateUser = async (req, res) => {
 
 // get a user
 const getUser = async (req, res) => {
-  const { _id } = req.user;
+
+  const { id } = req.params;
 
   try {
-    const user = await User.findById(_id)
+    const user = await User.findById(id)
     if (!user) {
       return res.status(404).json({ error: 'User not found' })
     }
@@ -117,14 +125,14 @@ const joinRoom = async (req, res) => {
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' })
-    } 
+    }
 
     // Update only the provided fields
     if (room_number && !user.rooms.includes(room_number)){
         user.rooms = [...user.rooms, room_number]
         await user.save()
         res.json({ message: 'User room stored on backend successfully' });
-    
+
     } else {
       res.json({ message: 'You may have entered duplicate/invalid room number' });
     }
@@ -137,8 +145,8 @@ const joinRoom = async (req, res) => {
 }
 
 const getRoomNumber = async (req, res) => {
-  // Verify user is authenticated
 
+  // Verify user is authenticated
   const { _id } = req.user
 
   try {
@@ -147,9 +155,11 @@ const getRoomNumber = async (req, res) => {
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' })
-    } 
+    }
 
-    res.json(user.rooms)
+
+    res.status(200).json(user.rooms)
+
 
   } catch (err) {
     console.error(err);
@@ -175,11 +185,11 @@ const joinRoomByProject = async (req, res) => {
 
     if (!user) {
       return res.status(404).json({ message: 'user not found' })
-    } 
+    }
 
     if (!author) {
       return res.status(404).json({ message: 'author not found' })
-    } 
+    }
 
     let curRoom = "N.A."
     for (let i = 0; i < user.project_room_map.length; ++i){
@@ -200,7 +210,7 @@ const joinRoomByProject = async (req, res) => {
       author.rooms = [...author.rooms, new_room]
       author.project_room_map = [...author.project_room_map, {"project_id": proj_id, "room_num": new_room}]
       await author.save()
-      
+
       res.json(new_room)
 
     } else {
@@ -208,7 +218,7 @@ const joinRoomByProject = async (req, res) => {
       res.json(curRoom)
 
     }
-    
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
@@ -226,7 +236,7 @@ try {
 
   if (!user) {
     return res.status(404).json({ message: 'User not found' })
-  } 
+  }
 
   const { room_num } = req.body
 

@@ -1,0 +1,26 @@
+.search-bar-view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5%;
+}
+
+.search-bar-container {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 1%;
+}
+
+.search-bar-text-input {
+    outline: none;
+    font-size: 1.2rem;
+    flex: 1;
+    border: none;
+    background-color: transparent;
+}
+
+

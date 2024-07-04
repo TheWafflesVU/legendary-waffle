@@ -1,0 +1,24 @@
+.cardContent .userSnapshot {
+    flex: 0 0 25%;
+    padding-left: 2%;
+}
+
+
+.search-result-view .userSnapshot {
+    flex: 0 0 20%;
+    padding-left: 2%;
+}
+
+.userName {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.userDetails {
+    font-size: 14px;
+    color: #666;
+    margin: 0
+}
+

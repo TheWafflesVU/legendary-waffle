@@ -3,7 +3,7 @@
 # dependencies
 node_modules
 # Ignore files for testing search engine
-test 
+test
 /.pnp
 .pnp.js
 
@@ -19,10 +19,12 @@ test.js
 
 # misc
 .DS_Store
-.env.local
+Mern Stack/backend/.env
 .env.development.local
 .env.test.local
 .env.production.local
+.env
+.env.production
 
 npm-debug.log*
 yarn-debug.log*

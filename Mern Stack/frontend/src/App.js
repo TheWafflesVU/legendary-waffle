@@ -1,63 +1,67 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { React, useState } from 'react'
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
 import './index.css'
 
+
+import Navbar from './pages/components/Navbar'
+import SearchBar from './pages/components/SearchBar.js'
+import SideNavBar from "./pages/components/SideNavBar";
+
+
 import Login from './pages/Login'
 import Signup from './pages/Signup'
-import Navbar from './components/Navbar'
-
 import Homepage from './pages/Homepage'
-import Profile from './pages/Profile'
-import MyProfile from './pages/MyProfile'
+import UserProfile from './pages/UserProfile'
 import Chatroom from './pages/Chatroom'
-import ProjectSearchRes from './pages/projectSearchRes'
-import Sidebar from './components/Sidebar.js'
-import Search from './components/searchbar.js'
-import { React, useState } from 'react'
-import Confirmation from './pages/Confirmation'
-import PasswordReset from "./components/PasswordReset";
-import ForgotPassword from "./components/ForgotPassword";
-import io from 'socket.io-client'
+import SearchResult from "./pages/SearchResult";
+import PostProject from "./pages/PostProject";
 
-
-
-// const socket = io('https://waffle.onrender.com')
 
 function App() {
   const { user } = useAuthContext()
-  const [search, setSearch] = useState("");
+  const [refresh, setRefresh] = useState(false)
 
   return (
     <div className="App">
+
       <BrowserRouter>
-      {user && <Sidebar />}
-        <Navbar />
-        {user && <Search setSearch={(search) => setSearch(search)} />}
-        
-        <div className="pages">
-          <Routes>
-            <Route 
-              path="/" element={<Navigate to="/login" />}
-            />
-            <Route path="/login" element={!user ? <Login /> : <Navigate to="/homepage" />} />
-            <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/homepage" />} />
-            <Route path="/homepage" element={<Homepage/>} />
 
-            <Route path='/profile' element={user ? <Profile /> : <Navigate to="/login" />}/>
-            {/*<Route path='/chatroom' element={user ? <Chatroom socket={socket} /> : <Navigate to="/" />}/>*/}
-            <Route path="/myprofile" element={<MyProfile/>} />
+        <div className="main-container">
 
-            <Route path='/projectSearchRes' element={<ProjectSearchRes/>} />
-            <Route path='/confirmation/:email/:emailToken' element={<Confirmation />} />
-            <Route path="/forgotpassword/:email/:token" element={<ForgotPassword />} />
-            <Route path="/password-reset" element={<PasswordReset />} />
+          {user && <SideNavBar/>}
 
-          </Routes>
+          <div className="content-container">
+
+            <Navbar />
+
+            <div className="pages">
+
+              {user && <SearchBar setRefresh={setRefresh} refresh={refresh}/>}
+
+              <Routes>
+                <Route path="/login" element={!user ? <Login /> : <Navigate to="/homepage" />} />
+                <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/homepage" />} />
+
+                <Route path="/homepage" element={user ?<Homepage/> : <Navigate to="/login" />} />
+                <Route path="/profile" element={user ? <UserProfile/>: <Navigate to="/login" />} />
+                <Route path='/chatroom' element={user ? <Chatroom /> : <Navigate to="/login" />}/>
+                <Route path="/search" element={user ? <SearchResult refresh={refresh}/> : <Navigate to="/login" />}/>
+                <Route path="/create" element={user ? <PostProject /> : <Navigate to="/login" />} />
+
+                <Route path="/" element={<Navigate to="/login" />} />
+
+
+              </Routes>
+
+            </div>
+          </div>
+
         </div>
+
       </BrowserRouter>
+
     </div>
-
-
   );
 }
 

@@ -23,13 +23,55 @@ const getProject = async (req, res) => {
   if (!project) {
     return res.status(404).json({error: 'No such project'})
   }
-  
+
   res.status(200).json(project)
+}
+
+
+// get a single project
+const getProjectsByUser = async (req, res) => {
+  const { user_id } = req.params
+
+  if (!mongoose.Types.ObjectId.isValid(user_id)) {
+    return res.status(404).json({error: 'No such user'})
+  }
+
+  const project = await Project.find({user_id: user_id})
+
+  if (!project) {
+    return res.status(404).json({error: 'No such projects'})
+  }
+
+  res.status(200).json(project)
+}
+
+
+const getAllProjectsExceptThisUser = async (req, res) => {
+
+  const { user_id } = req.params
+
+  if (!mongoose.Types.ObjectId.isValid(user_id)) {
+    return res.status(404).json({error: 'No such user'})
+  }
+
+  try {
+    const projects = await Project.find({ user_id: { $ne: user_id } });
+
+    if (!projects.length) {
+      return res.status(404).json({ error: 'No projects found' });
+    }
+
+    res.status(200).json(projects);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+
+
 }
 
 // create new project
 const createProject = async (req, res) => {
-  const { title, description, tags, nums} = req.body;
+  const { title, description, tags, num_teammates} = req.body;
 
   let emptyFields = [];
 
@@ -39,13 +81,13 @@ const createProject = async (req, res) => {
   if (!description) {
     emptyFields.push("description");
   }
-  if (!nums) {
-    emptyFields.push("nums");
+  if (!num_teammates) {
+    emptyFields.push("num_teammates");
   }
   if (!tags) {
     emptyFields.push("tags");
   }
-  
+
   if (emptyFields.length > 0) {
     return res
       .status(400)
@@ -56,8 +98,8 @@ const createProject = async (req, res) => {
   try {
     const user_id = req.user._id;
     const email = req.user.email;
-    
-    const project = await Project.create({ title, description, nums, tags, email, user_id });
+
+    const project = await Project.create({ title, description, num_teammates, tags, email, user_id });
     res.status(200).json(project);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -117,7 +159,7 @@ const searchProject = async (req, res) => {
     console.log("List all projects")
     pro = await Project.find()
   } else {
-    
+
     if (searchQuery === "NULL"){
       console.log("Search based on tag")
       pro = await Project.aggregate([
@@ -215,9 +257,11 @@ const searchProject = async (req, res) => {
 module.exports = {
   getProjects,
   getProject,
+  getProjectsByUser,
+  getAllProjectsExceptThisUser,
   createProject,
   deleteProject,
   updateProject,
-  searchProject
+  searchProject,
 }
 

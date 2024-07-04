@@ -1,16 +1,7 @@
-const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const validator = require('validator')
-
-const transporter = nodemailer.createTransport({
-  service: "hotmail",
-  auth: {
-    user: "legendary.waffle@outlook.com",
-    pass: "VUCS4278!",
-  },
-});
 
 const Schema = mongoose.Schema
 
@@ -24,23 +15,34 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  confirmed: {
-    type: Boolean,
-    defaultValue: false
+  lastName: {
+    type: String,
+    required: true
   },
-  lastName: String,
-  firstName: String,
-  phoneNumber: String,
-  year: String,
-  languages: [String],
-  roles: [String],
-  rooms: [String],
-  socialInfo: String,
-  project_room_map: [{project_id: String, room_num: String}],
-})
+  firstName: {
+    type: String,
+    required: true
+  },
+  year: {
+    type: String,
+    enum: ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Unknown'],
+    required: true,
+    default: 'Unknown'
+  },
+  programmingLanguages: [String],
+  chat_room_map: [{project_id: String, room_num: String}],
+}, { timestamps: true })
+
+userSchema.pre('save', function(next) {
+  // Sanitize strings
+  this.firstName = this.firstName.replace(/<(?:.|\n)*?>/gm, '');
+  this.lastName = this.lastName.replace(/<(?:.|\n)*?>/gm, '');
+  next();
+});
+
 
 // static signup method
-userSchema.statics.signup = async function(email, password) {
+userSchema.statics.signup = async function(email, password, firstName, lastName, year) {
 
   // validation
   if (!email || !password) {
@@ -64,7 +66,7 @@ userSchema.statics.signup = async function(email, password) {
 
   const salt = await bcrypt.genSalt(10)
   const hash = await bcrypt.hash(password, salt)
-  const user = await this.create({ email, password: hash })
+  const user = await this.create({ email, password: hash, firstName, lastName, year })
 
 
   try {
@@ -78,20 +80,13 @@ userSchema.statics.signup = async function(email, password) {
           },
         );
 
-        // const url = `https://waffle.onrender.com/confirmation/${email}/${emailToken}`;
-
-        // await transporter.sendMail({
-        //   to: email,
-        //   subject: 'Confirm Email',
-        //   html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
-        // });
       } catch (e) {
         console.log(e);
       }
 
   return user
 }
- 
+
 // static login method
 userSchema.statics.login = async function(email, password) {
 
@@ -103,10 +98,6 @@ userSchema.statics.login = async function(email, password) {
   if (!user) {
     throw Error('Incorrect email')
   }
-
-  // if (!user.confirmed) {
-  //   throw Error('Please confirm your email to login')
-  // }
 
   const match = await bcrypt.compare(password, user.password)
   if (!match) {

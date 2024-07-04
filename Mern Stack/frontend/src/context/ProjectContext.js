@@ -4,7 +4,7 @@ export const ProjectsContext = createContext()
 
 export const projectsReducer = (state, action) => {
   switch (action.type) {
-    case 'SET_PROJECTS': 
+    case 'SET_PROJECTS':
       return {
         projects: action.payload
       }
@@ -23,7 +23,7 @@ export const projectsReducer = (state, action) => {
 
 export const ProjectsContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(projectsReducer, {
-    projectss: null
+    projects: null
   })
 
   return (
