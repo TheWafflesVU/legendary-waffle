@@ -74,7 +74,6 @@ export const ChatProvider = ({ children }) => {
                     const roomInfo = await res.json()
 
                     if (res.status === 201) {
-                        console.log(roomInfo)
                         setChatroomList(prevList => [...prevList, roomInfo])
                     }
 

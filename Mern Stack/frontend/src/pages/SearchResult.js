@@ -53,7 +53,7 @@ const SearchResult = ({refresh}) => {
                         projects.map((project, i) => (
                             <div className="search-items-container" key={i}>
                                 <UserSnapshot userId={project.user_id}/>
-                                <div key={project._id}>
+                                <div className="search-item" key={project._id}>
                                     <h3>{project.title}</h3>
                                     <p>{project.description}</p>
                                     <div className="projectTags">
@@ -62,7 +62,7 @@ const SearchResult = ({refresh}) => {
                                         ))}
                                     </div>
                                 </div>
-                                <button className="search-item-chat-button">Interested?</button>
+                                {project.user_id !== user.user_id && <button className="search-item-chat-button">Interested?</button>}
                             </div>
                         ))
                     ) : (

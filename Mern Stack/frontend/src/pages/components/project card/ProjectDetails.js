@@ -1,7 +1,7 @@
 import React from 'react';
 import './ProjectDetails.css';
 
-const ProjectDetails = ({ project }) => {
+const ProjectDetails = ({ project, canDelete, onDelete }) => {
     return (
         <div className="projectDetails">
             <h2 className="projectTitle">{project.title}</h2>
@@ -13,6 +13,9 @@ const ProjectDetails = ({ project }) => {
                     <span key={index} className="tag">{tag}</span>
                 ))}
             </div>
+            {canDelete && (
+                <button className="deleteButton" onClick={() => onDelete(project._id)}>Delete</button>
+            )}
         </div>
     );
 };

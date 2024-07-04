@@ -28,8 +28,6 @@
     margin: 10px 0;
 }
 
-
-
 .tag {
     display: inline-block;
     background-color: #FEC500;
@@ -50,4 +48,18 @@
 
 .projectDescription {
     line-height: 1.5;
+}
+
+.deleteButton {
+    background-color: #e74c3c;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.deleteButton:hover {
+    background-color: #c0392b;
 }

@@ -62,6 +62,20 @@ const PostProject = () => {
         }
     };
 
+    const handleDelete = async (projectId) => {
+        try {
+            await fetch(`/api/project/${projectId}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            });
+            setProjects(projects.filter(project => project._id !== projectId));
+        } catch (error) {
+            console.error('Failed to delete project:', error);
+        }
+    }
+
 
     return (
         <div className="post-project-container">
@@ -70,7 +84,7 @@ const PostProject = () => {
                 <ul>
                     {projects.map((project, i) => (
                         <div key={i}>
-                            <ProjectDetails project={project} />
+                            <ProjectDetails project={project} canDelete={true} onDelete={() => handleDelete(project._id)}/>
                         </div>
                     ))}
                 </ul>
