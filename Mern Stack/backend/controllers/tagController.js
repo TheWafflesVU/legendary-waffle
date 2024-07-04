@@ -1,4 +1,4 @@
-const Tag = require('../models/tag');
+const Tag = require('../models/tagModel');
 
 const getTagsWithType = async (req, res) => {
     try {
