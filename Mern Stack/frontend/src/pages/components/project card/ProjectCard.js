@@ -102,7 +102,7 @@ const ProjectCard = () => {
   }
 
   const swipe = async (dir) => {
-    if (last >= 0) {
+    if (last >= 0 && cardRefs.current && cardRefs.current.length !== 0) {
       await cardRefs.current[last].current.swipe(dir) // Swipe the card!
     }
   }

@@ -17,7 +17,7 @@ const UserSnapshot = ({userId}) => {
         .then(res => res.json())
         .then(data => setUserProfile(data))
 
-    }, [userId]);
+    }, [userId])
 
 
     return (
