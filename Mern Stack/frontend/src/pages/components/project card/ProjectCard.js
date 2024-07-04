@@ -37,6 +37,9 @@ const ProjectCard = () => {
   // Used for locking the view when swiping
   const cardContainerRef = useRef({})
 
+  const [refresh, setRefresh] = useState(false)
+
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (['ArrowLeft', 'ArrowRight', 'ArrowDown'].includes(event.key)) {
@@ -79,12 +82,12 @@ const ProjectCard = () => {
   // This useEffect will be triggered whenever [projects] array is updated. It will also trigger re-render by calling
   // setLast()
   useEffect(() => {
-    if (Array.isArray(projects)){
+    if (Array.isArray(projects)) {
       setLast(projects.length - 1)
       cardRefs.current = Array(projects.length).fill(0).map((_, i) => cardRefs.current[i] || React.createRef())
       lastIndexRef.current = last
     }
-  }, [projects])
+  }, [projects, refresh])
 
   // This function will update the index to the last project as well as the reference to the last project
   const updateCurrentIndex = (val) => {
@@ -103,7 +106,14 @@ const ProjectCard = () => {
 
   const swipe = async (dir) => {
     if (last >= 0 && cardRefs.current && cardRefs.current.length !== 0) {
-      await cardRefs.current[last].current.swipe(dir) // Swipe the card!
+
+      if (cardRefs.current[last].current) {
+        await cardRefs.current[last].current.swipe(dir)
+      } else {
+        setRefresh(!refresh)
+        // swipe(dir)
+      }
+
     }
   }
 
