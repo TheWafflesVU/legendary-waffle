@@ -11,7 +11,7 @@ const router = express.Router()
 // require auth for all project routes
 router.use(requireAuth)
 
-// Get the messages based on room number
+// Check for existence of a chatroom for two users and a project. If not, then create a chatroom for them.
 router.post('/', createChatroom)
 
 // Create new messages in database

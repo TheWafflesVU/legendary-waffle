@@ -3,7 +3,7 @@ import TinderCard from 'react-tinder-card'
 import { useEffect, useState, useRef }from 'react'
 import { useProjectsContext } from "../../../hooks/useProjectsContext"
 import { useAuthContext } from "../../../hooks/useAuthContext"
-import {useChatContext} from "../../../hooks/useChatContext";
+import { useChatContext } from "../../../hooks/useChatContext";
 import { useNavigate } from 'react-router-dom'
 import UserSnapshot from "./UserSnapshot"
 import ProjectDetails from "./ProjectDetails"
@@ -81,7 +81,7 @@ const ProjectCard = () => {
   useEffect(() => {
     if (Array.isArray(projects)){
       setLast(projects.length - 1)
-      cardRefs.current = Array(projects.length).fill(0).map(() => React.createRef())
+      cardRefs.current = Array(projects.length).fill(0).map((_, i) => cardRefs.current[i] || React.createRef())
       lastIndexRef.current = last
     }
   }, [projects])
@@ -131,7 +131,6 @@ const ProjectCard = () => {
     }
 
   }
-
 
   return (
 
