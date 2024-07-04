@@ -1,14 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.3f1d9214.css",
-    "main.js": "/static/js/main.e766bde7.js",
-    "static/media/react-spring_web.production.min.cjs": "/static/media/react-spring_web.production.min.5b3c0d125de2d6c73e1d.cjs",
+    "main.css": "/static/css/main.33a008ca.css",
+    "main.js": "/static/js/main.582cf7c3.js",
     "index.html": "/index.html",
-    "main.3f1d9214.css.map": "/static/css/main.3f1d9214.css.map",
-    "main.e766bde7.js.map": "/static/js/main.e766bde7.js.map"
+    "main.33a008ca.css.map": "/static/css/main.33a008ca.css.map",
+    "main.582cf7c3.js.map": "/static/js/main.582cf7c3.js.map"
   },
   "entrypoints": [
-    "static/css/main.3f1d9214.css",
-    "static/js/main.e766bde7.js"
+    "static/css/main.33a008ca.css",
+    "static/js/main.582cf7c3.js"
   ]
 }

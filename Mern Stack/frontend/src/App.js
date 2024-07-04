@@ -43,11 +43,11 @@ function App() {
                 <Route path="/login" element={!user ? <Login /> : <Navigate to="/homepage" />} />
                 <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/homepage" />} />
 
-                <Route path="/homepage" element={<Homepage/>} />
-                <Route path="/profile" element={<UserProfile/>} />
-                <Route path='/chatroom' element={user ? <Chatroom /> : <Navigate to="/homepage" />}/>
-                <Route path="/search" element={<SearchResult refresh={refresh}/>} />
-                <Route path="/create" element={<PostProject />} />
+                <Route path="/homepage" element={user ?<Homepage/> : <Navigate to="/login" />} />
+                <Route path="/profile" element={user ? <UserProfile/>: <Navigate to="/login" />} />
+                <Route path='/chatroom' element={user ? <Chatroom /> : <Navigate to="/login" />}/>
+                <Route path="/search" element={user ? <SearchResult refresh={refresh}/> : <Navigate to="/login" />}/>
+                <Route path="/create" element={user ? <PostProject /> : <Navigate to="/login" />} />
 
                 <Route path="/" element={<Navigate to="/login" />} />
 

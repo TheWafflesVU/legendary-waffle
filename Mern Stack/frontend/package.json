@@ -1,5 +1,5 @@
 {
-  "proxy": "https://legendary-waffle-77sn.onrender.com",
+  "proxy": "http://localhost:4000/",
   "name": "frontend",
   "version": "2.0.0",
   "private": true,

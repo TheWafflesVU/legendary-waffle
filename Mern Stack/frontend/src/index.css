@@ -44,7 +44,7 @@ body {
 
 /* auth forms */
 form.signup, form.login {
-  width: 25%;
+  width: 30%;
   margin: 40px auto;
   padding: 20px;
   background: #fff;
