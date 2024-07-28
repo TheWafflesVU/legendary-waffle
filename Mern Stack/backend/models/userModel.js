@@ -48,9 +48,6 @@ userSchema.statics.signup = async function(email, password, firstName, lastName,
   if (!email || !password) {
     throw Error('All fields must be filled')
   }
-  if (!email.endsWith('@vanderbilt.edu')) {
-    throw Error('Email must be a valid Vanderbilt email address')
-  }
   if (!validator.isEmail(email)) {
     throw Error('Email not valid')
   }
